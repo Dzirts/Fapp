@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\android_work\android2\android2\sample\libs\poi-3.16-beta2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="294765074e585068d83714e102b1e9396ff09863">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\poi-3.16-beta2_1785e600403f23c2245022fe4ef283b1821553e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_work\android2\android2\sample\build\intermediates\exploded-aar\android2\scanlibrary\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="9fe3e4298c0d475b24fc1f1c55e51605224389f5">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\android2-scanlibrary-unspecified_4154d82790277a886f10c5604ea52253aebb446e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_work\android2\android2\sample\libs\android-support-v4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\android-support-v4_5f78fda8d2be7c63c4613a84fa883f9a42def4af.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_work\android2\android2\sample\build\intermediates\exploded-aar\rapid.decoder\png-decoder\0.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="03c1c1013e90bca19941830a74c508682691a0de">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\rapid.decoder-png-decoder-0.3.0_8ea307c57b00a94468148b1851380215210f0da7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_work\android2\android2\sample\build\intermediates\exploded-aar\rapid.decoder\library\0.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8946841ad5f067fce19c524e02518b944892d704">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\rapid.decoder-library-0.3.0_c6734fc38eedd91f141d7758ede3d9dcbdafb005.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_work\android2\android2\sample\build\intermediates\exploded-aar\com.davemorrissey.labs\library\3.6.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6fb6d5038772808314dbb369a7032ff4edd83c09">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\com.davemorrissey.labs-library-3.6.0_4d62be080af5c5ab5449dd4ea0b21c459cad29f8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_work\android2\android2\sample\build\intermediates\exploded-aar\rapid.decoder\jpeg-decoder\0.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="072b7e37f6e7f6ca62b6a0a027dd4cf7bb6ba56e">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\rapid.decoder-jpeg-decoder-0.3.0_5331e16227c3fa492075c0bd3c0f6cace52de3cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\android_work\Bool_ver1.7\scanlibrary\src\main\jni\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.0\support-annotations-25.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
+        <dex dex="C:\android_work\android2\android2\sample\build\intermediates\pre-dexed\debug\support-annotations-25.1.0_2c67e1643bf94d5c2175234d7cd8b873c792ea13.jar" />
+    </item>
+
+</items>
