@@ -3,12 +3,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-    <com.davemorrissey.labs.subscaleview.sample.extension.views.PinView
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout2">
+
+        <com.davemorrissey.labs.subscaleview.sample.extension.views.PinView
             android:id="@+id/imageView"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/text"
@@ -119,7 +125,7 @@
             android:gravity="center"
             android:textOff=""
             android:textOn=""
-            android:textSize="0dp"
+            android:textSize="0sp"
             android:id="@+id/markHit"
             android:visibility="invisible"
             android:layout_centerVertical="true"
@@ -133,7 +139,7 @@
             android:gravity="center"
             android:textOff=""
             android:textOn=""
-            android:textSize="0dp"
+            android:textSize="0sp"
             android:id="@+id/deleteHit"
             android:visibility="invisible"
             android:layout_alignTop="@+id/note"
@@ -192,7 +198,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/text"
         android:layout_alignParentLeft="true"
-        android:background="#333">
+        android:background="#333"
+        android:id="@+id/linearLayout2">
 
         <Space
             android:layout_width="wrap_content"

@@ -18,9 +18,11 @@ package com.davemorrissey.labs.subscaleview.sample.animation;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -28,6 +30,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -39,8 +42,11 @@ import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.basicfeatures.BasicFeaturesActivity;
 import com.davemorrissey.labs.subscaleview.sample.extension.views.PinView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -53,6 +59,7 @@ public class AnimationActivity extends Activity implements OnClickListener {
     private String projectName;
     private String seriesNumber;
     private String filePath;
+    private String fileDir;
 
     private boolean nextClicked = false;
 
@@ -183,6 +190,7 @@ public class AnimationActivity extends Activity implements OnClickListener {
             intent.putExtra("projectName" ,projectName);
             intent.putExtra("seriesNumber" ,seriesNumber);
             intent.putExtra("filePath" ,filePath);
+            takeScreenshot();
             startActivity(intent);
         } else if (view.getId() == id.rotateLeft) {
             rotationDegree-=0.5;
@@ -252,7 +260,7 @@ public class AnimationActivity extends Activity implements OnClickListener {
                 if (imageView.isReady() && ( MarkMode==markMode.MARK_HITS && markHit.isChecked() ||
                                         MarkMode==markMode.MARK_CENTER )) {
                     PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
-                    Toast.makeText(getApplicationContext(), "Single tap: " + ((int)sCoord.x) + ", " + ((int)sCoord.y), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Single tap: " + ((int)sCoord.x) + ", " + ((int)sCoord.y), Toast.LENGTH_SHORT).show();
 //                    showPin(sCoord.x,sCoord.y);
                     if (MarkMode==markMode.MARK_CENTER){
                         CenterPins.remove(0);
@@ -313,6 +321,7 @@ public class AnimationActivity extends Activity implements OnClickListener {
         projectName  = intent.getStringExtra("projName");
         seriesNumber = intent.getStringExtra("seriesNum");
         filePath = intent.getStringExtra("filePath");
+        fileDir = intent.getStringExtra("fileDir");
         getActionBar().setTitle("Project: "+projectName+" / "+seriesNumber);
         getActionBar().setSubtitle("Series: "+seriesNumber);
 
@@ -429,6 +438,37 @@ public class AnimationActivity extends Activity implements OnClickListener {
             PointF tempPF = new PointF(newX,newY);
 
             scaledMapPins.add(tempPF);
+        }
+    }
+
+    private void takeScreenshot() {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+            if (!filePath.equals("")){ mPath = fileDir + "/" + now + ".jpg";}
+
+            Toast.makeText(AnimationActivity.this, "pic saved in" + mPath, Toast.LENGTH_LONG).show();
+
+            RelativeLayout v1 =(RelativeLayout)findViewById(id.rl);
+            // create bitmap screen capture
+//            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+            e.printStackTrace();
         }
     }
 
