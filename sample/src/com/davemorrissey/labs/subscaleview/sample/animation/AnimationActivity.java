@@ -192,6 +192,7 @@ public class AnimationActivity extends Activity implements OnClickListener {
             intent.putExtra("filePath" ,filePath);
             takeScreenshot();
             startActivity(intent);
+
         } else if (view.getId() == id.rotateLeft) {
             rotationDegree-=0.5;
             imageView.setRotation(rotationDegree);

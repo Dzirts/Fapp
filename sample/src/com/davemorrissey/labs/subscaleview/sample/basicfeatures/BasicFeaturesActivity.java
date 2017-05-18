@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.imagedisplay.decoders.RapidImageRegionDecoder;
@@ -64,6 +65,10 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
         projectName = intent.getStringExtra("projectName");
         serieNumber = intent.getStringExtra("seriesNumber");
         filePath = intent.getStringExtra("filePath");
+
+        ExcelWriter ew = new ExcelWriter(filePath);
+        ew.WriteData();
+        Toast.makeText(BasicFeaturesActivity.this, "data stored in"+filePath, Toast.LENGTH_SHORT).show();
 
         getActionBar().setSubtitle(projectName+":  #"+serieNumber);
         scaledMapPins= new ArrayList<PointF>();
@@ -128,6 +133,7 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == id.next) {
+            Toast.makeText(BasicFeaturesActivity.this, "next clicked", Toast.LENGTH_SHORT).show();
 //            position++;
 //            updateNotes();
         } else if (view.getId() == id.previous) {

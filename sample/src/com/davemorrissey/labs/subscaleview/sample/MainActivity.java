@@ -41,7 +41,7 @@ import android.widget.Toast;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.animation.AnimationActivity;
 import com.davemorrissey.labs.subscaleview.sample.basicfeatures.BasicFeaturesActivity;
-import com.davemorrissey.labs.subscaleview.sample.basicfeatures.ExcelWriter;
+import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
 import com.davemorrissey.labs.subscaleview.sample.configuration.ConfigurationActivity;
 import com.davemorrissey.labs.subscaleview.sample.eventhandling.EventHandlingActivity;
 import com.davemorrissey.labs.subscaleview.sample.eventhandlingadvanced.AdvancedEventHandlingActivity;
@@ -200,7 +200,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         } else if (view.getId() == id.btnExcel){
             if (!mFilePath.matches("")){
-                //TODO: check new ExcelWriter(mFilePath);
+                //TODO: check new com.davemorrissey.labs.subscaleview.sample.ExcelWriter(mFilePath);
                 File file = new File(mFilePath);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
