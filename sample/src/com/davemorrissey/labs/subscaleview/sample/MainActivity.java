@@ -54,6 +54,7 @@ import com.scanlibrary.ScanConstants;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -71,7 +72,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private FileDialog mFileDialog;
     private String mFilePath = "";
-    private String mFileDir = "";
+    private String mFileDirStr = "";
+
 
 
     @Override
@@ -107,7 +109,7 @@ public class MainActivity extends Activity implements OnClickListener {
             public void fileSelected(File file) {
                 Log.d(getClass().getName(), "selected file " + file.toString());
                 mFilePath = file.toString();
-                mFileDir = file.getParent();
+                mFileDirStr = file.getParent();
                 //get project name without path
                 String[] sArr = file.toString().split("_");
                 sArr = sArr[sArr.length-1].split("\\.");
@@ -190,7 +192,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 intent.putExtra("projName", PROJ_NAME);
                 intent.putExtra("seriesNum", sSeiries);
                 intent.putExtra("filePath", mFilePath);
-                intent.putExtra("fileDir", mFileDir);
+                intent.putExtra("fileDirStr", mFileDirStr);
                 startActivity(intent);
             } else{
                 Toast toast =Toast.makeText(this, "first pick a picture", Toast.LENGTH_SHORT);
@@ -246,5 +248,7 @@ public class MainActivity extends Activity implements OnClickListener {
         PROJ_NAME= projName;
         getActionBar().setTitle("Project: "+PROJ_NAME);
     }
+
+
 
 }// class ending

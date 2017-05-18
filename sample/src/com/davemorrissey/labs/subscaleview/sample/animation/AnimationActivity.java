@@ -323,6 +323,7 @@ public class AnimationActivity extends Activity implements OnClickListener {
         seriesNumber = intent.getStringExtra("seriesNum");
         filePath = intent.getStringExtra("filePath");
         fileDir = intent.getStringExtra("fileDir");
+
         getActionBar().setTitle("Project: "+projectName+" / "+seriesNumber);
         getActionBar().setSubtitle("Series: "+seriesNumber);
 

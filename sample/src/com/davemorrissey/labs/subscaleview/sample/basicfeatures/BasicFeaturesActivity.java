@@ -30,11 +30,17 @@ import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.davemorrissey.labs.subscaleview.sample.ExcelData;
 import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
+import com.davemorrissey.labs.subscaleview.sample.R;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.imagedisplay.decoders.RapidImageRegionDecoder;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +53,8 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
     private String projectName;
     private String serieNumber;
     private String filePath;
+    private ExcelData ed;
+    private String newFilePlace;
 
 
 //    private int position;
@@ -59,16 +67,13 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
         setContentView(layout.notes_activity);
         getActionBar().setTitle("Data");
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        Toast.makeText(this, "enter your data",
-                Toast.LENGTH_LONG).show();
+
         Intent intent = getIntent();
         projectName = intent.getStringExtra("projectName");
         serieNumber = intent.getStringExtra("seriesNumber");
         filePath = intent.getStringExtra("filePath");
 
-        ExcelWriter ew = new ExcelWriter(filePath);
-        ew.WriteData();
-        Toast.makeText(BasicFeaturesActivity.this, "data stored in"+filePath, Toast.LENGTH_SHORT).show();
+
 
         getActionBar().setSubtitle(projectName+":  #"+serieNumber);
         scaledMapPins= new ArrayList<PointF>();
@@ -105,6 +110,10 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
             }
         });
 
+        arrangeExcelData();
+        ExcelWriter ew = new ExcelWriter(filePath);
+        newFilePlace = ew.WriteData(ed);
+
     }
 
 //        findViewById(id.next).setOnClickListener(this);
@@ -139,6 +148,14 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
         } else if (view.getId() == id.previous) {
 //            position--;
 //            updateNotes();
+        } else if (view.getId() == id.openExcel){
+//            TODO: enable open file
+            if (!newFilePlace.equals("")){
+                File file = new File(newFilePlace);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
+                startActivity(intent);
+            }
         }
     }
 
@@ -147,6 +164,17 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
     {
         scaledMapPins.clear();
         super.onBackPressed();
+    }
+
+    private void arrangeExcelData(){
+
+        InputStream stream = getResources().openRawResource(R.raw.temp_book);
+        File f = new File(filePath);
+        File oDirectory = f.getParentFile();
+
+        ed = new ExcelData(projectName, Integer.parseInt(serieNumber),
+                oDirectory, filePath,
+                stream, scaledMapPins);
     }
 
 //    @Override
