@@ -60,6 +60,10 @@ public class AnimationActivity extends Activity implements OnClickListener {
     private String seriesNumber;
     private String filePath;
     private String fileDir;
+    private String newFileDir;
+    private String fileName;
+
+
 
     private boolean nextClicked = false;
 
@@ -190,6 +194,11 @@ public class AnimationActivity extends Activity implements OnClickListener {
             intent.putExtra("projectName" ,projectName);
             intent.putExtra("seriesNumber" ,seriesNumber);
             intent.putExtra("filePath" ,filePath);
+            intent.putExtra("newFileDir" ,newFileDir);
+            intent.putExtra("fileName" ,fileName);
+
+
+
             takeScreenshot();
             startActivity(intent);
 
@@ -323,6 +332,10 @@ public class AnimationActivity extends Activity implements OnClickListener {
         seriesNumber = intent.getStringExtra("seriesNum");
         filePath = intent.getStringExtra("filePath");
         fileDir = intent.getStringExtra("fileDir");
+        newFileDir = intent.getStringExtra("newFileDirStr");
+        fileName = intent.getStringExtra("fileName");
+
+
 
         getActionBar().setTitle("Project: "+projectName+" / "+seriesNumber);
         getActionBar().setSubtitle("Series: "+seriesNumber);
@@ -449,8 +462,9 @@ public class AnimationActivity extends Activity implements OnClickListener {
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-            if (!filePath.equals("")){ mPath = fileDir + "/" + now + ".jpg";}
+//            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+            String mPath = newFileDir + "/" + projectName +"_Ser_"+seriesNumber+"_"+ now + ".jpg";
+            //if (!filePath.equals("")){ mPath = fileDir + "/" + now + ".jpg";}
 
             Toast.makeText(AnimationActivity.this, "pic saved in" + mPath, Toast.LENGTH_LONG).show();
 

@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +38,12 @@ import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.imagedisplay.decoders.RapidImageRegionDecoder;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
@@ -53,13 +58,12 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
     private String projectName;
     private String serieNumber;
     private String filePath;
+    private String newFileDir;
     private ExcelData ed;
     private String newFilePlace;
+    private String fileName;
 
 
-//    private int position;
-
-//    private List<Note> notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,10 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
         projectName = intent.getStringExtra("projectName");
         serieNumber = intent.getStringExtra("seriesNumber");
         filePath = intent.getStringExtra("filePath");
+        newFileDir = intent.getStringExtra("newFileDir");
+        fileName = intent.getStringExtra("fileName");
+
+
 
 
 
@@ -111,51 +119,28 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
         });
 
         arrangeExcelData();
-        ExcelWriter ew = new ExcelWriter(filePath);
-        newFilePlace = ew.WriteData(ed);
+        ExcelWriter ew = new ExcelWriter(ed);
+        newFilePlace = ew.WriteData();
+
+        Button openExcelBtn = (Button)findViewById(id.openExcel);
+        openExcelBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!newFilePlace.equals("")){
+                    File file = new File(newFilePlace);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
-
-//        findViewById(id.next).setOnClickListener(this);
-//        findViewById(id.previous).setOnClickListener(this);
-//        if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_POSITION)) {
-//            position = savedInstanceState.getInt(BUNDLE_POSITION);
-//        }
-//        notes = Arrays.asList(
-//                new Note("Pinch to zoom", "Use a two finger pinch to zoom in and out. The zoom is centred on the pinch gesture, and you can pan at the same time."),
-//                new Note("Quick scale", "Double tap and swipe up or down to zoom in or out. The zoom is centred where you tapped."),
-//                new Note("Drag", "Use one finger to drag the image around."),
-//                new Note("Fling", "If you drag quickly and let go, fling momentum keeps the image moving."),
-//                new Note("Double tap", "Double tap the image to zoom in to that spot. Double tap again to zoom out.")
-//        );
-//
-//        initialiseImage();
-//        updateNotes();
-//    }
-
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt(BUNDLE_POSITION, position);
-//    }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == id.next) {
             Toast.makeText(BasicFeaturesActivity.this, "next clicked", Toast.LENGTH_SHORT).show();
-//            position++;
-//            updateNotes();
-        } else if (view.getId() == id.previous) {
-//            position--;
-//            updateNotes();
-        } else if (view.getId() == id.openExcel){
-//            TODO: enable open file
-            if (!newFilePlace.equals("")){
-                File file = new File(newFilePlace);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
-                startActivity(intent);
-            }
         }
     }
 
@@ -168,43 +153,22 @@ public class BasicFeaturesActivity extends Activity implements OnClickListener {
 
     private void arrangeExcelData(){
 
-        InputStream stream = getResources().openRawResource(R.raw.temp_book);
+//        InputStream stream = getResources().openRawResource(R.raw.temp_book);
+        InputStream stream = null;
+        try {
+            stream = new FileInputStream(filePath);
+        } catch (FileNotFoundException e) {
+            Button b = (Button)findViewById(id.openExcel);
+            b.setText("failed  writing to excel");
+            e.printStackTrace();
+        }
+
         File f = new File(filePath);
         File oDirectory = f.getParentFile();
 
         ed = new ExcelData(projectName, Integer.parseInt(serieNumber),
-                oDirectory, filePath,
+                oDirectory,fileName, filePath, newFileDir,
                 stream, scaledMapPins);
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        finish();
-//        return true;
-//    }
-
-//    private void initialiseImage() {
-//        SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
-//        imageView.setImage(ImageSource.asset("squirrel.jpg"));
-//    }
-
-//    private void updateNotes() {
-//        if (position > notes.size() - 1) {
-//            return;
-//        }
-//        getActionBar().setSubtitle(notes.get(position).subtitle);
-//        ((TextView)findViewById(id.note)).setText(notes.get(position).text);
-//        findViewById(id.next).setVisibility(position >= notes.size() - 1 ? View.INVISIBLE : View.VISIBLE);
-//        findViewById(id.previous).setVisibility(position <= 0 ? View.INVISIBLE : View.VISIBLE);
-//    }
-
-//    private static final class Note {
-//        private final String text;
-//        private final String subtitle;
-//        private Note(String subtitle, String text) {
-//            this.subtitle = subtitle;
-//            this.text = text;
-//        }
-//    }
 
 }

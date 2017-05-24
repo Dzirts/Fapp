@@ -13,17 +13,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 
 
 public class ExcelWriter {
 
-    private String filename;
-
-    public ExcelWriter(String name){
-        filename = name;
+    ExcelData ed;
+    public ExcelWriter(ExcelData iED){
+        ed = iED;
     }
 
-    public String WriteData(ExcelData ed){
+    public String WriteData(){
         try{
             XSSFWorkbook workbook = new XSSFWorkbook(ed.getInputStream());
             XSSFSheet sheet = workbook.getSheetAt(0);
@@ -33,19 +33,25 @@ public class ExcelWriter {
 //                Cell cell = row.getCell(1);
 //                cell.setCellValue("XY "+i);
 //            }
+            DecimalFormat df = new DecimalFormat("#.#");
             int START_LINE = 52;
-            for (int i=START_LINE; i<START_LINE+ed.getHitList().size(); i++){
-                float x = ed.getHitList().get(i-START_LINE+1).x;
-                float y = ed.getHitList().get(i-START_LINE+1).y;
+            for (int i=START_LINE; i<START_LINE+ed.getHitList().size()-1; i++){
+                float x = Float.parseFloat(df.format(ed.getHitList().get(i-START_LINE+1).x));
+                float y = Float.parseFloat(df.format(ed.getHitList().get(i-START_LINE+1).y));
                 Row row = sheet.getRow(i);
                 Cell cell = row.getCell(2*ed.getSeriesNum()-1);
                 cell.setCellValue(x);
                 cell = row.getCell(2*ed.getSeriesNum());
                 cell.setCellValue(y);
             }
-            String outFileName = ed.getProjectName()+".xlsx";
-            File Dir = ed.getDirectory();
-            File outFile = new File(Dir, outFileName);
+            String outFileName = ed.getFileName();
+//            File Dir = ed.getDirectory();
+//            File dir = new File(Dir + "/"+ ed.getProjectName());
+//            if(!dir.exists() || !dir.isDirectory()) {
+//                dir.mkdir();
+//            }
+
+            File outFile = new File(ed.getNewFileDir(), outFileName);
             OutputStream outputStream = new FileOutputStream(outFile.getAbsolutePath());
             workbook.write(outputStream);
             outputStream.flush();

@@ -73,6 +73,10 @@ public class MainActivity extends Activity implements OnClickListener {
     private FileDialog mFileDialog;
     private String mFilePath = "";
     private String mFileDirStr = "";
+    private String mNewFileDir = "";
+    private String mFileName = "";
+
+
 
 
 
@@ -93,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener {
         toast.show();
 
 
+
     }
 
     private void init() {
@@ -111,9 +116,14 @@ public class MainActivity extends Activity implements OnClickListener {
                 mFilePath = file.toString();
                 mFileDirStr = file.getParent();
                 //get project name without path
+                 String[] sArr2 = file.toString().split("/");
+                mFileName = sArr2[sArr2.length-1];
+
+
                 String[] sArr = file.toString().split("_");
                 sArr = sArr[sArr.length-1].split("\\.");
                 setTitleProjName(sArr[0]);
+                createDirectories(sArr[0]);
             }
         });
         mFileDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
@@ -193,6 +203,9 @@ public class MainActivity extends Activity implements OnClickListener {
                 intent.putExtra("seriesNum", sSeiries);
                 intent.putExtra("filePath", mFilePath);
                 intent.putExtra("fileDirStr", mFileDirStr);
+                intent.putExtra("newFileDirStr", mNewFileDir);
+                intent.putExtra("fileName", mFileName);
+
                 startActivity(intent);
             } else{
                 Toast toast =Toast.makeText(this, "first pick a picture", Toast.LENGTH_SHORT);
@@ -238,7 +251,6 @@ public class MainActivity extends Activity implements OnClickListener {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             mFileDialog.showDialog();
-//            mFileDialog.
         }
 
         return super.onOptionsItemSelected(item);
@@ -249,6 +261,20 @@ public class MainActivity extends Activity implements OnClickListener {
         getActionBar().setTitle("Project: "+PROJ_NAME);
     }
 
+    private void createDirectories(String projName) {
+        File dir = new File(Environment.getExternalStorageDirectory() + "/Elbit Mark Target");
+        if(!dir.exists() || !dir.isDirectory()) {
+            dir.mkdir();
+        }
+        dir = new File(dir + "/"+ projName);
+        if(!dir.exists() || !dir.isDirectory()) {
+            dir.mkdir();
+        }
+        mNewFileDir = dir.getAbsolutePath();
+    }
 
 
-}// class ending
+
+
+
+    }// class ending

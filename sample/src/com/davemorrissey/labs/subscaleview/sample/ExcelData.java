@@ -14,21 +14,27 @@ public class ExcelData {
 
     private File Directory;
     private String FileName;
+    private String FilePath;
+    private String newFileDir;
     private InputStream InputStream;
     private ArrayList<PointF> HitList;
     private int SeriesNum;
     private String ProjectName;
 
 
-    public  ExcelData(String iProjectName, int iSeriesNum ,File iDirectory, String iFileName,
+    public  ExcelData(String iProjectName, int iSeriesNum ,File iDirectory, String iFileName, String iFilePath, String iNewFileDir,
                                                 InputStream iStream, ArrayList<PointF> iHitList)
     {
         ProjectName = iProjectName;
         SeriesNum = iSeriesNum;
         Directory = iDirectory;
-        FileName = iFileName;
+        FilePath = iFilePath;
         InputStream = iStream;
         HitList = iHitList;
+        newFileDir = iNewFileDir;
+        FileName = iFileName;
+
+
     }
 
 
@@ -38,6 +44,10 @@ public class ExcelData {
 
     public String getFileName() {
         return FileName;
+    }
+
+    public String getFilePath() {
+        return FilePath;
     }
 
     public InputStream getInputStream() {
@@ -55,5 +65,12 @@ public class ExcelData {
     public String getProjectName() {
         return ProjectName;
     }
+
+    public String getNewFileDir() {
+        return newFileDir;
+    }
+
+
+
 
 }
