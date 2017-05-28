@@ -95,16 +95,16 @@ public class SubsamplingScaleImageView extends View {
 
     private static final List<Integer> VALID_ORIENTATIONS = Arrays.asList(ORIENTATION_0, ORIENTATION_90, ORIENTATION_180, ORIENTATION_270, ORIENTATION_USE_EXIF);
 
-    /** During zoom animation, keep the point of the image that was tapped in the same place, and scale the image around it. */
+    /** During zoom signHits, keep the point of the image that was tapped in the same place, and scale the image around it. */
     public static final int ZOOM_FOCUS_FIXED = 1;
-    /** During zoom animation, move the point of the image that was tapped to the center of the screen. */
+    /** During zoom signHits, move the point of the image that was tapped to the center of the screen. */
     public static final int ZOOM_FOCUS_CENTER = 2;
     /** Zoom in to and center the tapped point immediately without animating. */
     public static final int ZOOM_FOCUS_CENTER_IMMEDIATE = 3;
 
     private static final List<Integer> VALID_ZOOM_STYLES = Arrays.asList(ZOOM_FOCUS_FIXED, ZOOM_FOCUS_CENTER, ZOOM_FOCUS_CENTER_IMMEDIATE);
 
-    /** Quadratic ease out. Not recommended for scale animation, but good for panning. */
+    /** Quadratic ease out. Not recommended for scale signHits, but good for panning. */
     public static final int EASE_OUT_QUAD = 1;
     /** Quadratic ease in and out. */
     public static final int EASE_IN_OUT_QUAD = 2;
@@ -129,7 +129,7 @@ public class SubsamplingScaleImageView extends View {
 
     private static final List<Integer> VALID_SCALE_TYPES = Arrays.asList(SCALE_TYPE_CENTER_CROP, SCALE_TYPE_CENTER_INSIDE, SCALE_TYPE_CUSTOM);
 
-    /** State change originated from animation. */
+    /** State change originated from signHits. */
     public static final int ORIGIN_ANIM = 1;
     /** State change originated from touch gesture. */
     public static final int ORIGIN_TOUCH = 2;
@@ -246,7 +246,7 @@ public class SubsamplingScaleImageView extends View {
     private PointF quickScaleSCenter;
     private PointF quickScaleVStart;
 
-    // Scale and center animation tracking
+    // Scale and center signHits tracking
     private Anim anim;
 
     // Whether a ready notification has been sent to subclasses
@@ -562,7 +562,7 @@ public class SubsamplingScaleImageView extends View {
                         // We need to get events in onTouchEvent after this.
                         return false;
                     } else {
-                        // Start double tap zoom animation.
+                        // Start double tap zoom signHits.
                         doubleTapZoom(viewToSourceCoord(new PointF(e.getX(), e.getY())), new PointF(e.getX(), e.getY()));
                         return true;
                     }
@@ -629,7 +629,7 @@ public class SubsamplingScaleImageView extends View {
                 try {
                     anim.listener.onInterruptedByUser();
                 } catch (Exception e) {
-                    Log.w(TAG, "Error thrown by animation listener", e);
+                    Log.w(TAG, "Error thrown by signHits listener", e);
                 }
             }
             anim = null;
@@ -965,14 +965,14 @@ public class SubsamplingScaleImageView extends View {
             scaleElapsed = Math.min(scaleElapsed, anim.duration);
             scale = ease(anim.easing, scaleElapsed, anim.scaleStart, anim.scaleEnd - anim.scaleStart, anim.duration);
 
-            // Apply required animation to the focal point
+            // Apply required signHits to the focal point
             float vFocusNowX = ease(anim.easing, scaleElapsed, anim.vFocusStart.x, anim.vFocusEnd.x - anim.vFocusStart.x, anim.duration);
             float vFocusNowY = ease(anim.easing, scaleElapsed, anim.vFocusStart.y, anim.vFocusEnd.y - anim.vFocusStart.y, anim.duration);
-            // Find out where the focal point is at this scale and adjust its position to follow the animation path
+            // Find out where the focal point is at this scale and adjust its position to follow the signHits path
             vTranslate.x -= sourceToViewX(anim.sCenterEnd.x) - vFocusNowX;
             vTranslate.y -= sourceToViewY(anim.sCenterEnd.y) - vFocusNowY;
 
-            // For translate anims, showing the image non-centered is never allowed, for scaling anims it is during the animation.
+            // For translate anims, showing the image non-centered is never allowed, for scaling anims it is during the signHits.
             fitToBounds(finished || (anim.scaleStart == anim.scaleEnd));
             sendStateChanged(scaleBefore, vTranslateBefore, anim.origin);
             refreshRequiredTiles(finished);
@@ -981,7 +981,7 @@ public class SubsamplingScaleImageView extends View {
                     try {
                         anim.listener.onComplete();
                     } catch (Exception e) {
-                        Log.w(TAG, "Error thrown by animation listener", e);
+                        Log.w(TAG, "Error thrown by signHits listener", e);
                     }
                 }
                 anim = null;
@@ -1362,7 +1362,7 @@ public class SubsamplingScaleImageView extends View {
     /**
      * Adjusts hypothetical future scale and translate values to keep scale within the allowed range and the image on screen. Minimum scale
      * is set so one dimension fills the view and the image is centered on the other dimension. Used to calculate what the target of an
-     * animation should be.
+     * signHits should be.
      * @param center Whether the image should be centered in the dimension it's too small to fill. While animating this can be false to avoid changes in direction as bounds are reached.
      * @param sat The scale we want and the translation we're aiming for. The values are adjusted to be valid.
      */
@@ -2594,7 +2594,7 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Set the type of zoom animation to be used for double taps. See static fields.
+     * Set the type of zoom signHits to be used for double taps. See static fields.
      * @param doubleTapZoomStyle New value for zoom style.
      */
     public final void setDoubleTapZoomStyle(int doubleTapZoomStyle) {
@@ -2605,7 +2605,7 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Set the duration of the double tap zoom animation.
+     * Set the duration of the double tap zoom signHits.
      * @param durationMs Duration in milliseconds.
      */
     public final void setDoubleTapZoomDuration(int durationMs) {
@@ -2672,7 +2672,7 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Creates a panning animation builder, that when started will animate the image to place the given coordinates of
+     * Creates a panning signHits builder, that when started will animate the image to place the given coordinates of
      * the image in the center of the screen. If doing this would move the image beyond the edges of the screen, the
      * image is instead animated to move the center point as near to the center of the screen as is allowed - it's
      * guaranteed to be on screen.
@@ -2687,8 +2687,8 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Creates a scale animation builder, that when started will animate a zoom in or out. If this would move the image
-     * beyond the panning limits, the image is automatically panned during the animation.
+     * Creates a scale signHits builder, that when started will animate a zoom in or out. If this would move the image
+     * beyond the panning limits, the image is automatically panned during the signHits.
      * @param scale Target scale.
      * @return {@link AnimationBuilder} instance. Call {@link SubsamplingScaleImageView.AnimationBuilder#start()} to start the anim.
      */
@@ -2700,8 +2700,8 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Creates a scale animation builder, that when started will animate a zoom in or out. If this would move the image
-     * beyond the panning limits, the image is automatically panned during the animation.
+     * Creates a scale signHits builder, that when started will animate a zoom in or out. If this would move the image
+     * beyond the panning limits, the image is automatically panned during the signHits.
      * @param scale Target scale.
      * @return {@link AnimationBuilder} instance. Call {@link SubsamplingScaleImageView.AnimationBuilder#start()} to start the anim.
      */
@@ -2713,7 +2713,7 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * Builder class used to set additional options for a scale animation. Create an instance using {@link #animateScale(float)},
+     * Builder class used to set additional options for a scale signHits. Create an instance using {@link #animateScale(float)},
      * then set your options and call {@link #start()}.
      */
     public final class AnimationBuilder {
@@ -2763,7 +2763,7 @@ public class SubsamplingScaleImageView extends View {
         }
 
         /**
-         * Whether the animation can be interrupted with a touch. Default is true.
+         * Whether the signHits can be interrupted with a touch. Default is true.
          * @param interruptible interruptible flag.
          * @return this builder for method chaining.
          */
@@ -2786,7 +2786,7 @@ public class SubsamplingScaleImageView extends View {
         }
 
         /**
-         * Add an animation event listener.
+         * Add an signHits event listener.
          * @param listener The listener.
          * @return this builder for method chaining.
          */
@@ -2796,8 +2796,8 @@ public class SubsamplingScaleImageView extends View {
         }
 
         /**
-         * Only for internal use. When set to true, the animation proceeds towards the actual end point - the nearest
-         * point to the center allowed by pan limits. When false, animation is in the direction of the requested end
+         * Only for internal use. When set to true, the signHits proceeds towards the actual end point - the nearest
+         * point to the center allowed by pan limits. When false, signHits is in the direction of the requested end
          * point and is stopped when the limit for each axis is reached. The latter behaviour is used for flings but
          * nothing else.
          */
@@ -2807,7 +2807,7 @@ public class SubsamplingScaleImageView extends View {
         }
 
         /**
-         * Only for internal use. Indicates what caused the animation.
+         * Only for internal use. Indicates what caused the signHits.
          */
         private AnimationBuilder withOrigin(int origin) {
             this.origin = origin;
@@ -2815,14 +2815,14 @@ public class SubsamplingScaleImageView extends View {
         }
 
         /**
-         * Starts the animation.
+         * Starts the signHits.
          */
         public void start() {
             if (anim != null && anim.listener != null) {
                 try {
                     anim.listener.onInterruptedByNewAnim();
                 } catch (Exception e) {
-                    Log.w(TAG, "Error thrown by animation listener", e);
+                    Log.w(TAG, "Error thrown by signHits listener", e);
                 }
             }
 
@@ -2869,25 +2869,25 @@ public class SubsamplingScaleImageView extends View {
     }
 
     /**
-     * An event listener for animations, allows events to be triggered when an animation completes,
-     * is aborted by another animation starting, or is aborted by a touch event. Note that none of
+     * An event listener for animations, allows events to be triggered when an signHits completes,
+     * is aborted by another signHits starting, or is aborted by a touch event. Note that none of
      * these events are triggered if the activity is paused, the image is swapped, or in other cases
      * where the view's internal state gets wiped or draw events stop.
      */
     public interface OnAnimationEventListener {
 
         /**
-         * The animation has completed, having reached its endpoint.
+         * The signHits has completed, having reached its endpoint.
          */
         void onComplete();
 
         /**
-         * The animation has been aborted before reaching its endpoint because the user touched the screen.
+         * The signHits has been aborted before reaching its endpoint because the user touched the screen.
          */
         void onInterruptedByUser();
 
         /**
-         * The animation has been aborted before reaching its endpoint because a new animation has been started.
+         * The signHits has been aborted before reaching its endpoint because a new signHits has been started.
          */
         void onInterruptedByNewAnim();
 

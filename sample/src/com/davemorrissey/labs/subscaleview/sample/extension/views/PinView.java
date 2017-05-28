@@ -92,6 +92,9 @@ public class PinView extends SubsamplingScaleImageView {
             }
         }
         for (int i = 0; i < mapPins.size(); i++) {
+            if (mapPins.size() > 0 && i == 0){
+                specialPt = 2;
+            }
             float w,h;
             PointF mPin = mapPins.get(i);
             Bitmap bmpPin;

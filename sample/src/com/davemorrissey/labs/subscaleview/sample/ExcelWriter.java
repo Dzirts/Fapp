@@ -19,6 +19,9 @@ import java.text.DecimalFormat;
 public class ExcelWriter {
 
     ExcelData ed;
+    int START_LINE = 52;
+    int NUM_OF_LINES_TO_FILL = 30;
+
     public ExcelWriter(ExcelData iED){
         ed = iED;
     }
@@ -28,16 +31,21 @@ public class ExcelWriter {
             XSSFWorkbook workbook = new XSSFWorkbook(ed.getInputStream());
             XSSFSheet sheet = workbook.getSheetAt(0);
 
-//            for (int i=52;i<55;i++) {
-//                Row row = sheet.getRow(i);
-//                Cell cell = row.getCell(1);
-//                cell.setCellValue("XY "+i);
-//            }
+
             DecimalFormat df = new DecimalFormat("#.#");
-            int START_LINE = 52;
+            //clean older data if exists
+            for (int i=START_LINE; i<START_LINE+NUM_OF_LINES_TO_FILL; i++){
+                Row row = sheet.getRow(i);
+                Cell cell = row.getCell(2*ed.getSeriesNum()-1);
+                cell.setCellValue("");
+                cell = row.getCell(2*ed.getSeriesNum());
+                cell.setCellValue("");
+            }
+
+
             for (int i=START_LINE; i<START_LINE+ed.getHitList().size()-1; i++){
-                float x = Float.parseFloat(df.format(ed.getHitList().get(i-START_LINE+1).x));
-                float y = Float.parseFloat(df.format(ed.getHitList().get(i-START_LINE+1).y));
+                double x = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).x));
+                double y = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).y));
                 Row row = sheet.getRow(i);
                 Cell cell = row.getCell(2*ed.getSeriesNum()-1);
                 cell.setCellValue(x);
@@ -65,5 +73,8 @@ public class ExcelWriter {
         }
 
     }
+
+
+
 
 }

@@ -2,140 +2,198 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-                android:id="@+id/self"
-                android:layout_width="wrap_content"
-                android:layout_height="800dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/buttonstate_transparent"
-                android:padding="10dp"
-                android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstate_transparent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:weightSum="1">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/TextView0"
+                        android:layout_weight="1"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="20dip"
+                        android:text="Project Name"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/TextView4"
+                        android:layout_weight="1"
+                        android:background="#d3d3d3"
+                        android:gravity="center"
+                        android:padding="20dip"
+                        android:text="Excel File"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_weight="1"
+                        android:background="#cac9c9"
+                        android:gravity="center"
+                        android:padding="20dip"
+                        android:text="Series Number"
+                        android:textColor="#000000" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/etProjName"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Enter Project Name"
+                        android:inputType="textPersonName"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light"
+
+                        />
+
+                    <ImageButton
+                        android:id="@+id/btnAddExcelFile"
+                        android:layout_weight="1"
+
+                        android:src="@drawable/add_file" />
+
+                    <EditText
+                        android:id="@+id/etSerNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Enter Series Number"
+                        android:inputType="number"
+
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light" />
+
+                </TableRow>
+
+
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/self"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstate_transparent"
+            android:orientation="vertical"
+            android:padding="10dp"
             android:weightSum="1">
 
             <ImageView
-                android:layout_height="match_parent"
-                android:src="@drawable/strike"
                 android:id="@+id/scannedImage"
-                android:layout_weight="8.75"
-                android:layout_width="800dp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.96"
+                android:scaleType="fitCenter"
+                android:src="@drawable/strike" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/libraryPic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#333"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:textSize="16sp"
                 android:text="Library"
-                android:layout_weight="1"
-                android:background="#333" />
+                android:textSize="16sp" />
 
             <Button
-                    android:id="@+id/CameraPic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:textSize="16sp"
-                    android:text="Camera"
+                android:id="@+id/CameraPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="#333" />
+                android:background="#333"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Camera"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:baselineAligned="false">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.80" />
-
-            <TextView
-                android:text="Series:"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7"
-                android:layout_weight="0.83"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:paddingTop="15dp" />
-
-            <EditText
-                android:layout_width="106dp"
-                android:layout_height="match_parent"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/etSeries"
-                android:gravity="bottom" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.22" />
-
-            <ImageButton
-                android:src="@drawable/excel"
-                android:layout_width="69dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnExcel"
-                android:scaleType="fitCenter" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#333333"/>
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333333" />
 
-            <TextView
-                    android:id="@+id/animation"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnExcel"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#333"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:textSize="18sp"
-                    android:text="Mark Hits"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/excel" />
+
+                <ImageButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/next_txt" />
+
+
+            </LinearLayout>
 
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#333333"/>
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333333" />
 
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#333333"/>
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#333333" />
         </LinearLayout>
 
     </LinearLayout>

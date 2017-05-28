@@ -17,11 +17,10 @@ limitations under the License.
 package com.davemorrissey.labs.subscaleview.sample;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,29 +31,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.sample.R.id;
-import com.davemorrissey.labs.subscaleview.sample.animation.AnimationActivity;
-import com.davemorrissey.labs.subscaleview.sample.basicfeatures.BasicFeaturesActivity;
-import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
-import com.davemorrissey.labs.subscaleview.sample.configuration.ConfigurationActivity;
-import com.davemorrissey.labs.subscaleview.sample.eventhandling.EventHandlingActivity;
-import com.davemorrissey.labs.subscaleview.sample.eventhandlingadvanced.AdvancedEventHandlingActivity;
-import com.davemorrissey.labs.subscaleview.sample.extension.ExtensionActivity;
-import com.davemorrissey.labs.subscaleview.sample.imagedisplay.ImageDisplayActivity;
-import com.davemorrissey.labs.subscaleview.sample.viewpager.ViewPagerActivity;
+import com.davemorrissey.labs.subscaleview.sample.signHits.SignHitsActivity;
 import com.scanlibrary.ScanActivity;
 import com.scanlibrary.ScanConstants;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -66,8 +56,10 @@ public class MainActivity extends Activity implements OnClickListener {
     private Bitmap mBitmap;
     private Uri mUri;
     private boolean PicTaken = false;
-    private String PROJ_NAME = "PROJ_NAME";
+    private String PROJ_NAME = "";
     private String FIRE_FILE_TYPE = ".xlsx";
+    private String SeriesNum;
+
 
 
     private FileDialog mFileDialog;
@@ -85,7 +77,7 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         getActionBar().setTitle("Project: "+PROJ_NAME);
         setContentView(R.layout.main);
-        findViewById(id.animation).setOnClickListener(this);
+        findViewById(id.btnNext).setOnClickListener(this);
         findViewById(id.libraryPic).setOnClickListener(this);
         findViewById(id.CameraPic).setOnClickListener(this);
         findViewById(id.self).setOnClickListener(this);
@@ -108,7 +100,10 @@ public class MainActivity extends Activity implements OnClickListener {
         scannedImageView = (ImageView) findViewById(R.id.scannedImage);
 
 
-        File mPath = new File(Environment.getExternalStorageDirectory() + "//DIR//");
+        File mPath = new File(Environment.getExternalStorageDirectory() + "/Elbit Mark Target");
+        if(!mPath.exists() || !mPath.isDirectory()) {
+            mPath.mkdir();
+        }
         mFileDialog = new FileDialog(this, mPath, FIRE_FILE_TYPE);
         mFileDialog.addFileListener(new FileDialog.FileSelectedListener() {
             public void fileSelected(File file) {
@@ -118,12 +113,9 @@ public class MainActivity extends Activity implements OnClickListener {
                 //get project name without path
                  String[] sArr2 = file.toString().split("/");
                 mFileName = sArr2[sArr2.length-1];
-
-
-                String[] sArr = file.toString().split("_");
-                sArr = sArr[sArr.length-1].split("\\.");
-                setTitleProjName(sArr[0]);
-                createDirectories(sArr[0]);
+                if (!PROJ_NAME.equals("")){
+                    createDirectories(PROJ_NAME);
+                }
             }
         });
         mFileDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
@@ -133,6 +125,40 @@ public class MainActivity extends Activity implements OnClickListener {
         });
         mFileDialog.setSelectDirectoryOption(false);
 //        mFileDialog.showDialog();
+
+        EditText etProjName = (EditText)findViewById(id.etProjName);
+        etProjName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    EditText editText = (EditText) v;
+                    String projName = editText.getText().toString();
+                    setTitleProjName(projName);
+                }
+            }
+        });
+
+        EditText etSerNum = (EditText)findViewById(id.etSerNum);
+        etSerNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    EditText editText = (EditText) v;
+                    SeriesNum = editText.getText().toString();
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
+
+        ImageButton ibAddExcelFile = (ImageButton)findViewById(id.btnAddExcelFile);
+        ibAddExcelFile.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFileDialog.showDialog();
+            }
+        });
+
 
 
     }
@@ -182,25 +208,21 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == id.animation) {
+        if (view.getId() == id.btnNext) {
             if (PicTaken){
-                EditText etSeries = (EditText) findViewById(id.etSeries);
+                EditText etSeries = (EditText) findViewById(id.etSerNum);
                 if (etSeries.getText().toString().equals("")){
                     Toast toast = Toast.makeText(MainActivity.this, "Please choose a series", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     return;
                 }
-
-//                EditText etProjName = (EditText)findViewById(id.projectName);
-                String sProjName = "Project Name";
-//                EditText etSeries = (EditText)findViewById(id.seriesNumber);
-//                String sSeiries = etSeries.toString();
-              String sSeiries = etSeries.getText().toString();
-                Intent intent = new Intent(this, AnimationActivity.class);  //AnimationActivity
+                EditText et = (EditText)findViewById(id.etSerNum);
+                String SeriesNumber = et.getText().toString();
+                Intent intent = new Intent(this, SignHitsActivity.class);  //SignHitsActivity
                 intent.putExtra("UriSrc", mUri);
                 intent.putExtra("projName", PROJ_NAME);
-                intent.putExtra("seriesNum", sSeiries);
+                intent.putExtra("seriesNum", SeriesNumber);
                 intent.putExtra("filePath", mFilePath);
                 intent.putExtra("fileDirStr", mFileDirStr);
                 intent.putExtra("newFileDirStr", mNewFileDir);
@@ -215,12 +237,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
         } else if (view.getId() == id.btnExcel){
             if (!mFilePath.matches("")){
-                //TODO: check new com.davemorrissey.labs.subscaleview.sample.ExcelWriter(mFilePath);
+//                //TODO: check new com.davemorrissey.labs.subscaleview.sample.ExcelWriter(mFilePath);
                 File file = new File(mFilePath);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
                 startActivity(intent);
-
             } else {
                 // TODO: change it to default file
 //                Toast.makeText(MainActivity.this, "first pick a file", Toast.LENGTH_SHORT).show();
@@ -250,7 +271,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            mFileDialog.showDialog();
+//            TODO: change to options
+//            mFileDialog.showDialog();
         }
 
         return super.onOptionsItemSelected(item);
@@ -273,6 +295,16 @@ public class MainActivity extends Activity implements OnClickListener {
         mNewFileDir = dir.getAbsolutePath();
     }
 
+    public void openFolder()
+    {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+                + "/Elbit Mark Target/" );
+        intent.setDataAndType(uri, "*/*");
+        startActivity(Intent.createChooser(intent, "Open folder"));
+
+
+    }
 
 
 

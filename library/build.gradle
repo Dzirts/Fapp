@@ -23,7 +23,7 @@ uploadArchives {
         pom.project {
             name 'SubsamplingScaleImageView'
             packaging 'aar'
-            description 'Custom image views for Android with pinch to zoom, panning, rotation and animation support, with easy extension so you can add your own overlays and touch event detection.'
+            description 'Custom image views for Android with pinch to zoom, panning, rotation and signHits support, with easy extension so you can add your own overlays and touch event detection.'
             url 'https://github.com/davemorrissey/subsampling-scale-image-view'
 
             scm {

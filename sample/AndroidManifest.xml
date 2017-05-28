@@ -13,13 +13,13 @@
             <category android:name="android.intent.category.LAUNCHER"/>
         </intent-filter>
     </activity>
-    <activity android:name=".basicfeatures.BasicFeaturesActivity"
+    <activity android:name=".Data.DataActivity"
         android:windowSoftInputMode="stateHidden"/>
     <activity android:name=".imagedisplay.ImageDisplayActivity"/>
     <activity android:name=".eventhandling.EventHandlingActivity"/>
     <activity android:name=".eventhandlingadvanced.AdvancedEventHandlingActivity"/>
     <activity android:name=".viewpager.ViewPagerActivity"/>
-    <activity android:name=".animation.AnimationActivity"
+    <activity android:name=".signHits.SignHitsActivity"
         android:windowSoftInputMode="stateHidden"/>
     <activity android:name=".extension.ExtensionActivity"/>
     <activity android:name=".configuration.ConfigurationActivity"/>

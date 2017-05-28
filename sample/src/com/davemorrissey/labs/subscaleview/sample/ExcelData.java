@@ -20,10 +20,12 @@ public class ExcelData {
     private ArrayList<PointF> HitList;
     private int SeriesNum;
     private String ProjectName;
+    private String imagePath;
+
 
 
     public  ExcelData(String iProjectName, int iSeriesNum ,File iDirectory, String iFileName, String iFilePath, String iNewFileDir,
-                                                InputStream iStream, ArrayList<PointF> iHitList)
+                                                InputStream iStream, ArrayList<PointF> iHitList, String iImagePath)
     {
         ProjectName = iProjectName;
         SeriesNum = iSeriesNum;
@@ -33,6 +35,7 @@ public class ExcelData {
         HitList = iHitList;
         newFileDir = iNewFileDir;
         FileName = iFileName;
+        imagePath = iImagePath;
 
 
     }
@@ -69,6 +72,11 @@ public class ExcelData {
     public String getNewFileDir() {
         return newFileDir;
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
 
 
 

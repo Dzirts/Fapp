@@ -1184,7 +1184,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
                 mCurrentX = newX;
                 mCurrentY = newY;
 
-                // Post On animation
+                // Post On signHits
                 Compat.postOnAnimation(imageView, this);
             }
         }
