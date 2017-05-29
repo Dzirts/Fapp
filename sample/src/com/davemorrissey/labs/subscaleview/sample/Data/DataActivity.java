@@ -33,6 +33,7 @@ import com.davemorrissey.labs.subscaleview.sample.ExcelData;
 import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
+import com.scanlibrary.ScanConstants;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -176,10 +177,12 @@ public class DataActivity extends Activity implements OnClickListener {
     public void openFolder() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
-                + "/Elbit Mark Target/" + projectName);
-        intent.setDataAndType(uri, "xlsx/jpg");
+                );
+        intent.setDataAndType(uri, "*/*");
         startActivity(Intent.createChooser(intent, "Open folder"));
     }
+
+
 
 
 

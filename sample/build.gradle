@@ -11,11 +11,15 @@ allprojects {
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile project(':library')
+//    compile 'com.github.DamanSingh4321:ProProgressViews:v1.1'
+    compile project(':scanlibrary')
+//    compile 'com.tuyenmonkey:mkloader:1.2.0'
     compile 'rapid.decoder:library:0.3.0'
     compile 'rapid.decoder:jpeg-decoder:0.3.0'
     compile 'rapid.decoder:png-decoder:0.3.0'
-    compile project(':scanlibrary')
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 }
+
 
 android {
     compileSdkVersion 23
@@ -47,7 +51,7 @@ android {
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 19
+        targetSdkVersion 23
         multiDexEnabled true
     }
     packagingOptions {
