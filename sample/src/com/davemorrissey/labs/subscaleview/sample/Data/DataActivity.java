@@ -22,6 +22,7 @@ import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -61,9 +62,15 @@ public class DataActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.notes_activity);
+        if (isDeviceIsPhone()){
+            setContentView(layout.notes_activity_phone);
+        } else {
+            setContentView(layout.notes_activity);
+        }
         getActionBar().setTitle("Data");
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         Intent intent = getIntent();
         projectName = intent.getStringExtra("projectName");
@@ -82,7 +89,7 @@ public class DataActivity extends Activity implements OnClickListener {
         scaledMapPins= new ArrayList<PointF>();
         scaledMapPins= intent.getParcelableArrayListExtra("ScaledPoints");
         String s = new String();
-        s = String.format("%1$-20s %2$-15s %3$10s", "No.","TRV [cm]", "ELV [cm]") + "\n\n";
+        s = String.format("%1$-20s %2$-10s %3$10s", "No.","TRV", "ELV") + "\n\n";
         DecimalFormat df = new DecimalFormat("#.#");
         // i=0 is the center so we are not caulating it
         for (int i=1; i<scaledMapPins.size(); i++){
@@ -175,11 +182,34 @@ public class DataActivity extends Activity implements OnClickListener {
     }
 
     public void openFolder() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
-                );
-        intent.setDataAndType(uri, "*/*");
-        startActivity(Intent.createChooser(intent, "Open folder"));
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+//                );
+//        intent.setDataAndType(uri, "*/*");
+//        startActivity(Intent.createChooser(intent, "Open folder"));
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("file/*");
+        startActivity(intent);
+    }
+
+    private boolean isDeviceIsPhone(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+
+        float yInches= metrics.heightPixels/metrics.ydpi;
+        float xInches= metrics.widthPixels/metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+        if (diagonalInches>=6.5){
+            // 6.5inch device or bigger
+            return false;
+        }else{
+            // smaller device
+            return true;
+        }
     }
 
 

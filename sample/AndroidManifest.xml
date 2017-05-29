@@ -15,10 +15,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:icon="@drawable/shield"
+        android:icon="@drawable/icon"
         android:label="Elbit Mark Target"
         android:theme="@style/demoTheme"
-        tools:replace="android:label">
+        >
         <activity
             android:name=".MainActivity"
             android:label="Elbit Mark Target"
@@ -36,7 +36,8 @@
         <activity android:name=".extension.ExtensionActivity" />
         <activity
             android:name=".splashActivity"
-            android:label="@string/title_activity_splash">
+            android:label="Elbit Mark Target"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

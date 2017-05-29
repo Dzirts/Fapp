@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstate_transparent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:weightSum="1">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/TextView0"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="20dip"
+                        android:text="Project Name"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/TextView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#d3d3d3"
+                        android:gravity="center"
+                        android:padding="20dip"
+                        android:text="Excel File"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#cac9c9"
+                        android:gravity="center"
+                        android:padding="20dip"
+                        android:text="Series Number"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
+                </TableRow>
+
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/etProjName"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Enter Project Name"
+                        android:inputType="textPersonName"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/btnAddExcelFile"
+                        android:layout_weight="1"
+                        android:src="@drawable/add_file" />
+
+                    <EditText
+                        android:id="@+id/etSerNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Enter Series Number"
+                        android:inputType="number"
+                        android:layout_weight="1"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="14sp" />
+
+                </TableRow>
+
+
+            </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/self"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstate_transparent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/scannedImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.96"
+                android:scaleType="fitCenter"
+                android:src="@drawable/strike" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/libraryPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#333"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Library"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/CameraPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#333"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Camera"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnExcel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/excel" />
+
+                <ImageButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/next_txt" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

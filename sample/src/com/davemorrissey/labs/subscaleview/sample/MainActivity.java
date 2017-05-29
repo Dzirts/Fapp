@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -76,7 +77,11 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setTitle("Project: "+PROJ_NAME);
-        setContentView(R.layout.main);
+        if (isDeviceIsPhone()){
+            setContentView(R.layout.main_phone);
+        } else {
+            setContentView(R.layout.main);
+        }
         findViewById(id.btnNext).setOnClickListener(this);
         findViewById(id.libraryPic).setOnClickListener(this);
         findViewById(id.CameraPic).setOnClickListener(this);
@@ -86,7 +91,7 @@ public class MainActivity extends Activity implements OnClickListener {
         Toast toast =Toast.makeText(this, "select your target from camera or photo library and click on \"Mark Hits\"",
                 Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
+//        toast.show();
 
 
 
@@ -116,6 +121,8 @@ public class MainActivity extends Activity implements OnClickListener {
                 if (!PROJ_NAME.equals("")){
                     createDirectories(PROJ_NAME);
                 }
+                ImageButton imgbtnExcel = (ImageButton)findViewById(id.btnAddExcelFile);
+                imgbtnExcel.setImageResource(R.drawable.add_file_done);
             }
         });
         mFileDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
@@ -273,6 +280,12 @@ public class MainActivity extends Activity implements OnClickListener {
         if (id == R.id.action_settings) {
 //            TODO: change to options
 //            mFileDialog.showDialog();
+        } else if (id == R.id.action_newproject) {
+            // TODO: add option for new user
+            return true;
+        } else if(id==R.id.action_logout){
+            finish();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -295,16 +308,28 @@ public class MainActivity extends Activity implements OnClickListener {
         mNewFileDir = dir.getAbsolutePath();
     }
 
-    public void openFolder()
-    {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
-                + "/Elbit Mark Target/" );
-        intent.setDataAndType(uri, "*/*");
-        startActivity(Intent.createChooser(intent, "Open folder"));
 
 
+
+    private boolean isDeviceIsPhone(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+
+        float yInches= metrics.heightPixels/metrics.ydpi;
+        float xInches= metrics.widthPixels/metrics.xdpi;
+        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+        if (diagonalInches>=6.5){
+            // 6.5inch device or bigger
+            return false;
+        }else{
+            // smaller device
+            return true;
+        }
     }
+
+
 
 
 

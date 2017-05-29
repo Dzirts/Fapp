@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.davemorrissey.labs.subscaleview.sample.MainActivity">
 
 <!-- "Mark Favorite", should appear as action button if possible -->
 <item
@@ -9,8 +12,20 @@
     android:visible="true"
     android:showAsAction="ifRoom|withText"/>
 
+<item
+    android:id="@+id/action_newproject"
+    android:orderInCategory="1"
+    android:title="New Project"
+    android:showAsAction="never" />
+<item
+    android:id="@+id/action_logout"
+    android:orderInCategory="2"
+    android:title="Logout"
+    android:showAsAction="never" />
+
 <!-- Settings, should always be in the overflow -->
 <!--item android:id="@+id/action_settings"
     android:title="@string/action_settings"/-->
 
 </menu>
+
