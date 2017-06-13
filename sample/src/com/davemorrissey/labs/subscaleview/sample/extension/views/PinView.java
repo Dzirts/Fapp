@@ -117,9 +117,9 @@ public class PinView extends SubsamplingScaleImageView {
                     h = (density / 420f) * bmpPin.getHeight();
                     break;
                 case "oldHit":
-                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.pushpin_red);
-                    w = (density / 200f) * bmpPin.getWidth();
-                    h = (density / 200f) * bmpPin.getHeight();
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_cirle_small);
+                    w = (density / 420f) * bmpPin.getWidth();
+                    h = (density / 420f) * bmpPin.getHeight();
                     break;
             }
 //            if (specialPt == 1) {

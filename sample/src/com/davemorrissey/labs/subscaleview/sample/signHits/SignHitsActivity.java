@@ -73,6 +73,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private String newFileDir;
     private String fileName;
     private String mImagePath;
+    public  ExcelReader er;
 
     AlertDialog addPrevHitsDialog;
     final ArrayList seletedItems=new ArrayList();
@@ -94,7 +95,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     private List<Note> notes;
     private List<PinView> pins;
-    private ArrayList<PointF> MapPins;
     private ArrayList<PointF> CenterPins;
     private ArrayList<PointF> scaledMapPins;
     private ArrayList<Pair<PointF, String>> hitList = new ArrayList<Pair<PointF, String>>();
@@ -113,12 +113,10 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         findViewById(id.next).setOnClickListener(this);
         findViewById(id.previous).setOnClickListener(this);
-        //findViewById(id.avgOfHits).setOnClickListener(this);
         findViewById(id.ShowAllHits).setOnClickListener(this);
         findViewById(id.rotateRight).setOnClickListener(this);
         findViewById(id.setCenter).setOnClickListener(this);
         findViewById(id.centerDoneBtn).setOnClickListener(this);
-//        findViewById(id.markHit).
 
 
         if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_POSITION)) {
@@ -131,7 +129,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                 new Note("Customisation", "Duration and easing are configurable. You can also make animations non-interruptible.")
         );
         pinView= (PinView)(findViewById(id.imageView));
-        MapPins= new ArrayList<PointF>();
         CenterPins= new ArrayList<PointF>();
         scaledMapPins = new ArrayList<PointF>();
         CenterPins.add(new PointF(0,0));
@@ -156,9 +153,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     centerSelected = true;
-                    if (!centerAttached){
-                        MapPins.add(new PointF(999,999));
-                    }
                     ToggleButton deleteHit = (ToggleButton) findViewById(id.deleteHit);
                     deleteHit.setChecked(false);
                 }
@@ -231,7 +225,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                             int k = indexList.get((int)i);
                             tmpIndexList.add(k);
                         }
-//                        addSelectedColsToView();
+                        addSelectedColsToView(tmpIndexList);
 
                     }
                 })
@@ -306,7 +300,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             imageView.setRotation(rotationDegree);
         } else if (view.getId() == id.setCenter) {
             centerSelected = true;
-            MapPins.add(new PointF(999,999));
         } else if (view.getId() == id.centerDoneBtn) {
             if (!centerSelected){
                 Toast.makeText(SignHitsActivity.this,"first select a center",Toast.LENGTH_SHORT).show();
@@ -316,9 +309,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             if (!centerAttached){return;}
             updateNotes(0);
             doneRotateAndCenter = true;
-//            clearAllPins();
-//            MapPins.add(new PointF(999,999));
-//            MapPins.add(pfCenterPt);
             findViewById(id.ShowAllHits).setVisibility(View.VISIBLE);
             findViewById(id.rotateRight).setVisibility(View.INVISIBLE);
             findViewById(id.setCenter).setVisibility(View.INVISIBLE);
@@ -355,10 +345,10 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        ExcelReader er = new ExcelReader(stream);
+        er = new ExcelReader(stream);
         indexList = er.getAllFilledInCols();
         //reading all previus hits on activity create
-        prevHitList =  er.getAllHitsByIndexes(indexList);
+        //prevHitList =  er.getAllHitsByIndexes(indexList);
         createBuilder();
         addPrevHitsDialog = builder.create();
     }
@@ -519,7 +509,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         int imageWidth = imageView.getSWidth();
         int imageHight = imageView.getSHeight();
 //        imageView.
-        for(int i=0; i<MapPins.size(); i++){
+        for(int i=0; i<hitList.size(); i++){
             float newX= (float)((hitList.get(i).first.x- pfCenterPt.x)*targetTrvSize/imageWidth)*100;
             float newY= (float)((pfCenterPt.y-hitList.get(i).first.y)*targetElvSize/imageHight)*100;
 
@@ -563,6 +553,33 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             e.printStackTrace();
         }
     }
+
+    private void addSelectedColsToView(ArrayList<Integer> indexList){
+        clearOldHitsFromHitList();
+        prevHitList =  er.getAllHitsByIndexes(indexList);
+        for (ArrayList<PointF> arr: prevHitList){
+            for (PointF pf: arr){
+                PointF scaledPF = new PointF(pf.x+pfCenterPt.x,pf.y+pfCenterPt.y);
+                Pair<PointF, String> tmpPair = new Pair<PointF, String>(scaledPF,"oldHit");
+                hitList.add(tmpPair);
+            }
+        }
+        pinView.setPins(hitList);
+        pinView.post(new Runnable(){
+            public void run(){
+                pinView.getRootView().postInvalidate();
+            }
+        });
+    }
+
+    private void clearOldHitsFromHitList(){
+        for (Pair<PointF, String> p : hitList){
+            if (p.second.equals("oldHit")){
+                hitList.remove(p);
+            }
+        }
+    }
+
 
 
 
