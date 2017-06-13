@@ -26,14 +26,17 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.sample.ExcelData;
 import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
+import com.davemorrissey.labs.subscaleview.sample.signHits.SignHitsActivity;
 import com.scanlibrary.ScanConstants;
 
 import java.io.File;
@@ -70,8 +73,6 @@ public class DataActivity extends Activity implements OnClickListener {
         getActionBar().setTitle("Data");
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         Intent intent = getIntent();
         projectName = intent.getStringExtra("projectName");
         serieNumber = intent.getStringExtra("seriesNumber");
@@ -79,11 +80,6 @@ public class DataActivity extends Activity implements OnClickListener {
         newFileDir = intent.getStringExtra("newFileDir");
         fileName = intent.getStringExtra("fileName");
         mImagePath = intent.getStringExtra("imagePath");
-
-
-
-
-
 
         getActionBar().setSubtitle(projectName+":  #"+serieNumber);
         scaledMapPins= new ArrayList<PointF>();
@@ -145,12 +141,16 @@ public class DataActivity extends Activity implements OnClickListener {
             }
         });
 
+        findViewById(id.next).setOnClickListener(this);
+
+
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == id.next) {
             Toast.makeText(DataActivity.this, "next clicked", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -182,12 +182,6 @@ public class DataActivity extends Activity implements OnClickListener {
     }
 
     public void openFolder() {
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
-//                );
-//        intent.setDataAndType(uri, "*/*");
-//        startActivity(Intent.createChooser(intent, "Open folder"));
-
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("file/*");
@@ -211,6 +205,8 @@ public class DataActivity extends Activity implements OnClickListener {
             return true;
         }
     }
+
+
 
 
 

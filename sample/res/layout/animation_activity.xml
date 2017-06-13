@@ -149,18 +149,18 @@
             android:layout_toLeftOf="@+id/clearAllPins" />
 
         <ImageView
-            android:id="@+id/rotateLeft"
+            android:id="@+id/ShowAllHits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/mark"
             android:background="@drawable/buttonstate_transparent"
+            android:elevation="1dp"
+            android:paddingBottom="18dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="18dp"
-            android:paddingBottom="18dp"
-            android:src="@drawable/rotate_left"
-            android:visibility="invisible"
-            android:elevation="1dp"
-            android:layout_toLeftOf="@+id/mark" />
+            android:src="@android:drawable/btn_star_big_on"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/rotateRight"

@@ -17,18 +17,24 @@ limitations under the License.
 package com.davemorrissey.labs.subscaleview.sample.signHits;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.GestureDetector;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,13 +42,18 @@ import android.widget.ToggleButton;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.davemorrissey.labs.subscaleview.sample.ExcelReader;
+import com.davemorrissey.labs.subscaleview.sample.R;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.Data.DataActivity;
 import com.davemorrissey.labs.subscaleview.sample.extension.views.PinView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -63,6 +74,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private String fileName;
     private String mImagePath;
 
+    AlertDialog addPrevHitsDialog;
+    final ArrayList seletedItems=new ArrayList();
+    AlertDialog.Builder builder;
 
 
     private boolean nextClicked = false;
@@ -83,6 +97,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ArrayList<PointF> MapPins;
     private ArrayList<PointF> CenterPins;
     private ArrayList<PointF> scaledMapPins;
+    ArrayList<Pair<PointF, String>> hitList = new ArrayList<Pair<PointF, String>>();
+
 
     private enum markMode {MARK_CENTER, MARK_HITS};
     private markMode MarkMode = markMode.MARK_CENTER;
@@ -96,7 +112,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         findViewById(id.next).setOnClickListener(this);
         findViewById(id.previous).setOnClickListener(this);
         //findViewById(id.avgOfHits).setOnClickListener(this);
-        findViewById(id.rotateLeft).setOnClickListener(this);
+        findViewById(id.ShowAllHits).setOnClickListener(this);
         findViewById(id.rotateRight).setOnClickListener(this);
         findViewById(id.setCenter).setOnClickListener(this);
         findViewById(id.centerDoneBtn).setOnClickListener(this);
@@ -121,17 +137,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         initialiseImage();
         updateNotes(0);
 
-        Toast.makeText(this, "rotate the target, then click on the pen and mark the target's center. when you finish click done",Toast.LENGTH_LONG).show();
-
-        findViewById(id.rotateLeft).setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                rotationDegree-=90;
-                final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
-                imageView.setRotation(rotationDegree);
-                return true;
-            }
-        });
+//        Toast.makeText(this, "rotate the target, then click on the pen and mark the target's center. when you finish click done",Toast.LENGTH_LONG).show();
 
         findViewById(id.rotateRight).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -166,6 +172,84 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                 }
             }
         });
+
+        buildHitsDialog();
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.target_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
+    }
+
+
+
+
+    void createBuilder( List<Integer> indexList){
+        CharSequence[] items = new String[indexList.size()];
+        int k=0;
+        for (int i: indexList){
+            items[k] = " "+i+" ";
+            k++;
+        }
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select the series to upload on target");
+        builder.setMultiChoiceItems(items, null,
+                new DialogInterface.OnMultiChoiceClickListener() {
+                    // indexSelected contains the index of item (of which checkbox checked)
+                    @Override
+                    public void onClick(DialogInterface dialog, int indexSelected,
+                                        boolean isChecked) {
+                        if (isChecked) {
+                            // If the user checked the item, add it to the selected items
+                            // write your code when user checked the checkbox
+                            seletedItems.add(indexSelected);
+                        } else if (seletedItems.contains(indexSelected)) {
+                            // Else, if the item is already in the array, remove it
+                            // write your code when user Uchecked the checkbox
+                            seletedItems.remove(Integer.valueOf(indexSelected));
+                        }
+                    }
+                })
+                // Set the action buttons
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Your code when user clicked on OK
+                        //  You can write the code  to save the selected item here
+
+                    }
+                })
+                .setNeutralButton("Select All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Your code when user clicked on OK
+                        //  You can write the code  to save the selected item here
+//                        AlertDialog d = (AlertDialog) dialog;
+//                        ListView v = d.getListView();
+//                        int i = 0;
+//                        while(i < indexList.size()) {
+//                            v.setItemChecked(i, true);
+//                            i++;
+//                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Your code when user clicked on Cancel
+
+                    }
+                });
+
+
     }
 
     @Override
@@ -206,9 +290,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
             startActivity(intent);
 
-        } else if (view.getId() == id.rotateLeft) {
-            rotationDegree-=0.5;
-            imageView.setRotation(rotationDegree);
+        } else if (view.getId() == id.ShowAllHits) {
+            // TODO: insert into function
+            addPrevHitsDialog.show();
         } else if (view.getId() == id.rotateRight) {
             rotationDegree+=0.5;
             imageView.setRotation(rotationDegree);
@@ -222,11 +306,12 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             }
             MarkMode = markMode.MARK_HITS;
             if (!centerAttached){return;}
+            updateNotes(0);
             doneRotateAndCenter = true;
-            clearAllPins();
-            MapPins.add(new PointF(999,999));
-            MapPins.add(pfCenterPt);
-            findViewById(id.rotateLeft).setVisibility(View.INVISIBLE);
+//            clearAllPins();
+//            MapPins.add(new PointF(999,999));
+//            MapPins.add(pfCenterPt);
+            findViewById(id.ShowAllHits).setVisibility(View.VISIBLE);
             findViewById(id.rotateRight).setVisibility(View.INVISIBLE);
             findViewById(id.setCenter).setVisibility(View.INVISIBLE);
             findViewById(id.centerDoneBtn).setVisibility(View.INVISIBLE);
@@ -255,11 +340,23 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
+    private void buildHitsDialog(){
+        InputStream stream = null;
+        try {
+            stream = new FileInputStream(filePath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ExcelReader er = new ExcelReader(stream);
+        List<Integer> indexList = er.getAllFilledInCols();
+        createBuilder(indexList);
+        addPrevHitsDialog = builder.create();
     }
+
+
+
+
+
 
     private void initialiseImage() {
         final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
@@ -267,53 +364,47 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-//                if (!centerAttached && MarkMode == markMode.MARK_HITS){ return true;}
                 ToggleButton markHit =   (ToggleButton) findViewById(id.markHit);
                 ToggleButton deleteHit = (ToggleButton) findViewById(id.deleteHit);
 //                here we on mark mode
                 if (imageView.isReady() && ( MarkMode==markMode.MARK_HITS && markHit.isChecked() ||
                                         MarkMode==markMode.MARK_CENTER )) {
                     PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
-//                    Toast.makeText(getApplicationContext(), "Single tap: " + ((int)sCoord.x) + ", " + ((int)sCoord.y), Toast.LENGTH_SHORT).show();
-//                    showPin(sCoord.x,sCoord.y);
                     if (MarkMode==markMode.MARK_CENTER){
-                        CenterPins.remove(0);
-                        CenterPins.add(new PointF(0,0));
-                        CenterPins.add(sCoord);
-                        pinView.setPins(CenterPins);
+                        updateNotes(1);
+                        Pair<PointF, String> p = new Pair<PointF, String>(sCoord,"CenterBig");
+                        //change the center place so remove and fter that add
+                        if (hitList.size() > 0) {
+                            hitList.remove(0);
+                        }
+                        hitList.add(0, p);
+                        pinView.setPins(hitList);
                         centerSelected = true;
                         pfCenterPt=sCoord;
                     } else {
-                        MapPins.add(0,new PointF(999,999));
-                        MapPins.add(sCoord);
-                        pinView.setPins(MapPins);
+                        updateNotes(++pinsCounter);
+                        //change big center to small center
+                        Pair<PointF, String> center = hitList.get(0);
+                        Pair<PointF, String> newCenter = new Pair<PointF, String>(center.first,"CenterSmall");
+                        hitList.remove(0);
+                        hitList.add(0,newCenter);
+
+                        Pair<PointF, String> p = new Pair<PointF, String>(sCoord,"newHit");
+                        hitList.add(p);
+                        pinView.setPins(hitList);
                     }
                     pinView.post(new Runnable(){
                         public void run(){
                             pinView.getRootView().postInvalidate();
                         }
                     });
-                    updateNotes(++pinsCounter);
                     centerAttached =true;
                 } else if(imageView.isReady() && deleteHit.isChecked()){
                     // in case we want to delete points
                     if (pinsCounter == 0){ return true;}
                     PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
-//                    Toast.makeText(getApplicationContext(), "Single tap: " + ((int)sCoord.x) + ", " + ((int)sCoord.y), Toast.LENGTH_SHORT).show();
-                    //find the nearest point to delete
-                    double minDist = sqrt(Math.pow(sCoord.x-MapPins.get(1).x,2)+Math.pow(sCoord.y-MapPins.get(1).y,2));
-                    int minIdx = 1;
-                    //i=0 is the center point so dont check for it
-                    for (int i=1; i<MapPins.size(); i++) {
-                        double currDist = sqrt(Math.pow(sCoord.x - MapPins.get(i).x, 2) + Math.pow(sCoord.y - MapPins.get(i).y, 2));
-                        if (minDist > currDist) {
-                            minDist = currDist;
-                            minIdx = i;
-                        }
-                    }
-                    MapPins.remove(minIdx);
-                    MapPins.add(0, new PointF(999,999));
-                    pinView.setPins(MapPins);
+                    detectHitToRemove(sCoord);
+                    pinView.setPins(hitList);
 
                     pinView.post(new Runnable(){
                         public void run(){
@@ -355,9 +446,24 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         });
     }
 
+    private void detectHitToRemove(PointF hit){
+        //find the nearest point to delete
+        double minDist = sqrt(Math.pow(hit.x-hitList.get(1).first.x,2)+Math.pow(hit.y-hitList.get(1).first.y,2));
+        int minIdx = 1;
+        //i=0 is the center point so dont check for it
+        for (int i=1; i<hitList.size(); i++) {
+            double currDist = sqrt(Math.pow(hit.x - hitList.get(i).first.x, 2) + Math.pow(hit.y - hitList.get(i).first.y, 2));
+            if (minDist > currDist) {
+                minDist = currDist;
+                minIdx = i;
+            }
+        }
+        hitList.remove(minIdx);
+    }
+
+
+
     private void updateNotes(int nHit) {
-
-
         int limitOfHits = LIMIT_OF_HITS;
         getActionBar().setSubtitle(notes.get(position).subtitle);
         ((TextView)findViewById(id.note)).setText("marked: "+nHit);
@@ -386,8 +492,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         if (pinsCounter == 0){
             return;
         }
-        MapPins.clear();
-        pinView.setPins(MapPins);
+        hitList.clear();
+        pinView.setPins(hitList);
         pinView.post(new Runnable(){
             public void run(){
                 pinView.getRootView().postInvalidate();
@@ -397,52 +503,52 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         updateNotes(pinsCounter);
     }
 
-    private void undoLastAction(){
-        if (pinsCounter==0){
-            return;
-        }
-        MapPins.remove(MapPins.size()-1);
-        pinView.setPins(MapPins);
-        pinView.post(new Runnable(){
-            public void run(){
-                pinView.getRootView().postInvalidate();
-            }
-        });
-        updateNotes(--pinsCounter);
-    }
+//    private void undoLastAction(){
+//        if (pinsCounter==0){
+//            return;
+//        }
+//        MapPins.remove(MapPins.size()-1);
+//        pinView.setPins(MapPins);
+//        pinView.post(new Runnable(){
+//            public void run(){
+//                pinView.getRootView().postInvalidate();
+//            }
+//        });
+//        updateNotes(--pinsCounter);
+//    }
 
 
-    private void showAvgOfHits(boolean showAvg){
-        if (pinsCounter==0){
-            return;
-        }
-        if (showAvg){
-            float x = 0,y = 0;
-            for (PointF pin: MapPins){
-                x+= pin.x;
-                y+=pin.y;
-            }
-            x= x/MapPins.size();
-            y= y/MapPins.size();
-            PointF AvgPt = new PointF(x,y);
-            ArrayList<PointF> AvgMapPins = new ArrayList<PointF>();
-            AvgMapPins.add(AvgPt);
-            AvgMapPins.add(0,new PointF(0,0));
-            pinView.setPins(AvgMapPins);
-            pinView.post(new Runnable(){
-                public void run(){
-                    pinView.getRootView().postInvalidate();
-                }
-            });
-        } else {
-            pinView.setPins(MapPins);
-            pinView.post(new Runnable(){
-                public void run(){
-                    pinView.getRootView().postInvalidate();
-                }
-            });
-        }
-    }
+//    private void showAvgOfHits(boolean showAvg){
+//        if (pinsCounter==0){
+//            return;
+//        }
+//        if (showAvg){
+//            float x = 0,y = 0;
+//            for (PointF pin: MapPins){
+//                x+= pin.x;
+//                y+=pin.y;
+//            }
+//            x= x/MapPins.size();
+//            y= y/MapPins.size();
+//            PointF AvgPt = new PointF(x,y);
+//            ArrayList<PointF> AvgMapPins = new ArrayList<PointF>();
+//            AvgMapPins.add(AvgPt);
+//            AvgMapPins.add(0,new PointF(0,0));
+//            pinView.setPins(AvgMapPins);
+//            pinView.post(new Runnable(){
+//                public void run(){
+//                    pinView.getRootView().postInvalidate();
+//                }
+//            });
+//        } else {
+//            pinView.setPins(MapPins);
+//            pinView.post(new Runnable(){
+//                public void run(){
+//                    pinView.getRootView().postInvalidate();
+//                }
+//            });
+//        }
+//    }
 
     void scaleHitsToCenter(double targetElvSize, double targetTrvSize){
         scaledMapPins.clear();
@@ -494,6 +600,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             e.printStackTrace();
         }
     }
+
+
 
 
 }

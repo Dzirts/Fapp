@@ -19,6 +19,8 @@ package com.davemorrissey.labs.subscaleview.sample.extension.views;
 import android.content.Context;
 import android.graphics.*;
 import android.util.AttributeSet;
+import android.util.Pair;
+
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.sample.MainActivity;
 import com.davemorrissey.labs.subscaleview.sample.R.drawable;
@@ -32,8 +34,7 @@ public class PinView extends SubsamplingScaleImageView {
     private Context context;
     private PointF sPin;
     //private Bitmap pin;
-    ArrayList<PointF> mapPins;
-    List<PointF> drawnPins;
+    ArrayList<Pair<PointF, String>> mapPins;
     String tag = getClass().getSimpleName();
 
     public PinView(Context context) {
@@ -52,7 +53,7 @@ public class PinView extends SubsamplingScaleImageView {
 //        initialise();
 //        invalidate();
     }
-    public void setPins(ArrayList<PointF> mapPins) {
+    public void setPins(ArrayList<Pair<PointF, String>>  mapPins) {
         this.mapPins = mapPins;
         initialise();
         invalidate();
@@ -74,49 +75,70 @@ public class PinView extends SubsamplingScaleImageView {
         if (!isReady()) {
             return;
         }
-        drawnPins = new ArrayList<>();
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         float density = getResources().getDisplayMetrics().densityDpi;
-        if (mapPins == null){ return;}
-        int specialPt = 0;
-        if (mapPins.size()>0){
-            if(mapPins.get(0).equals(0,0)){
-                //shows the Avg
-                specialPt = 1;
-                mapPins.remove(0);
-            } else if (mapPins.get(0).equals(999,999)){
-                //shows the center
-                specialPt = 2;
-                mapPins.remove(0);
-            }
-        }
-        for (int i = 0; i < mapPins.size(); i++) {
-            if (mapPins.size() > 0 && i == 0){
-                specialPt = 2;
-            }
-            float w,h;
-            PointF mPin = mapPins.get(i);
-            Bitmap bmpPin;
-            if (specialPt == 1) {
-                //Shows only the center
-                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
-                w = (density / 200f) * bmpPin.getWidth();
-                h = (density / 200f) * bmpPin.getHeight();
-            } else if (specialPt == 2 && i==0){
-                //show all hits+ center
-                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
-                w = (density / 300f) * bmpPin.getWidth();
-                h = (density / 300f) * bmpPin.getHeight();
-            }   else {
-                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.blue_cirle_small);
-                w = (density / 420f) * bmpPin.getWidth();
-                h = (density / 420f) * bmpPin.getHeight();
-            }
+        if (mapPins == null || mapPins.size()==0){ return;}
 
+//        int specialPt = 0;
+//        if (mapPins.size()>0){
+//            if(mapPins.get(0).equals(0,0)){
+//                //shows the Avg
+//                specialPt = 1;
+//                mapPins.remove(0);
+//            } else if (mapPins.get(0).equals(999,999)){
+//                //shows the center
+//                specialPt = 2;
+//                mapPins.remove(0);
+//            }
+//        }
+        for (int i = 0; i < mapPins.size(); i++) {
+//            if (mapPins.size() > 0 && i == 0){
+//                specialPt = 2;
+//            }
+            float w =0,h=0;
+            PointF mPin = mapPins.get(i).first;
+            String pinLabel = mapPins.get(i).second;
+            Bitmap bmpPin = null;
+            switch (pinLabel){
+                case "CenterBig":
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
+                    w = (density / 200f) * bmpPin.getWidth();
+                    h = (density / 200f) * bmpPin.getHeight();
+                    break;
+                case "CenterSmall":
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
+                    w = (density / 300f) * bmpPin.getWidth();
+                    h = (density / 300f) * bmpPin.getHeight();
+                    break;
+                case "newHit":
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.blue_cirle_small);
+                    w = (density / 420f) * bmpPin.getWidth();
+                    h = (density / 420f) * bmpPin.getHeight();
+                    break;
+                case "oldHit":
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.pushpin_red);
+                    w = (density / 200f) * bmpPin.getWidth();
+                    h = (density / 200f) * bmpPin.getHeight();
+                    break;
+            }
+//            if (specialPt == 1) {
+//                //Shows only the center
+//                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
+//                w = (density / 200f) * bmpPin.getWidth();
+//                h = (density / 200f) * bmpPin.getHeight();
+//            } else if (specialPt == 2 && i==0){
+//                //show all hits+ center
+//                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
+//                w = (density / 300f) * bmpPin.getWidth();
+//                h = (density / 300f) * bmpPin.getHeight();
+//            }   else {
+//                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.blue_cirle_small);
+//                w = (density / 420f) * bmpPin.getWidth();
+//                h = (density / 420f) * bmpPin.getHeight();
+//            }
 
             bmpPin = Bitmap.createScaledBitmap(bmpPin, (int) w, (int) h, true);
-
 
             PointF vPin = sourceToViewCoord(mPin);
             float vX = vPin.x - (bmpPin.getWidth() / 2);
