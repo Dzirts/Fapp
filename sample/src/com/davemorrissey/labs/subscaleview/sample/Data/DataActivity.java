@@ -83,7 +83,7 @@ public class DataActivity extends Activity implements OnClickListener {
 
         getActionBar().setSubtitle(projectName+":  #"+serieNumber);
         scaledMapPins= new ArrayList<PointF>();
-        scaledMapPins= intent.getParcelableArrayListExtra("ScaledPoints");
+        scaledMapPins= intent.getParcelableArrayListExtra("ScaledPoints"); 
         String s = new String();
         s = String.format("%1$-20s %2$-10s %3$10s", "No.","TRV", "ELV") + "\n\n";
         DecimalFormat df = new DecimalFormat("#.#");
