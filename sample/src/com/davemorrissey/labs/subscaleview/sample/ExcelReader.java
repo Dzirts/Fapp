@@ -58,8 +58,8 @@ public class ExcelReader {
         return colHits;
     }
 
-    public List<Integer> getAllFilledInCols(){
-        List<Integer> indexList = new ArrayList<>();
+    public ArrayList<Integer> getAllFilledInCols(){
+        ArrayList<Integer> indexList = new ArrayList<Integer>();
         try{
             Row row = sheet.getRow(START_LINE);
             for (int i = 1; i< NUM_OF_SERIES_IN_FILE+1; i++){

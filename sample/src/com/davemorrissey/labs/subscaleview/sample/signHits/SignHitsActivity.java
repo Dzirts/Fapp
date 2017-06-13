@@ -97,7 +97,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ArrayList<PointF> MapPins;
     private ArrayList<PointF> CenterPins;
     private ArrayList<PointF> scaledMapPins;
-    ArrayList<Pair<PointF, String>> hitList = new ArrayList<Pair<PointF, String>>();
+    private ArrayList<Pair<PointF, String>> hitList = new ArrayList<Pair<PointF, String>>();
+    private ArrayList<ArrayList<PointF>> prevHitList = new ArrayList<ArrayList<PointF>>();
+    private ArrayList<Integer> indexList = new ArrayList<Integer>();
 
 
     private enum markMode {MARK_CENTER, MARK_HITS};
@@ -192,7 +194,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
 
 
-    void createBuilder( List<Integer> indexList){
+    void createBuilder( ){
         CharSequence[] items = new String[indexList.size()];
         int k=0;
         for (int i: indexList){
@@ -224,6 +226,12 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         //  Your code when user clicked on OK
                         //  You can write the code  to save the selected item here
+                        ArrayList<Integer> tmpIndexList = new ArrayList<Integer>();
+                        for (Object i: seletedItems){
+                            int k = indexList.get((int)i);
+                            tmpIndexList.add(k);
+                        }
+//                        addSelectedColsToView();
 
                     }
                 })
@@ -348,8 +356,10 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             e.printStackTrace();
         }
         ExcelReader er = new ExcelReader(stream);
-        List<Integer> indexList = er.getAllFilledInCols();
-        createBuilder(indexList);
+        indexList = er.getAllFilledInCols();
+        //reading all previus hits on activity create
+        prevHitList =  er.getAllHitsByIndexes(indexList);
+        createBuilder();
         addPrevHitsDialog = builder.create();
     }
 
@@ -503,53 +513,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         updateNotes(pinsCounter);
     }
 
-//    private void undoLastAction(){
-//        if (pinsCounter==0){
-//            return;
-//        }
-//        MapPins.remove(MapPins.size()-1);
-//        pinView.setPins(MapPins);
-//        pinView.post(new Runnable(){
-//            public void run(){
-//                pinView.getRootView().postInvalidate();
-//            }
-//        });
-//        updateNotes(--pinsCounter);
-//    }
-
-
-//    private void showAvgOfHits(boolean showAvg){
-//        if (pinsCounter==0){
-//            return;
-//        }
-//        if (showAvg){
-//            float x = 0,y = 0;
-//            for (PointF pin: MapPins){
-//                x+= pin.x;
-//                y+=pin.y;
-//            }
-//            x= x/MapPins.size();
-//            y= y/MapPins.size();
-//            PointF AvgPt = new PointF(x,y);
-//            ArrayList<PointF> AvgMapPins = new ArrayList<PointF>();
-//            AvgMapPins.add(AvgPt);
-//            AvgMapPins.add(0,new PointF(0,0));
-//            pinView.setPins(AvgMapPins);
-//            pinView.post(new Runnable(){
-//                public void run(){
-//                    pinView.getRootView().postInvalidate();
-//                }
-//            });
-//        } else {
-//            pinView.setPins(MapPins);
-//            pinView.post(new Runnable(){
-//                public void run(){
-//                    pinView.getRootView().postInvalidate();
-//                }
-//            });
-//        }
-//    }
-
     void scaleHitsToCenter(double targetElvSize, double targetTrvSize){
         scaledMapPins.clear();
         final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
@@ -557,8 +520,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         int imageHight = imageView.getSHeight();
 //        imageView.
         for(int i=0; i<MapPins.size(); i++){
-            float newX= (float)((MapPins.get(i).x- pfCenterPt.x)*targetTrvSize/imageWidth)*100;
-            float newY= (float)((pfCenterPt.y-MapPins.get(i).y)*targetElvSize/imageHight)*100;
+            float newX= (float)((hitList.get(i).first.x- pfCenterPt.x)*targetTrvSize/imageWidth)*100;
+            float newY= (float)((pfCenterPt.y-hitList.get(i).first.y)*targetElvSize/imageHight)*100;
 
             PointF tempPF = new PointF(newX,newY);
 
