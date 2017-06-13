@@ -510,6 +510,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         int imageHight = imageView.getSHeight();
 //        imageView.
         for(int i=0; i<hitList.size(); i++){
+            if (hitList.get(i).second.equals("oldHit")) { continue;}
             float newX= (float)((hitList.get(i).first.x- pfCenterPt.x)*targetTrvSize/imageWidth)*100;
             float newY= (float)((pfCenterPt.y-hitList.get(i).first.y)*targetElvSize/imageHight)*100;
 
@@ -555,11 +556,20 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     }
 
     private void addSelectedColsToView(ArrayList<Integer> indexList){
+        final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
+        final EditText  elvText = (EditText)findViewById(id.elvTxt);
+        final EditText  trvText = (EditText)findViewById(id.trvTxt);
+        double targetElvSize = Double.parseDouble(elvText.getText().toString());
+        double targetTrvSize = Double.parseDouble(trvText.getText().toString());
         clearOldHitsFromHitList();
         prevHitList =  er.getAllHitsByIndexes(indexList);
         for (ArrayList<PointF> arr: prevHitList){
             for (PointF pf: arr){
-                PointF scaledPF = new PointF(pf.x+pfCenterPt.x,pf.y+pfCenterPt.y);
+                int imageWidth = imageView.getSWidth();
+                int imageHight = imageView.getSHeight();
+                float newX= (float)((pf.x)/targetTrvSize*imageWidth)/100;
+                float newY= (float)((pf.y)/targetElvSize*imageHight)/100;
+                PointF scaledPF = new PointF(newX+pfCenterPt.x,pfCenterPt.y-newY);
                 Pair<PointF, String> tmpPair = new Pair<PointF, String>(scaledPF,"oldHit");
                 hitList.add(tmpPair);
             }
@@ -573,11 +583,18 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     }
 
     private void clearOldHitsFromHitList(){
-        for (Pair<PointF, String> p : hitList){
-            if (p.second.equals("oldHit")){
-                hitList.remove(p);
+        try {
+            ArrayList<Pair<PointF, String>> tmpList = new ArrayList<Pair<PointF, String>>();
+            for (Pair<PointF, String> p : hitList){
+                if (p.second.equals("oldHit")){
+                    tmpList.add(p);
+                }
             }
+            hitList.removeAll(tmpList);
+        } catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
 
