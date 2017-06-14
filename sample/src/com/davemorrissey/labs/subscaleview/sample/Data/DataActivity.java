@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.sample.ExcelData;
 import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
+import com.davemorrissey.labs.subscaleview.sample.MainActivity;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.signHits.SignHitsActivity;
@@ -150,7 +151,8 @@ public class DataActivity extends Activity implements OnClickListener {
     public void onClick(View view) {
         if (view.getId() == id.next) {
             Toast.makeText(DataActivity.this, "next clicked", Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 

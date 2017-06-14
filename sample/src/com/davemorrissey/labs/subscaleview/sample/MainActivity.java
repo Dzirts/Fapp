@@ -53,8 +53,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private static final int REQUEST_CODE = 99;
     private Button scanButton;
-    private Button cameraButton;
-    private Button mediaButton;
+    private ImageButton cameraButton;
+    private ImageButton mediaButton;
     private ImageView scannedImageView;
     private Bitmap mBitmap;
     private Uri mUri;
@@ -85,8 +85,8 @@ public class MainActivity extends Activity implements OnClickListener {
             setContentView(R.layout.main);
         }
         findViewById(id.btnNext).setOnClickListener(this);
-        findViewById(id.libraryPic).setOnClickListener(this);
-        findViewById(id.CameraPic).setOnClickListener(this);
+        findViewById(id.btnCamera).setOnClickListener(this);
+        findViewById(id.btnLibrary).setOnClickListener(this);
         findViewById(id.self).setOnClickListener(this);
         findViewById(id.btnExcel).setOnClickListener(this);
         init();
@@ -100,9 +100,9 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void init() {
-        cameraButton = (Button) findViewById(id.CameraPic);
+        cameraButton = (ImageButton) findViewById(id.btnCamera);
         cameraButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_CAMERA));
-        mediaButton = (Button) findViewById(id.libraryPic);
+        mediaButton = (ImageButton) findViewById(id.btnLibrary);
         mediaButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_MEDIA));
         scannedImageView = (ImageView) findViewById(R.id.scannedImage);
 
@@ -154,6 +154,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 if (!hasFocus) {
                     EditText editText = (EditText) v;
                     SeriesNum = editText.getText().toString();
+                    setSubTitleSer(SeriesNum);
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
@@ -297,6 +298,12 @@ public class MainActivity extends Activity implements OnClickListener {
         PROJ_NAME= projName;
         getActionBar().setTitle("Project: "+PROJ_NAME);
     }
+
+    private void setSubTitleSer(String serieNumber){
+        getActionBar().setSubtitle("Series:  #"+serieNumber);
+    }
+
+
 
     private void createDirectories(String projName) {
         File dir = new File(Environment.getExternalStorageDirectory() + "/Elbit Mark Target");

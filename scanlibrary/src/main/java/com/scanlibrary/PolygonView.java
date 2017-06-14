@@ -276,6 +276,8 @@ public class PolygonView extends FrameLayout {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            ImageView zoomedImageView   = (ImageView)findViewById(R.id.zoomedImage);
+            ImageView originalImageView = (ImageView)findViewById(R.id.sourceImageView);
             int eid = event.getAction();
             switch (eid) {
                 case MotionEvent.ACTION_MOVE:

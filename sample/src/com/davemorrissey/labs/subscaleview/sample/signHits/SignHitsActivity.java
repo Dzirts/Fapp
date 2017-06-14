@@ -175,7 +175,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.target_menu, menu);
+        //getMenuInflater().inflate(R.menu.target_menu, menu);
         return true;
     }
 
@@ -234,13 +234,15 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         //  Your code when user clicked on OK
                         //  You can write the code  to save the selected item here
-//                        AlertDialog d = (AlertDialog) dialog;
-//                        ListView v = d.getListView();
-//                        int i = 0;
-//                        while(i < indexList.size()) {
-//                            v.setItemChecked(i, true);
-//                            i++;
-//                        }
+                        AlertDialog d = (AlertDialog) dialog;
+                        ListView v = d.getListView();
+                        int i = 0;
+                        while(i < indexList.size()) {
+                            v.setItemChecked(i, true);
+                            i++;
+                        }
+                        addSelectedColsToView(indexList);
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -287,9 +289,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             intent.putExtra("fileName" ,fileName);
             intent.putExtra("imagePath" ,mImagePath);
 
-
-
-
             startActivity(intent);
 
         } else if (view.getId() == id.ShowAllHits) {
@@ -305,6 +304,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                 Toast.makeText(SignHitsActivity.this,"first select a center",Toast.LENGTH_SHORT).show();
                 return;
             }
+            imageView.resetScaleAndCenter();
             MarkMode = markMode.MARK_HITS;
             if (!centerAttached){return;}
             updateNotes(0);
@@ -432,8 +432,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
 
 
-        getActionBar().setTitle("Project: "+projectName+" / "+seriesNumber);
-        getActionBar().setSubtitle("Series: "+seriesNumber);
+        getActionBar().setTitle("Project: "+projectName + " #"+seriesNumber);
+        getActionBar().setSubtitle("Series: #"+seriesNumber);
 
         imageView.setImage(ImageSource.uri(ScannedImage));
         imageView.setMinimumDpi(25);

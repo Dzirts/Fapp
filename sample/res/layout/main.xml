@@ -116,38 +116,6 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/libraryPic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="#333"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="Library"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/CameraPic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="#333"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="Camera"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
@@ -172,6 +140,24 @@
                     android:elevation="0dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/excel" />
+
+                <ImageButton
+                    android:id="@+id/btnCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/camera" />
+
+                <ImageButton
+                    android:id="@+id/btnLibrary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/library" />
 
                 <ImageButton
                     android:id="@+id/btnNext"
