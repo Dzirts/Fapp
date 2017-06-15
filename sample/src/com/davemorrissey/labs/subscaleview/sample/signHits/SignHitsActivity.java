@@ -531,19 +531,13 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             // image naming and path  to include sd card  appending name you choose for file
 //            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
             mImagePath = newFileDir + "/" + projectName +"_Ser_"+seriesNumber+"_"+ now + ".jpg";
-            //if (!filePath.equals("")){ mPath = fileDir + "/" + now + ".jpg";}
-
             Toast.makeText(SignHitsActivity.this, "pic saved in" + mImagePath, Toast.LENGTH_LONG).show();
-
             RelativeLayout v1 =(RelativeLayout)findViewById(id.rl);
             // create bitmap screen capture
-//            View v1 = getWindow().getDecorView().getRootView();
             v1.setDrawingCacheEnabled(true);
             Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
             v1.setDrawingCacheEnabled(false);
-
             File imageFile = new File(mImagePath);
-
             FileOutputStream outputStream = new FileOutputStream(imageFile);
             int quality = 100;
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);

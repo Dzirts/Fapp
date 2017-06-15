@@ -35,6 +35,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,6 +50,7 @@ import com.scanlibrary.ScanConstants;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -63,7 +66,11 @@ public class MainActivity extends Activity implements OnClickListener {
     private String FIRE_FILE_TYPE = ".xlsx";
     private String SeriesNum;
 
+    private static final String[] COUNTRIES = new String[] {
+            "Belgium", "France", "Italy", "Germany", "Spain"
+    };
 
+    private ArrayList<String> DIRECTORIES = new ArrayList<String>();
 
     private FileDialog mFileDialog;
     private String mFilePath = "";
@@ -135,7 +142,7 @@ public class MainActivity extends Activity implements OnClickListener {
         mFileDialog.setSelectDirectoryOption(false);
 //        mFileDialog.showDialog();
 
-        EditText etProjName = (EditText)findViewById(id.etProjName);
+        AutoCompleteTextView etProjName = (AutoCompleteTextView)findViewById(id.etProjName);
         etProjName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -170,6 +177,19 @@ public class MainActivity extends Activity implements OnClickListener {
         });
 
 
+        listOfDirectories(mPath.getAbsolutePath());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, DIRECTORIES);
+        final AutoCompleteTextView textView = (AutoCompleteTextView)
+                findViewById(R.id.etProjName);
+        textView.setAdapter(adapter);
+
+        textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.showDropDown();
+            }
+        });
 
     }
 
@@ -335,6 +355,18 @@ public class MainActivity extends Activity implements OnClickListener {
         }else{
             // smaller device
             return true;
+        }
+    }
+
+    public void listOfDirectories(String directoryName) {
+        File directory = new File(directoryName);
+
+        // get all the files from a directory
+        File[] dicList = directory.listFiles();
+        for (File file : dicList) {
+            if (file.isDirectory()) {
+                DIRECTORIES.add(file.getName());
+            }
         }
     }
 

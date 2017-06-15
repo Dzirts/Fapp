@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <EditText
+                    <!--EditText
                         android:id="@+id/etProjName"
                         android:layout_weight="1"
                         android:ems="10"
@@ -67,6 +67,18 @@
                         android:padding="20dip"
                         android:textColor="@android:color/background_light"
 
+                        /-->
+                    <AutoCompleteTextView
+                        android:id="@+id/etProjName"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="Enter Project Name"
+                        android:inputType="textPersonName"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="14sp"
                         />
 
                     <ImageButton
