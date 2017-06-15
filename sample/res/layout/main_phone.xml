@@ -57,7 +57,7 @@
                         android:background="#cac9c9"
                         android:gravity="center"
                         android:padding="20dip"
-                        android:text="Series Number"
+                        android:text="Series Number "
                         android:textColor="#000000"
                         android:textSize="12sp" />
                 </TableRow>
