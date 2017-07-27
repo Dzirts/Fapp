@@ -21,24 +21,19 @@ import android.content.Intent;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.sample.ExcelData;
 import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
 import com.davemorrissey.labs.subscaleview.sample.MainActivity;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
-import com.davemorrissey.labs.subscaleview.sample.signHits.SignHitsActivity;
-import com.scanlibrary.ScanConstants;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,9 +62,9 @@ public class DataActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (isDeviceIsPhone()){
-            setContentView(layout.notes_activity_phone);
+            setContentView(layout.data_activity_phone);
         } else {
-            setContentView(layout.notes_activity);
+            setContentView(layout.data_activity);
         }
         getActionBar().setTitle("Data");
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -150,7 +145,7 @@ public class DataActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == id.next) {
-            Toast.makeText(DataActivity.this, "next clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DataActivity.this, "Moving to next session", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

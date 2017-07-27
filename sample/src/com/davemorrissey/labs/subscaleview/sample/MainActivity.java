@@ -55,32 +55,22 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements OnClickListener {
 
     private static final int REQUEST_CODE = 99;
+    private boolean PicTaken = false;
     private Button scanButton;
     private ImageButton cameraButton;
     private ImageButton mediaButton;
     private ImageView scannedImageView;
     private Bitmap mBitmap;
     private Uri mUri;
-    private boolean PicTaken = false;
-    private String PROJ_NAME = "";
-    private String FIRE_FILE_TYPE = ".xlsx";
-    private String SeriesNum;
-
-    private static final String[] COUNTRIES = new String[] {
-            "Belgium", "France", "Italy", "Germany", "Spain"
-    };
-
-    private ArrayList<String> DIRECTORIES = new ArrayList<String>();
-
     private FileDialog mFileDialog;
     private String mFilePath = "";
     private String mFileDirStr = "";
     private String mNewFileDir = "";
     private String mFileName = "";
-
-
-
-
+    private String PROJ_NAME = "";
+    private String FIRE_FILE_TYPE = ".xlsx";
+    private String SeriesNum;
+    private ArrayList<String> DIRECTORIES = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

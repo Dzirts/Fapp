@@ -31,7 +31,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -43,7 +42,6 @@ import android.widget.ToggleButton;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.sample.ExcelReader;
-import com.davemorrissey.labs.subscaleview.sample.R;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.Data.DataActivity;
@@ -109,7 +107,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setTitle("Mark Hits");
-        setContentView(layout.animation_activity);
+        setContentView(layout.sign_hits_activity);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         findViewById(id.next).setOnClickListener(this);
         findViewById(id.previous).setOnClickListener(this);
@@ -523,6 +521,14 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private void takeScreenshot() {
         final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
         imageView.resetScaleAndCenter();
+        //take off old hits
+        clearOldHitsFromHitList();
+        pinView.setPins(hitList);
+        pinView.post(new Runnable() {
+            public void run() {
+                pinView.getRootView().postInvalidate();
+            }
+        });
 
         Date now = new Date();
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
