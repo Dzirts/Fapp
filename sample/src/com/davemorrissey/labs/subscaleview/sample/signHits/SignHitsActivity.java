@@ -109,12 +109,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         getActionBar().setTitle("Mark Hits");
         setContentView(layout.sign_hits_activity);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        findViewById(id.next).setOnClickListener(this);
-        findViewById(id.previous).setOnClickListener(this);
-        findViewById(id.ShowAllHits).setOnClickListener(this);
-        findViewById(id.rotateRight).setOnClickListener(this);
-        findViewById(id.setCenter).setOnClickListener(this);
-        findViewById(id.centerDoneBtn).setOnClickListener(this);
+        setOnClickListeners();
 
 
         if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_POSITION)) {
@@ -136,15 +131,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
 //        Toast.makeText(this, "rotate the target, then click on the pen and mark the target's center. when you finish click done",Toast.LENGTH_LONG).show();
 
-        findViewById(id.rotateRight).setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                rotationDegree+=90;
-                final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
-                imageView.setRotation(rotationDegree);
-                return true;
-            }
-        });
+
 
         ToggleButton markHit = (ToggleButton) findViewById(id.markHit);
         markHit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -170,6 +157,31 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         buildHitsDialog();
 
     }
+
+    private void setOnClickListeners() {
+        findViewById(id.next).setOnClickListener(this);
+        findViewById(id.previous).setOnClickListener(this);
+        findViewById(id.ShowAllHits).setOnClickListener(this);
+        findViewById(id.setCenter).setOnClickListener(this);
+        findViewById(id.centerDoneBtn).setOnClickListener(this);
+        findViewById(id.colors_btn).setOnClickListener(this);
+
+        findViewById(id.new_circ_light_blue).setOnClickListener(this);
+        findViewById(id.new_circ_blue).setOnClickListener(this);
+        findViewById(id.new_circ_green).setOnClickListener(this);
+        findViewById(id.new_circ_orange).setOnClickListener(this);
+        findViewById(id.new_circ_yellow).setOnClickListener(this);
+        findViewById(id.new_circ_purple).setOnClickListener(this);
+
+        findViewById(id.old_circ_red).setOnClickListener(this);
+        findViewById(id.old_circ_bordo).setOnClickListener(this);
+        findViewById(id.old_circ_green).setOnClickListener(this);
+        findViewById(id.old_circ_orange).setOnClickListener(this);
+        findViewById(id.old_circ_yellow).setOnClickListener(this);
+        findViewById(id.old_circ_purple).setOnClickListener(this);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -289,12 +301,17 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
             startActivity(intent);
 
+        } else if (view.getId() == id.colors_btn) {
+            RelativeLayout rl = (RelativeLayout) findViewById(id.colors_layout);
+            if (rl.getVisibility() == View.VISIBLE) {
+                rl.setVisibility(View.INVISIBLE);
+            } else {
+                rl.setVisibility(View.VISIBLE);
+            }
+
         } else if (view.getId() == id.ShowAllHits) {
             // TODO: insert into function
             addPrevHitsDialog.show();
-        } else if (view.getId() == id.rotateRight) {
-            rotationDegree+=0.5;
-            imageView.setRotation(rotationDegree);
         } else if (view.getId() == id.setCenter) {
             centerSelected = true;
         } else if (view.getId() == id.centerDoneBtn) {
@@ -308,17 +325,24 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             updateNotes(0);
             doneRotateAndCenter = true;
             findViewById(id.ShowAllHits).setVisibility(View.VISIBLE);
-            findViewById(id.rotateRight).setVisibility(View.INVISIBLE);
             findViewById(id.setCenter).setVisibility(View.INVISIBLE);
             findViewById(id.centerDoneBtn).setVisibility(View.INVISIBLE);
             findViewById(id.next).setVisibility(View.VISIBLE);
             findViewById(id.markHit).setVisibility(View.VISIBLE);
             findViewById(id.markHit).performClick();
             findViewById(id.deleteHit).setVisibility(View.VISIBLE);
+            findViewById(id.colors_btn).setVisibility(View.VISIBLE);
 
             Toast.makeText(this, "mark the hits over the target, you can find the average and clear all marks, when finish click done button",
                     Toast.LENGTH_LONG).show();
-
+        } else if (view.getId() == id.new_circ_light_blue || view.getId() == id.new_circ_blue ||
+                view.getId() == id.new_circ_green || view.getId() == id.new_circ_orange ||
+                view.getId() == id.new_circ_yellow || view.getId() == id.new_circ_purple) {
+            updateColors(view.getId(), "new");
+        } else if (view.getId() == id.old_circ_red || view.getId() == id.old_circ_bordo ||
+                view.getId() == id.old_circ_green || view.getId() == id.old_circ_orange ||
+                view.getId() == id.old_circ_yellow || view.getId() == id.old_circ_purple) {
+            updateColors(view.getId(), "old");
         }
 
     }
@@ -435,7 +459,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
         imageView.setImage(ImageSource.uri(ScannedImage));
         imageView.setMinimumDpi(25);
-//        imageView.setImage(ImageSource.asset("target_test.png"));  //for testing
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -457,6 +480,16 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             }
         }
         hitList.remove(minIdx);
+    }
+
+    private void updateColors(int id, String type) {
+        pinView.setColor(type, id);
+        pinView.setPins(hitList);
+        pinView.post(new Runnable() {
+            public void run() {
+                pinView.getRootView().postInvalidate();
+            }
+        });
     }
 
 

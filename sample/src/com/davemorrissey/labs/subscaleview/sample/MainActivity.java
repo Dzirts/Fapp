@@ -62,6 +62,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private ImageView scannedImageView;
     private Bitmap mBitmap;
     private Uri mUri;
+    private String mSeriesNumber;
     private FileDialog mFileDialog;
     private String mFilePath = "";
     private String mFileDirStr = "";
@@ -238,11 +239,11 @@ public class MainActivity extends Activity implements OnClickListener {
                     return;
                 }
                 EditText et = (EditText)findViewById(id.etSerNum);
-                String SeriesNumber = et.getText().toString();
+                mSeriesNumber = et.getText().toString();
                 Intent intent = new Intent(this, SignHitsActivity.class);  //SignHitsActivity
                 intent.putExtra("UriSrc", mUri);
                 intent.putExtra("projName", PROJ_NAME);
-                intent.putExtra("seriesNum", SeriesNumber);
+                intent.putExtra("seriesNum", mSeriesNumber);
                 intent.putExtra("filePath", mFilePath);
                 intent.putExtra("fileDirStr", mFileDirStr);
                 intent.putExtra("newFileDirStr", mNewFileDir);
@@ -263,9 +264,16 @@ public class MainActivity extends Activity implements OnClickListener {
                 intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
                 startActivity(intent);
             } else {
-                // TODO: change it to default file
+                // TODO: change it to default file and delete test
 //                Toast.makeText(MainActivity.this, "first pick a file", Toast.LENGTH_SHORT).show();
-
+                mUri = Uri.parse("content://media/external/images/media/1040");
+                PROJ_NAME = "Emint";
+                mSeriesNumber = "9";
+                mFilePath = "/storage/emulated/0/Elbit Mark Target/Emint/EMINT.xlsx";
+                mFileDirStr = "/storage/emulated/0/Elbit Mark Target/Emint";
+                mNewFileDir = "";
+                mFileName = "EMINT.xlsx";
+                PicTaken = true;
             }
         }
     }

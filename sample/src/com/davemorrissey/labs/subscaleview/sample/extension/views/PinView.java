@@ -23,9 +23,11 @@ import android.util.Pair;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.sample.MainActivity;
+import com.davemorrissey.labs.subscaleview.sample.R;
 import com.davemorrissey.labs.subscaleview.sample.R.drawable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -33,19 +35,54 @@ public class PinView extends SubsamplingScaleImageView {
 
     private Context context;
     private PointF sPin;
-    //private Bitmap pin;
-    ArrayList<Pair<PointF, String>> mapPins;
-    String tag = getClass().getSimpleName();
+    private ArrayList<Pair<PointF, String>> mapPins;
+    private String tag = getClass().getSimpleName();
+    private int nNewColor = drawable.circ_light_blue;
+    private int nOldColor = drawable.circ_bordo;
+    private HashMap<Integer, Integer> mColorsHash;
 
     public PinView(Context context) {
         this(context, null);
         this.context = context;
+        initialiseHashMap();
     }
+
 
     public PinView(Context context, AttributeSet attr) {
         super(context, attr);
         this.context = context;
         initialise();
+        initialiseHashMap();
+
+    }
+
+    private void initialiseHashMap() {
+        mColorsHash = new HashMap<>();
+        mColorsHash.put(R.id.new_circ_blue, drawable.circ_blue);
+        mColorsHash.put(R.id.new_circ_light_blue, drawable.circ_light_blue);
+        mColorsHash.put(R.id.new_circ_green, drawable.circ_green);
+        mColorsHash.put(R.id.new_circ_purple, drawable.circ_purple);
+        mColorsHash.put(R.id.new_circ_orange, drawable.circ_orange);
+        mColorsHash.put(R.id.new_circ_yellow, drawable.circ_yellow);
+
+        mColorsHash.put(R.id.old_circ_red, drawable.circ_red);
+        mColorsHash.put(R.id.old_circ_bordo, drawable.circ_bordo);
+        mColorsHash.put(R.id.old_circ_green, drawable.circ_green);
+        mColorsHash.put(R.id.old_circ_purple, drawable.circ_purple);
+        mColorsHash.put(R.id.old_circ_orange, drawable.circ_orange);
+        mColorsHash.put(R.id.old_circ_yellow, drawable.circ_yellow);
+    }
+
+
+    public void setColor(String type, int id) {
+        switch (type) {
+            case "new":
+                nNewColor = mColorsHash.get(id);
+                break;
+            case "old":
+                nOldColor = mColorsHash.get(id);
+                break;
+        }
     }
 
     public void setPin(PointF sPin) {
@@ -80,22 +117,8 @@ public class PinView extends SubsamplingScaleImageView {
         float density = getResources().getDisplayMetrics().densityDpi;
         if (mapPins == null || mapPins.size()==0){ return;}
 
-//        int specialPt = 0;
-//        if (mapPins.size()>0){
-//            if(mapPins.get(0).equals(0,0)){
-//                //shows the Avg
-//                specialPt = 1;
-//                mapPins.remove(0);
-//            } else if (mapPins.get(0).equals(999,999)){
-//                //shows the center
-//                specialPt = 2;
-//                mapPins.remove(0);
-//            }
-//        }
         for (int i = 0; i < mapPins.size(); i++) {
-//            if (mapPins.size() > 0 && i == 0){
-//                specialPt = 2;
-//            }
+
             float w =0,h=0;
             PointF mPin = mapPins.get(i).first;
             String pinLabel = mapPins.get(i).second;
@@ -112,31 +135,16 @@ public class PinView extends SubsamplingScaleImageView {
                     h = (density / 300f) * bmpPin.getHeight();
                     break;
                 case "newHit":
-                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.blue_cirle_small);
-                    w = (density / 420f) * bmpPin.getWidth();
-                    h = (density / 420f) * bmpPin.getHeight();
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), nNewColor);
+                    w = (density / 450f) * bmpPin.getWidth();
+                    h = (density / 450f) * bmpPin.getHeight();
                     break;
                 case "oldHit":
-                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_cirle_small);
-                    w = (density / 420f) * bmpPin.getWidth();
-                    h = (density / 420f) * bmpPin.getHeight();
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), nOldColor);
+                    w = (density / 450f) * bmpPin.getWidth();
+                    h = (density / 450f) * bmpPin.getHeight();
                     break;
             }
-//            if (specialPt == 1) {
-//                //Shows only the center
-//                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
-//                w = (density / 200f) * bmpPin.getWidth();
-//                h = (density / 200f) * bmpPin.getHeight();
-//            } else if (specialPt == 2 && i==0){
-//                //show all hits+ center
-//                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.red_curse_big5);
-//                w = (density / 300f) * bmpPin.getWidth();
-//                h = (density / 300f) * bmpPin.getHeight();
-//            }   else {
-//                bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.blue_cirle_small);
-//                w = (density / 420f) * bmpPin.getWidth();
-//                h = (density / 420f) * bmpPin.getHeight();
-//            }
 
             bmpPin = Bitmap.createScaledBitmap(bmpPin, (int) w, (int) h, true);
 
