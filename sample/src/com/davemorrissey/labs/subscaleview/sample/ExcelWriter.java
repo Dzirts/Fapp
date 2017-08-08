@@ -69,6 +69,7 @@ public class ExcelWriter {
 
         } catch (Exception e){
             Log.d("ExcelWriter", e.toString());
+            e.printStackTrace();
             return "";
         }
 
