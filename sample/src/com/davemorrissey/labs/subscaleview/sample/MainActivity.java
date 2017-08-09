@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private String mNewFileDir = "";
     private String mFileName = "";
     private String PROJ_NAME = "";
-    private String FIRE_FILE_TYPE = ".xlsx";
+    private String FIRE_FILE_TYPE = ".xls"; //".xlsx";
     private String SeriesNum;
     private ArrayList<String> DIRECTORIES = new ArrayList<String>();
 
