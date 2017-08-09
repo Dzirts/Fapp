@@ -3,6 +3,8 @@ package com.davemorrissey.labs.subscaleview.sample; /**
  */
 import android.util.Log;
 
+import org.apache.poi.hssf.usermodel.HSSFHyperlink;
+import org.apache.poi.ss.formula.functions.Hyperlink;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Drawing;
@@ -74,6 +76,8 @@ public class ExcelWriter {
 //            if(!dir.exists() || !dir.isDirectory()) {
 //                dir.mkdir();
 //            }
+            //add image
+            addImage();
 
             File outFile = new File(ed.getNewFileDir(), outFileName);
             OutputStream outputStream = new FileOutputStream(outFile.getAbsolutePath());
@@ -81,8 +85,7 @@ public class ExcelWriter {
             outputStream.flush();
             outputStream.close();
 
-            //add image
-            addImage();
+
 
             return outFile.getAbsolutePath();
 
@@ -106,7 +109,7 @@ public class ExcelWriter {
 
             CreationHelper helper = workbook.getCreationHelper();
             //create sheet
-            HSSFSheet sheet = workbook.getSheetAt(ed.getSeriesNum()+4);
+            Sheet sheet = workbook.createSheet(ed.getSeriesNum()+" image");
 
             // Create the drawing patriarch.  This is the top level container for all shapes.
             Drawing drawing = sheet.createDrawingPatriarch();
@@ -115,12 +118,12 @@ public class ExcelWriter {
             ClientAnchor anchor = helper.createClientAnchor();
             //set top-left corner of the picture,
             //subsequent call of Picture#resize() will operate relative to it
-            anchor.setCol1(3);
-            anchor.setRow1(2);
+            anchor.setCol1(15);
+            anchor.setRow1(15);
             Picture pict = drawing.createPicture(anchor, pictureIdx);
 
             //auto-size picture relative to its top-left corner
-            pict.resize();
+//            pict.resize();
         } catch (Exception e) {
             Log.e("ExcelWriter:",e.getStackTrace().toString());
         }
