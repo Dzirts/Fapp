@@ -9,19 +9,18 @@ android:layout_height="match_parent"
         android:id="@+id/dialog_imageview"
         android:layout_width="147dp"
         android:layout_height="137dp"
+        android:layout_gravity="center_horizontal"
         android:src="@drawable/icon" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Project_Name" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif"
+        android:text="@string/Project_Name_Big"
+        android:textColor="@android:color/background_light"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -33,6 +32,39 @@ android:layout_height="match_parent"
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ver: 1.0" />
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="@string/VersionFull"
+        android:textColor="@android:color/background_light"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="@string/Copyright"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="@string/Rights"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16dp" />
 
 </LinearLayout>

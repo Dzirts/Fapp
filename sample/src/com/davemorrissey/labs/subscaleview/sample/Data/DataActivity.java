@@ -98,7 +98,7 @@ public class DataActivity extends Activity implements OnClickListener {
 
         np.setMinValue(0);
         np.setMaxValue(40);
-        np.setValue(20);
+        np.setValue(30);
         np.setWrapSelectorWheel(false);
 
         np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {

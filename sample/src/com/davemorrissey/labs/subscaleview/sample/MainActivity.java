@@ -109,39 +109,10 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void showAboutDialog(){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("About");
-//
-//// Set up the input
-//        final ImageView iv = new ImageView(this);
-//        iv.setImageResource(R.drawable.icon);
-//
-//        final TextView tv= new TextView(this);
-//        tv.setText("Version: "+ getString(R.string.Version));
-//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//        builder.setView(iv);
-//        builder.setView(tv);
-//
-//// Set up the buttons
-//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-////                m_Text = input.getText().toString();
-//            }
-//        });
-//
-//        builder.show();
-
         AlertDialog.Builder alertadd = new AlertDialog.Builder(this);
         LayoutInflater factory = LayoutInflater.from(this);
         final View view = factory.inflate(R.layout.about, null);
         alertadd.setView(view);
-        alertadd.setNeutralButton("Here!", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dlg, int sumthin) {
-
-            }
-        });
-
         alertadd.show();
     }
 
@@ -153,16 +124,16 @@ public class MainActivity extends Activity implements OnClickListener {
             mediaButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_MEDIA));
             scannedImageView = (ImageView) findViewById(R.id.scannedImage);
 
-//            createDirectories();
-
-            File mPath = new File(Environment.getExternalStorageDirectory() + "/Elbit Mark Target");
+//            File mPath = new File(Environment.getExternalStorageDirectory() + getString(R.string.Project_Name));
+            File mPath = new File(Environment.getExternalStorageDirectory() + "Elbit Mark Target");
             if (!mPath.exists() || !mPath.isDirectory()) {
                 mPath.mkdir();
             }
 
 
             //creating template directory
-            String outputPath = Environment.getExternalStorageDirectory() + "/Elbit Mark Target/Infrastructure";
+//            String outputPath = Environment.getExternalStorageDirectory()+"/"+getString(R.string.Project_Name)+"/"+getString(R.string.Infrastructure);
+            String outputPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure";
             File mInfrastructurePath = new File(outputPath);
             if (!mInfrastructurePath.exists() || !mInfrastructurePath.isDirectory()) {
                 mInfrastructurePath.mkdir();

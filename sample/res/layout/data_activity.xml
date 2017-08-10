@@ -24,14 +24,15 @@
                 android:background="@android:color/holo_blue_light" />
 
             <TextView
-                android:text=""
+                android:id="@+id/scaledHitsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/scaledHitsText"
-                android:gravity="center_horizontal"
                 android:ems="10"
-                android:textAlignment="center" />
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="match_parent"

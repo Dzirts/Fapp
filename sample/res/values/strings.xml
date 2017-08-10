@@ -1,6 +1,17 @@
 <resources>
     <string name="Project_Name">Elbit Mark Target</string>
-    <string name="title_activity_splash">splashActivity</string>
+    <string name="Project_Name_Big">ELBIT MARK TARGET</string>
     <string name="Version">1.0</string>
+    <string name="VersionFull">Version: 1.0</string>
+    <string name="Copyright">Copyright © 2017 by Elbit Systems</string>
+    <string name="Rights">All rights reserved. This Application or any portion thereof
+    may not be reproduced or used in any manner whatsoever
+    without the express written permission of the publisher
+    except for the use of this application.</string>
+    <string name="Infrastructure">Infrastructure</string>
+
+
+
+    <string name="title_activity_splash">splashActivity</string>
 
 </resources>

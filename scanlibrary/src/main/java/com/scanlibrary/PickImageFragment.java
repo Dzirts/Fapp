@@ -163,7 +163,7 @@ public class PickImageFragment extends Fragment {
 
     private Bitmap getBitmap(Uri selectedimg, int SCAN_CONSTANT) throws IOException {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 3;
+//        options.inSampleSize = 3;
         AssetFileDescriptor fileDescriptor = null;
         fileDescriptor =
                 getActivity().getContentResolver().openAssetFileDescriptor(selectedimg, "r");
