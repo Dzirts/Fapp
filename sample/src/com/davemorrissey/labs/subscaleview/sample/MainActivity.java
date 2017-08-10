@@ -1,12 +1,9 @@
 /*
 Copyright 2014 David Morrissey
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-
 http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +14,9 @@ limitations under the License.
 package com.davemorrissey.labs.subscaleview.sample;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
@@ -26,10 +25,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +42,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.sample.R.id;
@@ -49,7 +51,11 @@ import com.scanlibrary.ScanActivity;
 import com.scanlibrary.ScanConstants;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -72,6 +78,11 @@ public class MainActivity extends Activity implements OnClickListener {
     private String FIRE_FILE_TYPE = ".xls"; //".xlsx";
     private String SeriesNum;
     private ArrayList<String> DIRECTORIES = new ArrayList<String>();
+    private boolean bIsNewProject = false;
+    private ArrayList<String> userData;
+    private String m_Text = "";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +108,43 @@ public class MainActivity extends Activity implements OnClickListener {
 
     }
 
+    private void showAboutDialog(){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("About");
+//
+//// Set up the input
+//        final ImageView iv = new ImageView(this);
+//        iv.setImageResource(R.drawable.icon);
+//
+//        final TextView tv= new TextView(this);
+//        tv.setText("Version: "+ getString(R.string.Version));
+//// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+//        builder.setView(iv);
+//        builder.setView(tv);
+//
+//// Set up the buttons
+//        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+////                m_Text = input.getText().toString();
+//            }
+//        });
+//
+//        builder.show();
+
+        AlertDialog.Builder alertadd = new AlertDialog.Builder(this);
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View view = factory.inflate(R.layout.about, null);
+        alertadd.setView(view);
+        alertadd.setNeutralButton("Here!", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dlg, int sumthin) {
+
+            }
+        });
+
+        alertadd.show();
+    }
+
     private void init() {
         try {
             cameraButton = (ImageButton) findViewById(id.btnCamera);
@@ -105,11 +153,30 @@ public class MainActivity extends Activity implements OnClickListener {
             mediaButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_MEDIA));
             scannedImageView = (ImageView) findViewById(R.id.scannedImage);
 
+//            createDirectories();
 
             File mPath = new File(Environment.getExternalStorageDirectory() + "/Elbit Mark Target");
             if (!mPath.exists() || !mPath.isDirectory()) {
                 mPath.mkdir();
             }
+
+
+            //creating template directory
+            String outputPath = Environment.getExternalStorageDirectory() + "/Elbit Mark Target/Infrastructure";
+            File mInfrastructurePath = new File(outputPath);
+            if (!mInfrastructurePath.exists() || !mInfrastructurePath.isDirectory()) {
+                mInfrastructurePath.mkdir();
+                bIsNewProject = true;
+            }
+
+            if (bIsNewProject){
+                copyResources(R.raw.template, "template", outputPath);
+                XmlRW xml = new XmlRW(outputPath+"/template.xml");
+                xml.saveToXML();
+            }
+
+//            userData = new ArrayList<>();
+//            userData =
 
             mFileDialog = new FileDialog(this, mPath, FIRE_FILE_TYPE);
             mFileDialog.addFileListener(new FileDialog.FileSelectedListener() {
@@ -120,9 +187,6 @@ public class MainActivity extends Activity implements OnClickListener {
                     //get project name without path
                     String[] sArr2 = file.toString().split("/");
                     mFileName = sArr2[sArr2.length - 1];
-//                if (!PROJ_NAME.equals("")){
-//                    createDirectories(PROJ_NAME);
-//                }
                     ImageButton imgbtnExcel = (ImageButton) findViewById(id.btnAddExcelFile);
                     imgbtnExcel.setImageResource(R.drawable.add_file_done);
                 }
@@ -133,7 +197,6 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             });
             mFileDialog.setSelectDirectoryOption(false);
-//        mFileDialog.showDialog();
 
             AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
             etProjName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -142,7 +205,7 @@ public class MainActivity extends Activity implements OnClickListener {
                     if (!hasFocus) {
                         EditText editText = (EditText) v;
                         String projName = editText.getText().toString();
-                        setTitleProjName(projName);
+                        createNewProject(projName);
                     }
                 }
             });
@@ -165,6 +228,10 @@ public class MainActivity extends Activity implements OnClickListener {
             ibAddExcelFile.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
+                    String projName = etProjName.getText().toString();
+                    createNewProject(projName);
+
                     mFileDialog.showDialog();
                 }
             });
@@ -185,6 +252,16 @@ public class MainActivity extends Activity implements OnClickListener {
             });
         } catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void createNewProject(String projName) {
+        setTitleProjName(projName);
+        if (!DIRECTORIES.contains(projName)){
+            //create new directory
+            createDirectories(projName);
+            //add template inside
+            copyResources(R.raw.template, projName, mNewFileDir);
         }
     }
 
@@ -314,6 +391,8 @@ public class MainActivity extends Activity implements OnClickListener {
         } else if(id==R.id.action_logout){
             finish();
             return true;
+        } else if (id==R.id.action_about){
+            showAboutDialog();
         }
 
         return super.onOptionsItemSelected(item);
@@ -375,9 +454,35 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
+    public void copyResources(int resId, String filename, String outputPath){
+        Log.i("Test", "Setup::copyResources");
+
+        InputStream in = getResources().openRawResource(resId);
+        String suffix = ".xls";
+        filename += suffix;
+        File f = new File(filename);
+
+        if(!f.exists()){
+            try {
+                OutputStream out = new FileOutputStream(new File(outputPath, filename));
+                byte[] buffer = new byte[1024];
+                int len;
+                while((len = in.read(buffer, 0, buffer.length)) != -1){
+                    out.write(buffer, 0, len);
+                }
+                in.close();
+                out.close();
+            } catch (FileNotFoundException e) {
+                Log.i("Test", "Setup::copyResources - "+e.getMessage());
+            } catch (IOException e) {
+                Log.i("Test", "Setup::copyResources - "+e.getMessage());
+            }
+        }
+    }
 
 
 
 
 
-    }// class ending
+
+}// class ending

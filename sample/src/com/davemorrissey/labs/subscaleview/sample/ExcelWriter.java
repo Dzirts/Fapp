@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 
 public class ExcelWriter {
@@ -62,8 +63,14 @@ public class ExcelWriter {
 
 
             for (int i=START_LINE; i<START_LINE+ed.getHitList().size()-1; i++){
-                double x = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).x));
-                double y = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).y));
+                NumberFormat nf = NumberFormat.getInstance();
+                Number parsedDouble = nf.parse(df.format(ed.getHitList().get(i-START_LINE+1).x));
+                double x =  parsedDouble.doubleValue();
+                parsedDouble = nf.parse(df.format(ed.getHitList().get(i-START_LINE+1).y));
+                double y =  parsedDouble.doubleValue();
+
+//                double x = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).x));
+//                double y = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).y));
                 Row row = sheet.getRow(i);
                 Cell cell = row.getCell(2*ed.getSeriesNum()-1);
                 cell.setCellValue(x);
@@ -111,6 +118,14 @@ public class ExcelWriter {
             //create sheet
             Sheet sheet = workbook.createSheet(ed.getSeriesNum()+" image");
 
+            //set cell in same width and height
+            int measure = 225;
+            sheet.setDefaultRowHeight((short) 100);
+
+            for (int i = 0; i<50; i++){
+                sheet.setColumnWidth(i,measure);
+            }
+
             // Create the drawing patriarch.  This is the top level container for all shapes.
             Drawing drawing = sheet.createDrawingPatriarch();
 
@@ -118,8 +133,8 @@ public class ExcelWriter {
             ClientAnchor anchor = helper.createClientAnchor();
             //set top-left corner of the picture,
             //subsequent call of Picture#resize() will operate relative to it
-            anchor.setCol1(15);
-            anchor.setRow1(15);
+            anchor.setCol1(40);
+            anchor.setRow1(50);
             Picture pict = drawing.createPicture(anchor, pictureIdx);
 
             //auto-size picture relative to its top-left corner

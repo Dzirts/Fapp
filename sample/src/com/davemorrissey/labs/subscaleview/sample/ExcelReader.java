@@ -7,8 +7,8 @@ import android.util.Log;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,18 +22,18 @@ import java.util.List;
 public class ExcelReader {
 
     InputStream mIS;
-    XSSFWorkbook workbook;
-    XSSFSheet sheet;
+    HSSFWorkbook workbook;
+    HSSFSheet sheet;
 
 
-    int START_LINE = 52;
+    int START_LINE = 51;
     int NUM_OF_LINES_TO_FILL = 30;
     int NUM_OF_SERIES_IN_FILE = 20;
 ;
     public ExcelReader(InputStream is){
         mIS = is;
         try{
-            workbook = new XSSFWorkbook(mIS);
+            workbook = new HSSFWorkbook(mIS);
             sheet = workbook.getSheetAt(0);
         } catch (Exception e){
             e.printStackTrace();

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Handler;
 import android.content.Intent;
 import android.view.Window;
+import android.widget.TextView;
 
 
 public class splashActivity extends Activity {
@@ -18,6 +19,8 @@ public class splashActivity extends Activity {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getActionBar().hide();
         setContentView(R.layout.activity_splash);
+        TextView tv =(TextView)findViewById(R.id.textView);
+        tv.setText("Ver: "+ getString(R.string.Version));
 
      /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/

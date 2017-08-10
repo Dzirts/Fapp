@@ -2,85 +2,176 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\libs\aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5.jar"
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\exploded-aar\com.davemorrissey.labs\library\3.6.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
-        sha1="de2f67f598d1aec3ae8072bc50c356dbeacb2c3c">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\aa-poi-ooxml-schemas-3.10-reduced-more-0.1.5_a5546b3cf773cc3d1aa0a2815f21919717d70c47.jar" />
+        sha1="61a3fb3a5dcad71a404c6cfa74318cc576a80e11">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\4\com.davemorrissey.labs-library-3.6.0_00a3c116ac461bbf40102b2f17eafcd3a8f66b1e\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        is-multidex="true"
+        jar="C:\Users\Elbit\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.0-beta4\constraint-layout-solver-1.0.0-beta4.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
-        sha1="023ee503b631f69511e335a061ea008f8da60f40">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\support-annotations-26.0.0-alpha1_6a8afa443ebeb4d581e734a16232c0c958f61616.jar" />
+        sha1="0a9cb567dc008f570c28531720168f19148da965">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.0-beta4_da037e3693376d39f97788dd11a5a68a9d8d70cc\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\exploded-aar\TargetMarkMaster\scanlibrary\unspecified\jars\classes.jar"
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\exploded-aar\com.android.support.constraint\constraint-layout\1.0.0-beta4\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
-        sha1="9fe3e4298c0d475b24fc1f1c55e51605224389f5">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\TargetMarkMaster-scanlibrary-unspecified_7bd22bd99368bc15e7cd4d9eaa4ead62cfbbd5b3.jar" />
+        sha1="662d7533b25a666c649c10a16b42edfb95f25a4f">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support.constraint-constraint-layout-1.0.0-beta4_14171c6f827a969d3e5e87f778d19172b245cfbe\classes.dex" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\libs\aa-poi-3.10-min-0.1.5.jar"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.1.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="23.0.3"
-        sha1="bd5bb1b20e951a6524d5bd7a72e687e389f0aac9">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\aa-poi-3.10-min-0.1.5_c560692d6fcdb515c8d8ead7d41eeeea1a957c81.jar" />
+        revision="24.0.1"
+        sha1="c936c1bd42f0c018c18920c7bec619ef056b24f8">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.1.1_febe4af042b908fe538cf4fdd9adf0410461b540.jar" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\exploded-aar\com.davemorrissey.labs\library\3.6.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="6fb6d5038772808314dbb369a7032ff4edd83c09">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\com.davemorrissey.labs-library-3.6.0_b464d2820ac72e81fd4f33564fc9df493859cdff.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\exploded-aar\rapid.decoder\library\0.3.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="8946841ad5f067fce19c524e02518b944892d704">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\rapid.decoder-library-0.3.0_4775baaa80a5c0b06e6330668416114c2034bc06.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\libs\android-support-v4.jar"
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\android-support-v4.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
         sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\android-support-v4_370470ead2648321b981c5dc8bf575ff42321f61.jar" />
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\android-support-v4_7ed8c29b4c04464a63558c80f57ea0049d2f9b4a\classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\exploded-aar\rapid.decoder\png-decoder\0.3.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="03c1c1013e90bca19941830a74c508682691a0de">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\rapid.decoder-png-decoder-0.3.0_a5089846844e167d471a6f85673dc3e0ad05dd49.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\exploded-aar\rapid.decoder\jpeg-decoder\0.3.0\jars\classes.jar"
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\exploded-aar\rapid.decoder\jpeg-decoder\0.3.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
         sha1="072b7e37f6e7f6ca62b6a0a027dd4cf7bb6ba56e">
-        <dex dex="C:\Users\tc34677\Documents\android2\TargetMarkMaster\sample\build\intermediates\pre-dexed\debug\rapid.decoder-jpeg-decoder-0.3.0_8678a77efa884b6205f6ded87a6e67f6ccc5ade4.jar" />
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\rapid.decoder-jpeg-decoder-0.3.0_2e55d548888d0226eb0116bff3585011a70f8cc0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\exploded-aar\rapid.decoder\library\0.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8946841ad5f067fce19c524e02518b944892d704">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\rapid.decoder-library-0.3.0_51fece07f78cf532127eefc9c2ec5c42cf84799f\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="1256c10604bb098490eab070d76754ac5ceab35c">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.1.1_f3a80c579349051791bdef223912ca05222d2cbb.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\exploded-aar\TargetMaster\scanlibrary\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="3257dd571f0988074948f42869ad63c3f5a9e6bf">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\4\TargetMaster-scanlibrary-unspecified_c8b505603892adb180c6bc81975cb5b4a199af34\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Elbit\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-26.0.0-alpha1_8a21d5ae36ad93ffd247434ab7eb20891c0ea2c6\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Elbit\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\24.1.1\support-annotations-24.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="3af19f153122737b372622fa6c81dd11a1c6b999">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\support-annotations-24.1.1_0e67c03f38799b9a44b816352697e11998fbc502.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="894922f67adeaaef51f077a29e315da21a3382d3">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-24.0.0_39c5a5b80aaaaec13a23545324df67be40f444e8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="6d7d803871e3203465f71a163e7af104f807b446">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.1.1_60fbb0168c80fdfd677c22b1e8899a1ee715be61.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-3.12-android-a.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ef534d94a8aaffb3e09b5602c60a2e5ac7617d0a">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-3.12-android-a_5262f27b41f7ff126b2e1cdb8639acc49d4d4e2c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-ooxml-schemas-3.12-20150511-a.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="7a6b3e092ba41954ccc15649f528920437217832">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-ooxml-schemas-3.12-20150511-a_32e337fa6cc8db4ce1f709d6f0d796e91739f504\classes.dex" />
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-ooxml-schemas-3.12-20150511-a_32e337fa6cc8db4ce1f709d6f0d796e91739f504\classes2.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="f62e763609f65e47dc6c498760a4accf02776788">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.1.1_d23aa4b2be661690a19d0f02b99aa8e3b44087e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\exploded-aar\com.android.support\design\24.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="fc29308a7a8f6d4407b34634eb48fb8b817f9b23">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\com.android.support-design-24.0.0_f37a59ddaca508dc7e6f44dc91eb94530d082dcd.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\exploded-aar\rapid.decoder\png-decoder\0.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="03c1c1013e90bca19941830a74c508682691a0de">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\rapid.decoder-png-decoder-0.3.0_cd8e5772f56db3a8d65516706ef242c55fc1f0b8\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\libs\internal_impl-24.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.1"
+        sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\internal_impl-24.1.1_da9e78976ea8fe7af01bd8d395b81e77889b7970.jar" />
     </item>
 
 </items>
