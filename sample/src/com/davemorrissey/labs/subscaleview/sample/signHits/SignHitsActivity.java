@@ -35,6 +35,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -154,8 +155,34 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             }
         });
 
+        SeekBar sizeSeekBar = (SeekBar)findViewById(id.sizeSeekBar);
+        sizeSeekBar.setMax(800);
+        sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                int size = i+400;
+                updateSignSize(size);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
         buildHitsDialog();
 
+    }
+
+    private void  updateSignSize(int id){
+        pinView.setSize(id);
+        pinView.setPins(hitList);
+        pinView.post(new Runnable() {
+            public void run() {
+                pinView.getRootView().postInvalidate();
+            }
+        });
     }
 
     private void setOnClickListeners() {
@@ -179,6 +206,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         findViewById(id.old_circ_orange).setOnClickListener(this);
         findViewById(id.old_circ_yellow).setOnClickListener(this);
         findViewById(id.old_circ_purple).setOnClickListener(this);
+
+
 
     }
 

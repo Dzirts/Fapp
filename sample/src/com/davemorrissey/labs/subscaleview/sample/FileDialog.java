@@ -3,9 +3,12 @@ package com.davemorrissey.labs.subscaleview.sample;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
@@ -18,6 +21,7 @@ public class FileDialog {
     private final String TAG = getClass().getName();
     private String[] fileList;
     private File currentPath;
+    private Context mContext;
     public interface FileSelectedListener {
         void fileSelected(File file);
     }
@@ -27,6 +31,7 @@ public class FileDialog {
     private ListenerList<FileSelectedListener> fileListenerList = new ListenerList<FileSelectedListener>();
     private ListenerList<DirectorySelectedListener> dirListenerList = new ListenerList<DirectorySelectedListener>();
     private final Activity activity;
+
     private boolean selectDirectoryOption;
     private String fileEndsWith;
 
@@ -34,12 +39,13 @@ public class FileDialog {
      * @param activity
      * @param initialPath
      */
-    public FileDialog(Activity activity, File initialPath) {
-        this(activity, initialPath, null);
+    public FileDialog(Activity activity, File initialPath, Context context) {
+        this(activity, initialPath, null, context);
     }
 
-    public FileDialog(Activity activity, File initialPath, String fileEndsWith) {
+    public FileDialog(Activity activity, File initialPath, String fileEndsWith, Context context) {
         this.activity = activity;
+        mContext = context;
         setFileEndsWith(fileEndsWith);
         if (!initialPath.exists()) initialPath = Environment.getExternalStorageDirectory();
         loadFileList(initialPath);
@@ -48,7 +54,7 @@ public class FileDialog {
     /**
      * @return file dialog
      */
-    public Dialog createFileDialog() {
+    public AlertDialog createFileDialog() {
         Dialog dialog = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
@@ -62,11 +68,27 @@ public class FileDialog {
             });
         }
 
+        builder.setNeutralButton("Create Here New Xls File", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "creating new xls file");
+                int len = fileList.length;
+                String filename = fileList[1].split("\\.")[0];
+                String newFilename = filename+"_"+len;
+                ResorcesCopier rc =  new ResorcesCopier(mContext);
+                rc.copyResources(R.raw.template, newFilename, currentPath.getAbsolutePath(), fileEndsWith);
+                String fileChosen = newFilename+fileEndsWith;
+                File chosenFile =  getChosenFile(fileChosen);
+                fireFileSelectedEvent(chosenFile);
+            }
+        });
+
+
         builder.setItems(fileList, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 String fileChosen = fileList[which];
                 File chosenFile = getChosenFile(fileChosen);
                 if (chosenFile.isDirectory()) {
+
                     loadFileList(chosenFile);
                     dialog.cancel();
                     dialog.dismiss();
@@ -75,8 +97,9 @@ public class FileDialog {
             }
         });
 
-        dialog = builder.show();
-        return dialog;
+
+        AlertDialog alert = builder.create();
+        return alert;
     }
 
 
@@ -104,7 +127,15 @@ public class FileDialog {
      * Show file dialog
      */
     public void showDialog() {
-        createFileDialog().show();
+        AlertDialog alert = createFileDialog();
+        alert.show();
+        setAlertDialogColors(alert);
+    }
+
+    private void setAlertDialogColors(AlertDialog alert) {
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEUTRAL);
+        nbutton.setTextColor(Color.parseColor("#29B6F6"));
+
     }
 
     private void fireFileSelectedEvent(final File file) {

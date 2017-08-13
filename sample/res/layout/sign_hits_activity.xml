@@ -26,32 +26,32 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true">
         <ImageView
-                android:id="@+id/previous"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/buttonstate_transparent"
-                android:visibility="visible"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp"
-                android:src="@drawable/previous"/>
+            android:id="@+id/previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/buttonstate_transparent"
+            android:visibility="visible"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:src="@drawable/previous"/>
 
         <ImageView
-                android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/buttonstate_transparent"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp"
-                android:visibility="invisible"
-                android:src="@drawable/next"/>
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/buttonstate_transparent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:visibility="invisible"
+            android:src="@drawable/next"/>
 
         <ImageView
             android:id="@+id/clearAllPins"
@@ -110,15 +110,15 @@
 
 
         <TextView
-                android:id="@+id/note"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_toLeftOf="@id/mark"
-                android:layout_toRightOf="@id/previous"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:textSize="14sp"
-                android:textColor="#FFFFFF"/>
+            android:id="@+id/note"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_toLeftOf="@id/mark"
+            android:layout_toRightOf="@id/previous"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"/>
 
         <ToggleButton
             android:layout_width="wrap_content"
@@ -255,143 +255,11 @@
 
     <RelativeLayout
         android:id="@+id/colors_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:visibility="invisible">
-
-        <!--RelativeLayout
-            android:id="@+id/oldRL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="34dp"
-            android:layout_marginRight="0dp"
-            android:layout_weight="0.13"
-            android:elevation="1dp"
-            android:paddingRight="0dp">
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/old_circ_red"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/curr_circ_blue"
-                    android:src="@drawable/red_cirle_small" />
-
-                <ImageButton
-                    android:id="@+id/old_circ_orange"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/old_circ_red"
-                    android:src="@drawable/orange_cirle_small" />
-
-                <ImageButton
-                    android:id="@+id/old_circ_purple"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/purple" />
-
-                <ImageButton
-                    android:id="@+id/old_circ_green"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/old_circ_purple"
-                    android:src="@drawable/green_cirle_small" />
-            </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/imageButton7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="115dp"
-                android:adjustViewBounds="false"
-                android:src="@drawable/old_sign" />
-
-        </RelativeLayout-->
-        <LinearLayout
-            android:id="@+id/curr_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/imageButton8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:adjustViewBounds="false"
-                    android:src="@drawable/curr_sign" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/new_circ_light_blue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/circ_light_blue" />
-
-                <ImageButton
-                    android:id="@+id/new_circ_blue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/circ_blue" />
-
-                <ImageButton
-                    android:id="@+id/new_circ_green"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/circ_green" />
-
-                <ImageButton
-                    android:id="@+id/new_circ_orange"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/circ_orange" />
-
-                <ImageButton
-                    android:id="@+id/new_circ_yellow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/circ_yellow" />
-
-                <ImageButton
-                    android:id="@+id/new_circ_purple"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/circ_purple" />
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/old_color"
@@ -419,47 +287,167 @@
 
                 <ImageButton
                     android:id="@+id/old_circ_red"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/circ_red" />
+                    android:src="@drawable/circ_red_s" />
 
                 <ImageButton
                     android:id="@+id/old_circ_bordo"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/circ_bordo" />
+                    android:src="@drawable/circ_bordo_s" />
 
                 <ImageButton
                     android:id="@+id/old_circ_green"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/circ_green" />
+                    android:src="@drawable/circ_green_s" />
 
                 <ImageButton
                     android:id="@+id/old_circ_orange"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/circ_orange" />
+                    android:src="@drawable/circ_orange_s" />
 
                 <ImageButton
                     android:id="@+id/old_circ_yellow"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/circ_yellow" />
+                    android:src="@drawable/circ_yellow_s" />
 
                 <ImageButton
                     android:id="@+id/old_circ_purple"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/circ_purple" />
+                    android:src="@drawable/circ_purple_s" />
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/curr_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/imageButton8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:adjustViewBounds="false"
+                    android:src="@drawable/curr_sign" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/new_circ_light_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/circ_light_blue_s" />
+
+                <ImageButton
+                    android:id="@+id/new_circ_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/circ_blue_s" />
+
+                <ImageButton
+                    android:id="@+id/new_circ_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/circ_green_s" />
+
+                <ImageButton
+                    android:id="@+id/new_circ_orange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/circ_orange_s" />
+
+                <ImageButton
+                    android:id="@+id/new_circ_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/circ_yellow_s" />
+
+                <ImageButton
+                    android:id="@+id/new_circ_purple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/circ_purple_s" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            android:paddingTop="3dp">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="128dp"
+                android:layout_height="105dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="121dp"
+                android:background="?android:attr/colorButtonNormal"
+                android:src="@drawable/large_circle" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02" />
+
+            <SeekBar
+                android:id="@+id/sizeSeekBar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="?android:attr/colorButtonNormal" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="121dp"
+                android:layout_height="105dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="97dp"
+                android:background="?android:attr/colorButtonNormal"
+                android:src="@drawable/small_circle" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

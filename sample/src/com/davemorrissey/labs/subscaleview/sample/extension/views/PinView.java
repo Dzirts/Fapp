@@ -40,6 +40,8 @@ public class PinView extends SubsamplingScaleImageView {
     private int nNewColor = drawable.circ_light_blue;
     private int nOldColor = drawable.circ_bordo;
     private HashMap<Integer, Integer> mColorsHash;
+    private float fSize = 600f;
+
 
     public PinView(Context context) {
         this(context, null);
@@ -96,6 +98,10 @@ public class PinView extends SubsamplingScaleImageView {
         invalidate();
     }
 
+    public void setSize(int id) {
+        fSize = (float)id;
+    }
+
     public PointF getPin() {
         return sPin;
     }
@@ -136,13 +142,13 @@ public class PinView extends SubsamplingScaleImageView {
                     break;
                 case "newHit":
                     bmpPin = BitmapFactory.decodeResource(this.getResources(), nNewColor);
-                    w = (density / 600f) * bmpPin.getWidth();
-                    h = (density / 600f) * bmpPin.getHeight();
+                    w = (density / fSize) * bmpPin.getWidth();
+                    h = (density / fSize) * bmpPin.getHeight();
                     break;
                 case "oldHit":
                     bmpPin = BitmapFactory.decodeResource(this.getResources(), nOldColor);
-                    w = (density / 600f) * bmpPin.getWidth();
-                    h = (density / 600f) * bmpPin.getHeight();
+                    w = (density / fSize) * bmpPin.getWidth();
+                    h = (density / fSize) * bmpPin.getHeight();
                     break;
             }
 

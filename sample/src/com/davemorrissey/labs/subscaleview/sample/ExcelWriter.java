@@ -68,9 +68,6 @@ public class ExcelWriter {
                 double x =  parsedDouble.doubleValue();
                 parsedDouble = nf.parse(df.format(ed.getHitList().get(i-START_LINE+1).y));
                 double y =  parsedDouble.doubleValue();
-
-//                double x = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).x));
-//                double y = Double.parseDouble(df.format(ed.getHitList().get(i-START_LINE+1).y));
                 Row row = sheet.getRow(i);
                 Cell cell = row.getCell(2*ed.getSeriesNum()-1);
                 cell.setCellValue(x);
@@ -78,12 +75,7 @@ public class ExcelWriter {
                 cell.setCellValue(y);
             }
             String outFileName = ed.getFileName();
-//            File Dir = ed.getDirectory();
-//            File dir = new File(Dir + "/"+ ed.getProjectName());
-//            if(!dir.exists() || !dir.isDirectory()) {
-//                dir.mkdir();
-//            }
-            //add image
+
             addImage();
 
             File outFile = new File(ed.getNewFileDir(), outFileName);

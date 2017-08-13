@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private String mNewFileDir = "";
     private String mFileName = "";
     private String PROJ_NAME = "";
-    private String FIRE_FILE_TYPE = ".xls"; //".xlsx";
+    private String FIRE_FILE_TYPE = ".xls";
     private String SeriesNum;
     private ArrayList<String> DIRECTORIES = new ArrayList<String>();
     private boolean bIsNewProject = false;
@@ -125,7 +125,7 @@ public class MainActivity extends Activity implements OnClickListener {
             scannedImageView = (ImageView) findViewById(R.id.scannedImage);
 
 //            File mPath = new File(Environment.getExternalStorageDirectory() + getString(R.string.Project_Name));
-            File mPath = new File(Environment.getExternalStorageDirectory() + "Elbit Mark Target");
+            File mPath = new File(Environment.getExternalStorageDirectory() + "/Elbit Mark Target");
             if (!mPath.exists() || !mPath.isDirectory()) {
                 mPath.mkdir();
             }
@@ -141,7 +141,9 @@ public class MainActivity extends Activity implements OnClickListener {
             }
 
             if (bIsNewProject){
-                copyResources(R.raw.template, "template", outputPath);
+                ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
+                rc.copyResources(R.raw.template, "template", outputPath, ".xls");
+//                copyResources(R.raw.template, "template", outputPath);
                 XmlRW xml = new XmlRW(outputPath+"/template.xml");
                 xml.saveToXML();
             }
@@ -149,7 +151,7 @@ public class MainActivity extends Activity implements OnClickListener {
 //            userData = new ArrayList<>();
 //            userData =
 
-            mFileDialog = new FileDialog(this, mPath, FIRE_FILE_TYPE);
+            mFileDialog = new FileDialog(this, mPath, FIRE_FILE_TYPE, getApplicationContext());
             mFileDialog.addFileListener(new FileDialog.FileSelectedListener() {
                 public void fileSelected(File file) {
                     Log.d(getClass().getName(), "selected file " + file.toString());
@@ -232,7 +234,9 @@ public class MainActivity extends Activity implements OnClickListener {
             //create new directory
             createDirectories(projName);
             //add template inside
-            copyResources(R.raw.template, projName, mNewFileDir);
+            ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
+            rc.copyResources(R.raw.template, projName, mNewFileDir, ".xls");
+//            copyResources(R.raw.template, projName, mNewFileDir);
         }
     }
 
@@ -425,31 +429,7 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
-    public void copyResources(int resId, String filename, String outputPath){
-        Log.i("Test", "Setup::copyResources");
 
-        InputStream in = getResources().openRawResource(resId);
-        String suffix = ".xls";
-        filename += suffix;
-        File f = new File(filename);
-
-        if(!f.exists()){
-            try {
-                OutputStream out = new FileOutputStream(new File(outputPath, filename));
-                byte[] buffer = new byte[1024];
-                int len;
-                while((len = in.read(buffer, 0, buffer.length)) != -1){
-                    out.write(buffer, 0, len);
-                }
-                in.close();
-                out.close();
-            } catch (FileNotFoundException e) {
-                Log.i("Test", "Setup::copyResources - "+e.getMessage());
-            } catch (IOException e) {
-                Log.i("Test", "Setup::copyResources - "+e.getMessage());
-            }
-        }
-    }
 
 
 
