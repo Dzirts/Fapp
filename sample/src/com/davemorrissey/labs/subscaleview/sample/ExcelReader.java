@@ -18,6 +18,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
+
 
 public class ExcelReader {
 
@@ -46,10 +48,14 @@ public class ExcelReader {
         try{
             for (int k=START_LINE; k<START_LINE+NUM_OF_LINES_TO_FILL; k++){
                 Row row = sheet.getRow(k);
-                float cell_x = (float)row.getCell(2*i-1).getNumericCellValue();
-                float cell_y = (float)row.getCell(2*i).getNumericCellValue();
-                PointF pf = new PointF(cell_x,cell_y);
-                colHits.add(pf);
+                if (row.getCell(2*i-1).getCellType() == CELL_TYPE_NUMERIC){
+                    float cell_x = (float)row.getCell(2*i-1).getNumericCellValue();
+                    float cell_y = (float)row.getCell(2*i).getNumericCellValue();
+                    PointF pf = new PointF(cell_x,cell_y);
+                    colHits.add(pf);
+                } else {
+                    break;
+                }
             }
         } catch (Exception e){
             Log.d("ExcelReader", e.toString());

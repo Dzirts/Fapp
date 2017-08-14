@@ -1,5 +1,7 @@
 package com.davemorrissey.labs.subscaleview.sample;
 
+import android.util.Log;
+
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
@@ -9,7 +11,9 @@ import org.w3c.dom.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Elbit on 8/10/2017.
@@ -17,28 +21,31 @@ import java.util.ArrayList;
 
 public class XmlRW {
 
-    private String sProjectName;
-    private String sSeries;
-    private String sXlsPath;
-    private String mXml;
-    private ArrayList<String> DataV;
+    private static final String TAG = "XmlRW";
 
-    XmlRW(String xml, String projectName, String series,  String xlsPath){
-        sProjectName = projectName;
-        sSeries = series;
-        sXlsPath = xlsPath;
-        mXml = xml;
+    private String sProjectName = "";
+    private String sSeries = "";
+    private String sXlsPath = "";
+    private String sXlsName = "";
+    private String sXlsDir = "";
+    private String mXml;
+    private HashMap<String, String> DataV;
+
+    XmlRW(String xml, HashMap<String, String> args){
+        sProjectName = args.get("ProjectName");       //projectName
+        sSeries      = args.get("Series");                 //series;
+        sXlsPath     = args.get("XlsPath");               //xlsPath;
+        sXlsName     = args.get("XlsName");
+        sXlsDir      = args.get("XlsDir");
+        mXml         = xml;
     }
 
     XmlRW(String xml){
-        sProjectName = "";
-        sSeries = "";
-        sXlsPath = "";
         mXml = xml;
     }
 
-    public  ArrayList<String> readXML() {
-        DataV = new ArrayList<String>();
+    public  HashMap<String, String> readXML() {
+        DataV = new HashMap<String, String>();
         Document dom = null;
         // Make an  instance of the DocumentBuilderFactory
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -48,27 +55,37 @@ public class XmlRW {
             // parse using the builder to get the DOM mapping of the
             // XML file
             try {
-                dom = db.parse(mXml);
+                dom = db.parse(new InputSource(new StringReader(mXml)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             Element doc = dom.getDocumentElement();
 
-            sProjectName = getTextValue(sProjectName, doc, "sProjectName");
+            sProjectName = getTextValue(sProjectName, doc, "ProjectName");
             if (sProjectName != null) {
                 if (!sProjectName.isEmpty())
-                    DataV.add(sProjectName);
+                    DataV.put("ProjectName",sProjectName);
             }
-            sSeries = getTextValue(sSeries, doc, "sSeries");
+            sSeries = getTextValue(sSeries, doc, "Series");
             if (sSeries != null) {
                 if (!sSeries.isEmpty())
-                    DataV.add(sSeries);
+                    DataV.put("Series", sSeries);
             }
-            sXlsPath = getTextValue(sXlsPath, doc, "sXlsPath");
+            sXlsPath = getTextValue(sXlsPath, doc, "XlsPath");
             if (sXlsPath != null) {
                 if (!sXlsPath.isEmpty())
-                    DataV.add(sXlsPath);
+                    DataV.put("XlsPath",sXlsPath);
+            }
+            sXlsName = getTextValue(sXlsName, doc, "XlsName");
+            if (sXlsName != null) {
+                if (!sXlsName.isEmpty())
+                    DataV.put("XlsName",sXlsName);
+            }
+            sXlsDir = getTextValue(sXlsDir, doc, "XlsDir");
+            if (sXlsDir != null) {
+                if (!sXlsDir.isEmpty())
+                    DataV.put("XlsDir",sXlsDir);
             }
             return DataV;
 
@@ -99,17 +116,30 @@ public class XmlRW {
             Element rootEle = dom.createElement("Data");
 
             // create data elements and place them under root
-            e = dom.createElement("sProjectName");
-            e.appendChild(dom.createTextNode(sProjectName));
-            rootEle.appendChild(e);
+            try{
+                e = dom.createElement("ProjectName");
+                e.appendChild(dom.createTextNode(sProjectName));
+                rootEle.appendChild(e);
 
-            e = dom.createElement("sSeries");
-            e.appendChild(dom.createTextNode(sSeries));
-            rootEle.appendChild(e);
+                e = dom.createElement("Series");
+                e.appendChild(dom.createTextNode(sSeries));
+                rootEle.appendChild(e);
 
-            e = dom.createElement("sXlsPath");
-            e.appendChild(dom.createTextNode(sXlsPath));
-            rootEle.appendChild(e);
+                e = dom.createElement("XlsPath");
+                e.appendChild(dom.createTextNode(sXlsPath));
+                rootEle.appendChild(e);
+
+                e = dom.createElement("XlsName");
+                e.appendChild(dom.createTextNode(sXlsName));
+                rootEle.appendChild(e);
+
+                e = dom.createElement("XlsDir");
+                e.appendChild(dom.createTextNode(sXlsDir));
+                rootEle.appendChild(e);
+            } catch (Exception err){
+                Log.e(TAG, err.getStackTrace().toString());
+            }
+
 
 
             dom.appendChild(rootEle);
@@ -145,4 +175,6 @@ public class XmlRW {
         }
         return value;
     }
+
+
 }

@@ -31,18 +31,18 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.davemorrissey.labs.subscaleview.sample.ExcelReader;
+import com.davemorrissey.labs.subscaleview.sample.R;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.Data.DataActivity;
@@ -69,7 +69,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private String seriesNumber;
     private String filePath;
     private String fileDir;
-    private String newFileDir;
     private String fileName;
     private String mImagePath;
     public  ExcelReader er;
@@ -100,8 +99,23 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ArrayList<ArrayList<PointF>> prevHitList = new ArrayList<ArrayList<PointF>>();
     private ArrayList<Integer> indexList = new ArrayList<Integer>();
 
+    private ImageView ivHitImg;
+    private ImageView ivDeleteImg;
+    private ImageView ivColorsImg;
+    private ImageView ivShowAllHitsImg;
+    private ImageView ivCenterDone;
+    private ImageView ivNext;
 
+    private SeekBar sizeSeekBar;
+
+    private enum ButtonChecked {HIT, DELETE} ;
     private enum markMode {MARK_CENTER, MARK_HITS};
+    private enum ButtonState {ON, OFF};
+
+
+    private ButtonState colorBtnState = ButtonState.OFF;
+    private ButtonState showAllBtnState = ButtonState.OFF;
+    private ButtonChecked buttonChecked = ButtonChecked.HIT;
     private markMode MarkMode = markMode.MARK_CENTER;
 
     @Override
@@ -111,51 +125,71 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         setContentView(layout.sign_hits_activity);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setOnClickListeners();
-
-
+        InitButtuns();
+        initArrays();
+        initialiseImage();
+        InitSeekBar();
+        buildHitsDialog();
+        notes = Arrays.asList(
+                new Note("", ""),
+                new Note("", ""),
+                new Note("", ""),
+                new Note("", "")
+        );
         if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_POSITION)) {
             position = savedInstanceState.getInt(BUNDLE_POSITION);
         }
-        notes = Arrays.asList(
-                new Note("", "Tap the play button. The image will scale and zoom to a random point, shown by a marker."),
-                new Note("Limited pan", "If the target point is near the edge of the image, it will be moved as near to the center as possible."),
-                new Note("Unlimited pan", "With unlimited or center-limited pan, the target point can always be animated to the center."),
-                new Note("Customisation", "Duration and easing are configurable. You can also make animations non-interruptible.")
-        );
-        pinView= (PinView)(findViewById(id.imageView));
-        CenterPins= new ArrayList<PointF>();
-        scaledMapPins = new ArrayList<PointF>();
-        CenterPins.add(new PointF(0,0));
-//        CenterPins.add(new PointF(-1,-1));  //fake value for later
-        initialiseImage();
         updateNotes(0);
+
 
 //        Toast.makeText(this, "rotate the target, then click on the pen and mark the target's center. when you finish click done",Toast.LENGTH_LONG).show();
 
 
+//        ivHitImg.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (buttonChecked == ButtonChecked.DELETE){
+//                    centerSelected = true;
+//                    ivHitImg.setImageResource(R.drawable.hit_green);
+//                    ivDeleteImg.setImageResource(R.drawable.bin_transparent);
+//                }
+//            }
+//        });
+//        ToggleButton markHit = (ToggleButton) findViewById(id.markHit);
+//        markHit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    centerSelected = true;
+//                    ToggleButton deleteHit = (ToggleButton) findViewById(id.deleteHit);
+//                    deleteHit.setChecked(false);
+//                }
+//            }
+////        });
+//        ivDeleteImg.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (buttonChecked == ButtonChecked.DELETE){
+//                    ivHitImg.setImageResource(R.drawable.hit_transparent);
+//                    ivDeleteImg.setImageResource(R.drawable.bin_red);
+//                }
+//            }
+//        });
+//        ToggleButton deleteHit = (ToggleButton) findViewById(id.deleteHit);
+//        deleteHit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    ToggleButton markHit = (ToggleButton) findViewById(id.markHit);
+//                    markHit.setChecked(false);
+//                }
+//            }
+//        });
 
-        ToggleButton markHit = (ToggleButton) findViewById(id.markHit);
-        markHit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    centerSelected = true;
-                    ToggleButton deleteHit = (ToggleButton) findViewById(id.deleteHit);
-                    deleteHit.setChecked(false);
-                }
-            }
-        });
 
-        ToggleButton deleteHit = (ToggleButton) findViewById(id.deleteHit);
-        deleteHit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    ToggleButton markHit = (ToggleButton) findViewById(id.markHit);
-                    markHit.setChecked(false);
-                }
-            }
-        });
 
-        SeekBar sizeSeekBar = (SeekBar)findViewById(id.sizeSeekBar);
+
+    }
+
+    private void InitSeekBar() {
         sizeSeekBar.setMax(800);
         sizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -170,8 +204,24 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+    }
 
-        buildHitsDialog();
+    private void initArrays() {
+        CenterPins= new ArrayList<PointF>();
+        scaledMapPins = new ArrayList<PointF>();
+        CenterPins.add(new PointF(0,0));
+    }
+
+    private void InitButtuns() {
+        ivHitImg = (ImageView) findViewById(id.hitImg);
+        ivDeleteImg = (ImageView) findViewById(id.delImg);
+        ivColorsImg = (ImageView) findViewById(id.colors_btn);
+        ivShowAllHitsImg = (ImageView) findViewById(id.ShowAllHits);
+        ivCenterDone= (ImageView) findViewById(id.centerDoneBtn);
+        ivNext= (ImageView) findViewById(id.next);
+        pinView= (PinView)(findViewById(id.imageView));
+        sizeSeekBar = (SeekBar)findViewById(id.sizeSeekBar);
+
 
     }
 
@@ -189,6 +239,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         findViewById(id.next).setOnClickListener(this);
         findViewById(id.previous).setOnClickListener(this);
         findViewById(id.ShowAllHits).setOnClickListener(this);
+        findViewById(id.delImg).setOnClickListener(this);
+        findViewById(id.hitImg).setOnClickListener(this);
         findViewById(id.setCenter).setOnClickListener(this);
         findViewById(id.centerDoneBtn).setOnClickListener(this);
         findViewById(id.colors_btn).setOnClickListener(this);
@@ -206,9 +258,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         findViewById(id.old_circ_orange).setOnClickListener(this);
         findViewById(id.old_circ_yellow).setOnClickListener(this);
         findViewById(id.old_circ_purple).setOnClickListener(this);
-
-
-
     }
 
     @Override
@@ -324,23 +373,25 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             intent.putExtra("projectName" ,projectName);
             intent.putExtra("seriesNumber" ,seriesNumber);
             intent.putExtra("filePath" ,filePath);
-            intent.putExtra("newFileDir" ,newFileDir);
             intent.putExtra("fileName" ,fileName);
             intent.putExtra("imagePath" ,mImagePath);
-
+            intent.putExtra("fileDir", fileDir);
             startActivity(intent);
 
         } else if (view.getId() == id.colors_btn) {
             RelativeLayout rl = (RelativeLayout) findViewById(id.colors_layout);
             if (rl.getVisibility() == View.VISIBLE) {
+                ivColorsImg.setImageResource(R.drawable.brush_transparent);
                 rl.setVisibility(View.INVISIBLE);
             } else {
+                ivColorsImg.setImageResource(R.drawable.brush_blue);
                 rl.setVisibility(View.VISIBLE);
             }
 
         } else if (view.getId() == id.ShowAllHits) {
             // TODO: insert into function
             addPrevHitsDialog.show();
+            ivShowAllHitsImg.setImageResource(R.drawable.star);
         } else if (view.getId() == id.setCenter) {
             centerSelected = true;
         } else if (view.getId() == id.centerDoneBtn) {
@@ -353,14 +404,13 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             if (!centerAttached){return;}
             updateNotes(0);
             doneRotateAndCenter = true;
-            findViewById(id.ShowAllHits).setVisibility(View.VISIBLE);
-            findViewById(id.setCenter).setVisibility(View.INVISIBLE);
-            findViewById(id.centerDoneBtn).setVisibility(View.INVISIBLE);
-            findViewById(id.next).setVisibility(View.VISIBLE);
-            findViewById(id.markHit).setVisibility(View.VISIBLE);
-            findViewById(id.markHit).performClick();
-            findViewById(id.deleteHit).setVisibility(View.VISIBLE);
-            findViewById(id.colors_btn).setVisibility(View.VISIBLE);
+            ivCenterDone.setVisibility(View.INVISIBLE);
+            ivNext.setVisibility(View.VISIBLE);
+            ivHitImg.setVisibility(View.VISIBLE);
+            ivDeleteImg.setVisibility(View.VISIBLE);
+            ivColorsImg.setVisibility(View.VISIBLE);
+            ivShowAllHitsImg.setVisibility(View.VISIBLE);
+
 
             Toast.makeText(this, "mark the hits over the target, you can find the average and clear all marks, when finish click done button",
                     Toast.LENGTH_LONG).show();
@@ -372,6 +422,15 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                 view.getId() == id.old_circ_green || view.getId() == id.old_circ_orange ||
                 view.getId() == id.old_circ_yellow || view.getId() == id.old_circ_purple) {
             updateColors(view.getId(), "old");
+        } else if (view.getId() == id.hitImg){
+            buttonChecked = ButtonChecked.HIT;
+            centerSelected = true;
+                ivHitImg.setImageResource(R.drawable.hit_green);
+                ivDeleteImg.setImageResource(R.drawable.bin_transparent);
+        } else if (view.getId() == id.delImg){
+            buttonChecked = ButtonChecked.DELETE;
+            ivHitImg.setImageResource(R.drawable.hit_transparent);
+            ivDeleteImg.setImageResource(R.drawable.bin_red);
         }
 
     }
@@ -399,7 +458,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         er = new ExcelReader(stream);
         indexList = er.getAllFilledInCols();
         //reading all previus hits on activity create
-        //prevHitList =  er.getAllHitsByIndexes(indexList);
         createBuilder();
         addPrevHitsDialog = builder.create();
     }
@@ -415,10 +473,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                ToggleButton markHit =   (ToggleButton) findViewById(id.markHit);
-                ToggleButton deleteHit = (ToggleButton) findViewById(id.deleteHit);
 //                here we on mark mode
-                if (imageView.isReady() && ( MarkMode==markMode.MARK_HITS && markHit.isChecked() ||
+                if (imageView.isReady() && ( MarkMode==markMode.MARK_HITS && (buttonChecked == ButtonChecked.HIT) || //markHit.isChecked()
                                         MarkMode==markMode.MARK_CENTER )) {
                     PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
                     if (MarkMode==markMode.MARK_CENTER){
@@ -450,7 +506,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                         }
                     });
                     centerAttached =true;
-                } else if(imageView.isReady() && deleteHit.isChecked()){
+                } else if(imageView.isReady() && (buttonChecked == ButtonChecked.DELETE)){
                     // in case we want to delete points
                     if (pinsCounter == 0){ return true;}
                     PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
@@ -477,8 +533,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         projectName  = intent.getStringExtra("projName");
         seriesNumber = intent.getStringExtra("seriesNum");
         filePath = intent.getStringExtra("filePath");
-        fileDir = intent.getStringExtra("fileDir");
-        newFileDir = intent.getStringExtra("newFileDirStr");
+        fileDir = intent.getStringExtra("fileDirStr");
         fileName = intent.getStringExtra("fileName");
 
 
@@ -598,7 +653,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         try {
             // image naming and path  to include sd card  appending name you choose for file
 //            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-            mImagePath = newFileDir + "/" + projectName +"_Ser_"+seriesNumber+"_"+ now + ".jpg";
+            mImagePath = fileDir + "/" + projectName +"_Ser_"+seriesNumber+"_"+ now + ".jpg";
             Toast.makeText(SignHitsActivity.this, "pic saved in" + mImagePath, Toast.LENGTH_LONG).show();
             RelativeLayout v1 =(RelativeLayout)findViewById(id.rl);
             // create bitmap screen capture

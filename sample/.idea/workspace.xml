@@ -11,63 +11,28 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50b0f07c-76bb-4c18-a5a7-03651384cd88" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ResorcesCopier.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/aa_poi_3_10_min_0_1_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/aa_poi_ooxml_schemas_3_10_reduced_more_0_1_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/android_support_v4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/animated_vector_drawable_24_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/appcompat_v7_24_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/constraint_layout_1_0_0_beta4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/constraint_layout_solver_1_0_0_beta4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/design_24_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/jpeg_decoder_0_3_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/library_0_3_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/multidex_1_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/multidex_instrumentation_1_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/png_decoder_0_3_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/recyclerview_v7_24_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/support_annotations_24_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/support_annotations_25_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/support_annotations_26_0_0_alpha1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/support_v4_24_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../.idea/libraries/support_vector_drawable_24_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-nodpi/curr_sign_.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-nodpi/old_sign_.png" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Shop.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/brush.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_library_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_sample_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/../.gradle/2.14.1/tasks/_scanlibrary_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable-nodpi/curr_sign.png" afterPath="$PROJECT_DIR$/res/drawable-nodpi/curr_sign.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable-nodpi/old_sign.png" afterPath="$PROJECT_DIR$/res/drawable-nodpi/old_sign.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/star.png" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/star.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/sign_hits_activity.xml" afterPath="$PROJECT_DIR$/res/layout/sign_hits_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/FileDialog.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/FileDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/extension/views/PinView.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/extension/views/PinView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java" afterPath="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java" />
     </list>
     <ignored path="sample.iws" />
@@ -106,7 +71,7 @@
       <file leaf-file-name="ExcelWriter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
+            <state relative-caret-position="874">
               <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -115,37 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExcelData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-              <folding>
-                <element signature="e#1308#1309#0" expanded="true" />
-                <element signature="e#1342#1343#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="data_activity.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/data_activity.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DataActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,30 +93,101 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-666">
-              <caret line="77" column="19" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
+            <state relative-caret-position="150">
+              <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2763#2771#0" expanded="true" />
-                <element signature="e#5986#6641#0" expanded="true" />
-                <element signature="e#6640#6641#0" expanded="true" />
-                <element signature="e#6689#6918#0" expanded="true" />
-                <element signature="e#6917#6918#0" expanded="true" />
-                <element signature="e#7125#7529#0" expanded="true" />
-                <element signature="e#7528#7529#0" expanded="true" />
-                <element signature="e#7649#8240#0" expanded="true" />
-                <element signature="e#8239#8240#0" expanded="true" />
-                <element signature="e#8379#8781#0" expanded="true" />
-                <element signature="e#8780#8781#0" expanded="true" />
-                <element signature="e#8901#8909#0" expanded="true" />
-                <element signature="e#9202#9374#0" expanded="true" />
-                <element signature="e#9373#9374#0" expanded="true" />
-                <element signature="e#10106#10107#0" expanded="true" />
-                <element signature="e#10158#10159#0" expanded="true" />
-                <element signature="e#10269#10270#0" expanded="true" />
-                <element signature="e#10314#10315#0" expanded="true" />
-                <element signature="e#14230#14231#0" expanded="true" />
-                <element signature="e#14266#14267#0" expanded="true" />
+                <element signature="e#2427#2435#0" expanded="true" />
+                <element signature="e#5579#6231#0" expanded="true" />
+                <element signature="e#6230#6231#0" expanded="true" />
+                <element signature="e#6279#6508#0" expanded="true" />
+                <element signature="e#6507#6508#0" expanded="true" />
+                <element signature="e#6715#7119#0" expanded="true" />
+                <element signature="e#7118#7119#0" expanded="true" />
+                <element signature="e#7239#7830#0" expanded="true" />
+                <element signature="e#7829#7830#0" expanded="true" />
+                <element signature="e#7969#8371#0" expanded="true" />
+                <element signature="e#8370#8371#0" expanded="true" />
+                <element signature="e#8491#8499#0" expanded="true" />
+                <element signature="e#8792#8964#0" expanded="true" />
+                <element signature="e#8963#8964#0" expanded="true" />
+                <element signature="e#9763#9764#0" expanded="true" />
+                <element signature="e#9815#9816#0" expanded="true" />
+                <element signature="e#9926#9927#0" expanded="true" />
+                <element signature="e#9971#9972#0" expanded="true" />
+                <element signature="e#13654#13670#0" expanded="true" />
+                <element signature="e#14171#14187#0" expanded="true" />
+                <element signature="e#15046#15047#0" expanded="true" />
+                <element signature="e#15082#15083#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Shop.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Shop.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <folding>
+                <element signature="e#386#387#0" expanded="true" />
+                <element signature="e#414#415#0" expanded="true" />
+                <element signature="e#453#454#0" expanded="true" />
+                <element signature="e#485#486#0" expanded="true" />
+                <element signature="e#531#532#0" expanded="true" />
+                <element signature="e#569#570#0" expanded="true" />
+                <element signature="e#594#595#0" expanded="true" />
+                <element signature="e#619#620#0" expanded="true" />
+                <element signature="e#652#653#0" expanded="true" />
+                <element signature="e#682#683#0" expanded="true" />
+                <element signature="e#712#713#0" expanded="true" />
+                <element signature="e#739#740#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XmlRW.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1571">
+              <caret line="150" column="56" selection-start-line="150" selection-start-column="37" selection-end-line="150" selection-end-column="56" />
+              <folding>
+                <element signature="e#1154#1155#0" expanded="true" />
+                <element signature="e#1180#1181#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JavaCameraView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../scanlibrary/src/main/jni/sdk/java/src/org/opencv/android/JavaCameraView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="31" column="37" selection-start-line="31" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1935#1936#0" expanded="false" />
+                <element signature="e#1975#1976#0" expanded="false" />
+                <element signature="e#2041#2042#0" expanded="false" />
+                <element signature="e#2078#2079#0" expanded="false" />
+                <element signature="e#11760#11761#0" expanded="false" />
+                <element signature="e#11834#11835#0" expanded="false" />
+                <element signature="e#12263#12264#0" expanded="false" />
+                <element signature="e#12302#12303#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -186,38 +196,28 @@
       <file leaf-file-name="SignHitsActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="170" column="62" selection-start-line="170" selection-start-column="62" selection-end-line="170" selection-end-column="62" />
-              <folding>
-                <element signature="e#6743#6871#0" expanded="true" />
-                <element signature="e#6870#6871#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PinView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/extension/views/PinView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="150" column="40" selection-start-line="150" selection-start-column="40" selection-end-line="150" selection-end-column="40" />
-              <folding>
-                <element signature="e#3286#3287#0" expanded="true" />
-                <element signature="e#3319#3320#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResorcesCopier.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ResorcesCopier.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="235">
+              <caret line="372" column="45" selection-start-line="372" selection-start-column="45" selection-end-line="372" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#465#466#0" expanded="true" />
-                <element signature="e#499#500#0" expanded="true" />
+                <element signature="e#3377#3386#0" expanded="true" />
+                <element signature="e#8180#8308#0" expanded="true" />
+                <element signature="e#8307#8308#0" expanded="true" />
+                <marker date="1502708405245" expanded="false" signature="18682:18816" ph="(SimpleOnGestureListener) onSingleTapConfirmed(e) → {" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExcelReader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1989#1998#0" expanded="true" />
+                <element signature="e#2711#2730#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -226,8 +226,8 @@
       <file leaf-file-name="FileDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/FileDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-850">
-              <caret line="45" column="21" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="21" />
+            <state relative-caret-position="160">
+              <caret line="74" column="43" selection-start-line="74" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding>
                 <element signature="e#2087#2347#0" expanded="true" />
                 <element signature="e#2346#2347#0" expanded="true" />
@@ -237,19 +237,6 @@
                 <element signature="e#5033#5034#0" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sign_hits_activity.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/res/layout/sign_hits_activity.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="-3443">
-              <caret line="255" column="4" selection-start-line="255" selection-start-column="4" selection-end-line="255" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
@@ -4368,25 +4355,26 @@
       <list>
         <option value="$PROJECT_DIR$/../app/build.gradle" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java" />
-        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java" />
         <option value="$PROJECT_DIR$/res/layout/main.xml" />
         <option value="$PROJECT_DIR$/res/menu/target_menu.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_splash.xml" />
         <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/splashActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/about.xml" />
-        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/data_activity.xml" />
         <option value="$PROJECT_DIR$/../scanlibrary/src/main/java/com/scanlibrary/PickImageFragment.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java" />
         <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ResorcesCopy.java" />
         <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ResorcesCopier.java" />
-        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/FileDialog.java" />
-        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java" />
         <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/extension/views/PinView.java" />
         <option value="$PROJECT_DIR$/res/layout/sign_hits_activity.xml" />
+        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java" />
+        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java" />
+        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/SqlRW.java" />
       </list>
     </option>
   </component>
@@ -4438,38 +4426,6 @@
               <option name="myItemId" value="sample" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TargetMaster" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TargetMaster" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -4487,98 +4443,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="sample" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TargetMaster" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="signHits" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TargetMaster" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TargetMaster" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TargetMaster" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sample" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -4981,7 +4845,7 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295838" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33633295" sideWeight="0.4200644" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33633295" sideWeight="0.4200644" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -5002,7 +4866,7 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39932507" sideWeight="0.54613733" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39932507" sideWeight="0.54613733" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -5064,135 +4928,264 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java</url>
           <line>93</line>
           <properties />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java</url>
           <line>167</line>
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java</url>
-          <line>226</line>
+          <line>220</line>
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java</url>
           <line>134</line>
           <properties />
           <option name="timeStamp" value="34" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java</url>
           <line>43</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java</url>
           <line>132</line>
           <properties />
           <option name="timeStamp" value="38" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java</url>
           <line>78</line>
           <properties />
           <option name="timeStamp" value="39" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java</url>
           <line>80</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java</url>
           <line>112</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java</url>
-          <line>54</line>
+          <line>60</line>
           <properties />
           <option name="timeStamp" value="42" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java</url>
-          <line>318</line>
+          <line>367</line>
           <properties />
           <option name="timeStamp" value="59" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java</url>
           <line>62</line>
           <properties />
           <option name="timeStamp" value="60" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java</url>
           <line>71</line>
           <properties />
           <option name="timeStamp" value="61" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java</url>
           <line>114</line>
           <properties />
           <option name="timeStamp" value="62" />
         </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java</url>
+          <line>48</line>
+          <properties />
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java</url>
+          <line>392</line>
+          <properties />
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java</url>
+          <line>67</line>
+          <properties />
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java</url>
+          <line>458</line>
+          <properties />
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java</url>
+          <line>457</line>
+          <properties />
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java</url>
+          <line>86</line>
+          <properties />
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java</url>
+          <line>297</line>
+          <properties />
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/FileDialog.java</url>
+          <line>73</line>
+          <properties />
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java</url>
+          <line>85</line>
+          <properties />
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java</url>
+          <line>203</line>
+          <properties />
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java</url>
+          <line>304</line>
+          <properties />
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>59</line>
+          <properties />
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>139</line>
+          <properties />
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java</url>
+          <line>217</line>
+          <properties />
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>62</line>
+          <properties />
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>57</line>
+          <properties />
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>144</line>
+          <properties />
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>147</line>
+          <properties />
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>64</line>
+          <properties />
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>92</line>
+          <properties />
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>94</line>
+          <properties />
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>96</line>
+          <properties />
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java</url>
+          <line>46</line>
+          <properties class="com.davemorrissey.labs.subscaleview.sample.XmlRW" method="readXML" />
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="63" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="92" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="sample">
-        <watch expression="PROJ_NAME" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="71" column="41" selection-start-line="71" selection-start-column="41" selection-end-line="71" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2763#2771#0" expanded="true" />
-            <element signature="e#5986#6641#0" expanded="true" />
-            <element signature="e#6640#6641#0" expanded="true" />
-            <element signature="e#6689#6918#0" expanded="true" />
-            <element signature="e#6917#6918#0" expanded="true" />
-            <element signature="e#7125#7529#0" expanded="true" />
-            <element signature="e#7528#7529#0" expanded="true" />
-            <element signature="e#7649#8240#0" expanded="true" />
-            <element signature="e#8239#8240#0" expanded="true" />
-            <element signature="e#8379#8781#0" expanded="true" />
-            <element signature="e#8780#8781#0" expanded="true" />
-            <element signature="e#8901#8909#0" expanded="true" />
-            <element signature="e#9202#9374#0" expanded="true" />
-            <element signature="e#9373#9374#0" expanded="true" />
-            <element signature="e#10106#10107#0" expanded="true" />
-            <element signature="e#10158#10159#0" expanded="true" />
-            <element signature="e#10269#10270#0" expanded="true" />
-            <element signature="e#10314#10315#0" expanded="true" />
-            <element signature="e#14230#14231#0" expanded="true" />
-            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#2427#2435#0" expanded="true" />
+            <element signature="e#5579#6231#0" expanded="true" />
+            <element signature="e#6230#6231#0" expanded="true" />
+            <element signature="e#6279#6508#0" expanded="true" />
+            <element signature="e#6507#6508#0" expanded="true" />
+            <element signature="e#6715#7119#0" expanded="true" />
+            <element signature="e#7118#7119#0" expanded="true" />
+            <element signature="e#7239#7830#0" expanded="true" />
+            <element signature="e#7829#7830#0" expanded="true" />
+            <element signature="e#7969#8371#0" expanded="true" />
+            <element signature="e#8370#8371#0" expanded="true" />
+            <element signature="e#8491#8499#0" expanded="true" />
+            <element signature="e#8792#8964#0" expanded="true" />
+            <element signature="e#8963#8964#0" expanded="true" />
+            <element signature="e#9763#9764#0" expanded="true" />
+            <element signature="e#9815#9816#0" expanded="true" />
+            <element signature="e#9926#9927#0" expanded="true" />
+            <element signature="e#9971#9972#0" expanded="true" />
+            <element signature="e#13654#13670#0" expanded="true" />
+            <element signature="e#14171#14187#0" expanded="true" />
+            <element signature="e#15046#15047#0" expanded="true" />
+            <element signature="e#15082#15083#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -5210,7 +5203,7 @@
         <state relative-caret-position="782">
           <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding>
-            <element signature="e#1342#1343#0" expanded="true" />
+            <element signature="e#1342#1343#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -5336,38 +5329,6 @@
             <element signature="e#3070#3071#0" expanded="true" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1760#1769#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="82" column="20" selection-start-line="82" selection-start-column="20" selection-end-line="82" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/menu/target_menu.xml">
@@ -5503,35 +5464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding>
-            <element signature="e#1308#1309#0" expanded="true" />
-            <element signature="e#1342#1343#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../scanlibrary/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -5540,10 +5472,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/extension/views/PinView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="150" column="40" selection-start-line="150" selection-start-column="40" selection-end-line="150" selection-end-column="40" />
+          <folding>
+            <element signature="e#3286#3287#0" expanded="false" />
+            <element signature="e#3319#3320#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="72" column="15" selection-start-line="72" selection-start-column="15" selection-end-line="72" selection-end-column="15" />
+          <folding>
+            <element signature="e#1591#1592#0" expanded="true" />
+            <element signature="e#1624#1625#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/sign_hits_activity.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="160" column="12" selection-start-line="160" selection-start-column="12" selection-end-line="160" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/FileDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-850">
-          <caret line="45" column="21" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="21" />
+        <state relative-caret-position="160">
+          <caret line="74" column="43" selection-start-line="74" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
             <element signature="e#2087#2347#0" expanded="true" />
             <element signature="e#2346#2347#0" expanded="true" />
@@ -5555,67 +5520,149 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-666">
-          <caret line="77" column="19" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
+        <state relative-caret-position="160">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2763#2771#0" expanded="true" />
-            <element signature="e#5986#6641#0" expanded="true" />
-            <element signature="e#6640#6641#0" expanded="true" />
-            <element signature="e#6689#6918#0" expanded="true" />
-            <element signature="e#6917#6918#0" expanded="true" />
-            <element signature="e#7125#7529#0" expanded="true" />
-            <element signature="e#7528#7529#0" expanded="true" />
-            <element signature="e#7649#8240#0" expanded="true" />
-            <element signature="e#8239#8240#0" expanded="true" />
-            <element signature="e#8379#8781#0" expanded="true" />
-            <element signature="e#8780#8781#0" expanded="true" />
-            <element signature="e#8901#8909#0" expanded="true" />
-            <element signature="e#9202#9374#0" expanded="true" />
-            <element signature="e#9373#9374#0" expanded="true" />
-            <element signature="e#10106#10107#0" expanded="true" />
-            <element signature="e#10158#10159#0" expanded="true" />
-            <element signature="e#10269#10270#0" expanded="true" />
-            <element signature="e#10314#10315#0" expanded="true" />
-            <element signature="e#14230#14231#0" expanded="true" />
-            <element signature="e#14266#14267#0" expanded="true" />
+            <element signature="e#1989#1998#0" expanded="true" />
+            <element signature="e#2711#2730#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Data/DataActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/ExcelWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="874">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/signHits/SignHitsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="170" column="62" selection-start-line="170" selection-start-column="62" selection-end-line="170" selection-end-column="62" />
+        <state relative-caret-position="235">
+          <caret line="372" column="45" selection-start-line="372" selection-start-column="45" selection-end-line="372" selection-end-column="56" />
           <folding>
-            <element signature="e#6743#6871#0" expanded="true" />
-            <element signature="e#6870#6871#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#3377#3386#0" expanded="true" />
+            <element signature="e#8180#8308#0" expanded="true" />
+            <element signature="e#8307#8308#0" expanded="true" />
+            <marker date="1502708405245" expanded="false" signature="18682:18816" ph="(SimpleOnGestureListener) onSingleTapConfirmed(e) → {" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/extension/views/PinView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="150" column="40" selection-start-line="150" selection-start-column="40" selection-end-line="150" selection-end-column="40" />
-          <folding>
-            <element signature="e#3286#3287#0" expanded="true" />
-            <element signature="e#3319#3320#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/sign_hits_activity.xml">
+    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="-3443">
-          <caret line="255" column="4" selection-start-line="255" selection-start-column="4" selection-end-line="255" selection-end-column="4" />
+        <state relative-caret-position="85">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../scanlibrary/src/main/jni/sdk/java/src/org/opencv/android/JavaCameraView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="31" column="37" selection-start-line="31" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1935#1936#0" expanded="false" />
+            <element signature="e#1975#1976#0" expanded="false" />
+            <element signature="e#2041#2042#0" expanded="false" />
+            <element signature="e#2078#2079#0" expanded="false" />
+            <element signature="e#11760#11761#0" expanded="false" />
+            <element signature="e#11834#11835#0" expanded="false" />
+            <element signature="e#12263#12264#0" expanded="false" />
+            <element signature="e#12302#12303#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-23/android.jar!/javax/xml/parsers/DocumentBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/XmlRW.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1571">
+          <caret line="150" column="56" selection-start-line="150" selection-start-column="37" selection-end-line="150" selection-end-column="56" />
+          <folding>
+            <element signature="e#1154#1155#0" expanded="true" />
+            <element signature="e#1180#1181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="216" column="38" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2427#2435#0" expanded="true" />
+            <element signature="e#5579#6231#0" expanded="true" />
+            <element signature="e#6230#6231#0" expanded="true" />
+            <element signature="e#6279#6508#0" expanded="true" />
+            <element signature="e#6507#6508#0" expanded="true" />
+            <element signature="e#6715#7119#0" expanded="true" />
+            <element signature="e#7118#7119#0" expanded="true" />
+            <element signature="e#7239#7830#0" expanded="true" />
+            <element signature="e#7829#7830#0" expanded="true" />
+            <element signature="e#7969#8371#0" expanded="true" />
+            <element signature="e#8370#8371#0" expanded="true" />
+            <element signature="e#8491#8499#0" expanded="true" />
+            <element signature="e#8792#8964#0" expanded="true" />
+            <element signature="e#8963#8964#0" expanded="true" />
+            <element signature="e#9763#9764#0" expanded="true" />
+            <element signature="e#9815#9816#0" expanded="true" />
+            <element signature="e#9926#9927#0" expanded="true" />
+            <element signature="e#9971#9972#0" expanded="true" />
+            <element signature="e#13654#13670#0" expanded="true" />
+            <element signature="e#14171#14187#0" expanded="true" />
+            <element signature="e#15046#15047#0" expanded="true" />
+            <element signature="e#15082#15083#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/davemorrissey/labs/subscaleview/sample/Shop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="e#386#387#0" expanded="true" />
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#453#454#0" expanded="true" />
+            <element signature="e#485#486#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+            <element signature="e#569#570#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+            <element signature="e#652#653#0" expanded="true" />
+            <element signature="e#682#683#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="true" />
+            <element signature="e#739#740#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

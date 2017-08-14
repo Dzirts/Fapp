@@ -49,7 +49,7 @@ public class DataActivity extends Activity implements OnClickListener {
     private String projectName;
     private String serieNumber;
     private String filePath;
-    private String newFileDir;
+    private String fileDir;
     private ExcelData ed;
     private String newFilePlace;
     private String fileName;
@@ -73,7 +73,7 @@ public class DataActivity extends Activity implements OnClickListener {
         projectName = intent.getStringExtra("projectName");
         serieNumber = intent.getStringExtra("seriesNumber");
         filePath = intent.getStringExtra("filePath");
-        newFileDir = intent.getStringExtra("newFileDir");
+        fileDir = intent.getStringExtra("fileDir");
         fileName = intent.getStringExtra("fileName");
         mImagePath = intent.getStringExtra("imagePath");
 
@@ -174,7 +174,7 @@ public class DataActivity extends Activity implements OnClickListener {
         File oDirectory = f.getParentFile();
 
         ed = new ExcelData(projectName, Integer.parseInt(serieNumber),
-                oDirectory,fileName, filePath, newFileDir,
+                oDirectory,fileName, filePath, fileDir,
                 stream, scaledMapPins, mImagePath);
     }
 

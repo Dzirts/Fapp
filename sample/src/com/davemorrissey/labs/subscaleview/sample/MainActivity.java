@@ -16,19 +16,14 @@ package com.davemorrissey.labs.subscaleview.sample;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PointF;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,7 +37,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.sample.R.id;
@@ -51,12 +45,9 @@ import com.scanlibrary.ScanActivity;
 import com.scanlibrary.ScanConstants;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -69,12 +60,11 @@ public class MainActivity extends Activity implements OnClickListener {
     private Bitmap mBitmap;
     private Uri mUri;
     private String mSeriesNumber;
+    private String mProjName;
     private FileDialog mFileDialog;
     private String mFilePath = "";
-    private String mFileDirStr = "";
-    private String mNewFileDir = "";
+    private String mFileDir = "";
     private String mFileName = "";
-    private String PROJ_NAME = "";
     private String FIRE_FILE_TYPE = ".xls";
     private String SeriesNum;
     private ArrayList<String> DIRECTORIES = new ArrayList<String>();
@@ -87,7 +77,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle("Project: "+PROJ_NAME);
+        getActionBar().setTitle("Project: ");
         if (isDeviceIsPhone()){
             setContentView(R.layout.main_phone);
         } else {
@@ -144,19 +134,19 @@ public class MainActivity extends Activity implements OnClickListener {
                 ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
                 rc.copyResources(R.raw.template, "template", outputPath, ".xls");
 //                copyResources(R.raw.template, "template", outputPath);
-                XmlRW xml = new XmlRW(outputPath+"/template.xml");
+
+                XmlRW xml = new XmlRW(outputPath+"/Infrastructure.xml");
                 xml.saveToXML();
             }
 
-//            userData = new ArrayList<>();
-//            userData =
+
 
             mFileDialog = new FileDialog(this, mPath, FIRE_FILE_TYPE, getApplicationContext());
             mFileDialog.addFileListener(new FileDialog.FileSelectedListener() {
                 public void fileSelected(File file) {
                     Log.d(getClass().getName(), "selected file " + file.toString());
                     mFilePath = file.toString();
-                    mFileDirStr = file.getParent();
+                    mFileDir = file.getParent();
                     //get project name without path
                     String[] sArr2 = file.toString().split("/");
                     mFileName = sArr2[sArr2.length - 1];
@@ -223,6 +213,10 @@ public class MainActivity extends Activity implements OnClickListener {
                     textView.showDropDown();
                 }
             });
+
+//            TODO: move to android DB
+//            ReadFromXml();
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -235,7 +229,7 @@ public class MainActivity extends Activity implements OnClickListener {
             createDirectories(projName);
             //add template inside
             ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
-            rc.copyResources(R.raw.template, projName, mNewFileDir, ".xls");
+            rc.copyResources(R.raw.template, projName, mFileDir, ".xls");
 //            copyResources(R.raw.template, projName, mNewFileDir);
         }
     }
@@ -299,15 +293,16 @@ public class MainActivity extends Activity implements OnClickListener {
                 createDirectories(etProjName.getText().toString());
                 EditText et = (EditText)findViewById(id.etSerNum);
                 mSeriesNumber = et.getText().toString();
+                mProjName = etProjName.getText().toString();
+
                 Intent intent = new Intent(this, SignHitsActivity.class);  //SignHitsActivity
                 intent.putExtra("UriSrc",        mUri);
-                intent.putExtra("projName",      PROJ_NAME);
+                intent.putExtra("projName",      mProjName);
                 intent.putExtra("seriesNum",     mSeriesNumber);
                 intent.putExtra("filePath",      mFilePath);
-                intent.putExtra("fileDirStr",    mFileDirStr);
-                intent.putExtra("newFileDirStr", mNewFileDir);
+                intent.putExtra("fileDirStr",    mFileDir);
                 intent.putExtra("fileName",      mFileName);
-
+                WriteToXml();
                 startActivity(intent);
             } else{
                 Toast toast =Toast.makeText(this, "first pick a picture", Toast.LENGTH_SHORT);
@@ -324,17 +319,45 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(intent);
             } else {
                 // TODO: change it to default file and delete test
-//                Toast.makeText(MainActivity.this, "first pick a file", Toast.LENGTH_SHORT).show();
-                mUri = Uri.parse("content://media/external/images/media/32093");
-                PROJ_NAME = "Emint";
-                mSeriesNumber = "9";
-                mFilePath = "/storage/emulated/0/Elbit Mark Target/EMINT/EMINT.xlsx";
-                mFileDirStr = "/storage/emulated/0/Elbit Mark Target/EMINT";
-                mNewFileDir = "";
-                mFileName = "EMINT.xlsx";
-                PicTaken = true;
+                Toast.makeText(MainActivity.this, "first pick a file", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void WriteToXml() {
+        String xmlPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure"+"/Infrastructure.xml";
+        HashMap<String, String> Data = new HashMap<String, String>();
+        Data.put("ProjectName",mProjName);
+        Data.put("Series", mSeriesNumber);
+        Data.put("XlsPath",mFilePath);
+        Data.put("XlsDir",mFileDir);
+        Data.put("XlsName",mFileName);
+        XmlRW xml = new XmlRW(xmlPath, Data);
+        xml.saveToXML();
+    }
+
+    private void ReadFromXml() {
+        String xmlPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure"+"/Infrastructure.xml";
+        HashMap<String, String> Data = new HashMap<String, String>();
+        XmlRW xml = new XmlRW(xmlPath);
+        Data = xml.readXML();
+        String projName = Data.get("ProjectName");
+        if (projName.equals("")){return;}
+        mProjName = projName;
+        AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
+        etProjName.setText(mProjName);
+        setTitleProjName(mProjName);
+
+        int currSeries = Integer.parseInt(Data.get("Series"))+1;
+        mSeriesNumber = String.valueOf(currSeries);
+        setSubTitleSer(mSeriesNumber);
+
+        mFilePath     = Data.get("XlsPath");
+        ImageButton imgbtnExcel = (ImageButton) findViewById(id.btnAddExcelFile);
+        imgbtnExcel.setImageResource(R.drawable.add_file_done);
+
+        mFileName     = Data.get("XlsName");
+        mFileDir      = Data.get("XlsDir");
     }
 
     @Override
@@ -374,8 +397,7 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void setTitleProjName(String projName){
-        PROJ_NAME= projName;
-        getActionBar().setTitle("Project: "+PROJ_NAME);
+        getActionBar().setTitle("Project: "+projName);
     }
 
     private void setSubTitleSer(String serieNumber){
@@ -393,7 +415,7 @@ public class MainActivity extends Activity implements OnClickListener {
         if(!dir.exists() || !dir.isDirectory()) {
             dir.mkdir();
         }
-        mNewFileDir = dir.getAbsolutePath();
+        mFileDir = dir.getAbsolutePath();
     }
 
 
