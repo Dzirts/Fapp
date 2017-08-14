@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -94,8 +95,28 @@ public class MainActivity extends Activity implements OnClickListener {
         toast.setGravity(Gravity.CENTER,0,0);
 //        toast.show();
 
+        DbFunc();
+    }
 
+    private void DbFunc() {
+        DBHandler db = new DBHandler(this);
 
+// Inserting InternalData/Rows
+//        Log.d("Insert: ", "Inserting ..");
+//        db.addShop(new InternalData(0,"Dockers", " 475 Brannan St #330, San Francisco, CA 94107, United States"));
+//        db.addShop(new InternalData(1,"Dunkin Donuts", "White Plains, NY 10601"));
+//        db.addShop(new InternalData(2,"Pizza Porlar", "North West Avenue, Boston , USA"));
+//        db.addShop(new InternalData(3,"Town Bakers", "Beverly Hills, CA 90210, USA"));
+
+//// Reading all internalDatas
+//        Log.d("Reading: ", "Reading all internalDatas..");
+//        List<InternalData> internalDatas = db.getAllShops();
+//
+//        for (InternalData internalData : internalDatas) {
+//            String log = "Id: " + internalData.getId() + " ,Name: " + internalData.getName() + " ,Address: " + internalData.getAddress();
+//// Writing internalDatas to log
+//            Log.d("InternalData: : ", log);
+//        }
     }
 
     private void showAboutDialog(){
