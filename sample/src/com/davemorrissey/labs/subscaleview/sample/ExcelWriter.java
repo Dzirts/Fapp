@@ -111,8 +111,8 @@ public class ExcelWriter {
             Sheet sheet = workbook.createSheet(ed.getSeriesNum()+" image");
 
             //set cell in same width and height
-            int measure = 225;
-            sheet.setDefaultRowHeight((short) 100);
+            int measure = 2250;
+            sheet.setDefaultRowHeight((short) 1000);
 
             for (int i = 0; i<50; i++){
                 sheet.setColumnWidth(i,measure);
@@ -125,8 +125,8 @@ public class ExcelWriter {
             ClientAnchor anchor = helper.createClientAnchor();
             //set top-left corner of the picture,
             //subsequent call of Picture#resize() will operate relative to it
-            anchor.setCol1(40);
-            anchor.setRow1(50);
+            anchor.setCol1(11);
+            anchor.setRow1(17);
             Picture pict = drawing.createPicture(anchor, pictureIdx);
 
             //auto-size picture relative to its top-left corner
