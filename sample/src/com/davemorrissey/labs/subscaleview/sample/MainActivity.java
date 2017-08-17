@@ -108,10 +108,11 @@ public class MainActivity extends Activity implements OnClickListener {
             }
         });
 
-        LayoutInflater factory = LayoutInflater.from(this);
-        final View view = factory.inflate(R.layout.about_alert_layout, null);
-        //mToast.setViewAndShow(view);
+//        LayoutInflater factory = LayoutInflater.from(this);
+//        final View view = factory.inflate(R.layout.about_alert_layout, null);
+//        //mToast.setViewAndShow(view);
 
+        mToast.setTextAndShow("Insert parameters in the upper boxes' and choose the matching Xls file, then choose your Image from camera or library.");
         // TODO: fix toast
     }
 
@@ -366,9 +367,7 @@ public class MainActivity extends Activity implements OnClickListener {
         if (view.getId() == id.btnNext) {
             if (PicTaken){
                 if (etSerNum.getText().toString().equals("")){
-                    Toast toast = Toast.makeText(MainActivity.this, "Please choose a series", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    mToast.setTextAndShow("Please choose a series");
                     return;
                 }
                 // create new directory if there isn't one compatiable with current project
@@ -386,9 +385,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 setAppParams();
                 startActivity(intent);
             } else{
-                Toast toast =Toast.makeText(this, "first pick a picture", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+                mToast.setTextAndShow("first pick a picture");
             }
 
         } else if (view.getId() == id.btnExcel){
@@ -400,7 +397,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 startActivity(intent);
             } else {
                 // TODO: change it to default file and delete test
-                Toast.makeText(MainActivity.this, "first pick a file", Toast.LENGTH_SHORT).show();
+                mToast.setTextAndShow("first pick a file");
             }
         }
     }

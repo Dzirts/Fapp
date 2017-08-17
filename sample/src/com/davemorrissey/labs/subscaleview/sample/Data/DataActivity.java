@@ -34,6 +34,7 @@ import com.davemorrissey.labs.subscaleview.sample.ExcelWriter;
 import com.davemorrissey.labs.subscaleview.sample.MainActivity;
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
+import com.davemorrissey.labs.subscaleview.sample.myToast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,6 +55,8 @@ public class DataActivity extends Activity implements OnClickListener {
     private String newFilePlace;
     private String fileName;
     private String mImagePath;
+    private myToast mToast;
+
 
 
 
@@ -138,6 +141,7 @@ public class DataActivity extends Activity implements OnClickListener {
         });
 
         findViewById(id.next).setOnClickListener(this);
+        mToast = new myToast(this, true);
 
 
     }
@@ -145,7 +149,8 @@ public class DataActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == id.next) {
-            Toast.makeText(DataActivity.this, "Moving to next session", Toast.LENGTH_LONG).show();
+            mToast.setTextAndShow("Moving to next session");
+//            Toast.makeText(DataActivity.this, "Moving to next session", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

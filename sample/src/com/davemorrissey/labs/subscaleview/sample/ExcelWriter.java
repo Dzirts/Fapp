@@ -3,6 +3,7 @@ package com.davemorrissey.labs.subscaleview.sample; /**
  */
 import android.util.Log;
 
+import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFHyperlink;
 import org.apache.poi.ss.formula.functions.Hyperlink;
 import org.apache.poi.ss.usermodel.ClientAnchor;
@@ -77,6 +78,7 @@ public class ExcelWriter {
             String outFileName = ed.getFileName();
 
             addImage();
+//            HSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 
             File outFile = new File(ed.getNewFileDir(), outFileName);
             OutputStream outputStream = new FileOutputStream(outFile.getAbsolutePath());

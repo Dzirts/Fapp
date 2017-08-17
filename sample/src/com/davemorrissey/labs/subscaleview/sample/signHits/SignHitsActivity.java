@@ -47,6 +47,7 @@ import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.R.layout;
 import com.davemorrissey.labs.subscaleview.sample.Data.DataActivity;
 import com.davemorrissey.labs.subscaleview.sample.extension.views.PinView;
+import com.davemorrissey.labs.subscaleview.sample.myToast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -76,6 +77,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     AlertDialog addPrevHitsDialog;
     final ArrayList seletedItems=new ArrayList();
     AlertDialog.Builder builder;
+    private myToast mToast;
+
 
 
     private boolean nextClicked = false;
@@ -140,6 +143,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             position = savedInstanceState.getInt(BUNDLE_POSITION);
         }
         updateNotes(0);
+        mToast = new myToast(this, true);
 
 
 //        Toast.makeText(this, "rotate the target, then click on the pen and mark the target's center. when you finish click done",Toast.LENGTH_LONG).show();
@@ -359,7 +363,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         final EditText  trvText = (EditText)findViewById(id.trvTxt);
         if (view.getId() == id.next) {
             if (elvText.getText().toString().matches("") || trvText.getText().toString().matches("")){
-                Toast.makeText(this, "please enter target height and width size first", Toast.LENGTH_SHORT).show();
+                mToast.setTextAndShow( "please enter target height and width size first");
+
+//                Toast.makeText(this, "please enter target height and width size first", Toast.LENGTH_SHORT).show();
                 return;
             }
             takeScreenshot();
@@ -396,7 +402,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             centerSelected = true;
         } else if (view.getId() == id.centerDoneBtn) {
             if (!centerSelected){
-                Toast.makeText(SignHitsActivity.this,"first select a center",Toast.LENGTH_SHORT).show();
+                mToast.setTextAndShow( "first select a center");
+
+//                Toast.makeText(SignHitsActivity.this,"first select a center",Toast.LENGTH_SHORT).show();
                 return;
             }
             imageView.resetScaleAndCenter();
@@ -411,9 +419,10 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             ivColorsImg.setVisibility(View.VISIBLE);
             ivShowAllHitsImg.setVisibility(View.VISIBLE);
 
+            mToast.setTextAndShow("mark the hits over the target, you can find the average and clear all marks, when finish click done button");
 
-            Toast.makeText(this, "mark the hits over the target, you can find the average and clear all marks, when finish click done button",
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "mark the hits over the target, you can find the average and clear all marks, when finish click done button",
+//                    Toast.LENGTH_LONG).show();
         } else if (view.getId() == id.new_circ_light_blue || view.getId() == id.new_circ_blue ||
                 view.getId() == id.new_circ_green || view.getId() == id.new_circ_orange ||
                 view.getId() == id.new_circ_yellow || view.getId() == id.new_circ_purple) {
@@ -522,7 +531,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                     centerAttached =true;
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Single tap: Image not ready", Toast.LENGTH_SHORT).show();
+                    mToast.setTextAndShow("Single tap: Image not ready");
+//                    Toast.makeText(getApplicationContext(), "Single tap: Image not ready", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
@@ -654,7 +664,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             // image naming and path  to include sd card  appending name you choose for file
 //            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
             mImagePath = fileDir + "/" + projectName +"_Ser_"+seriesNumber+"_"+ now + ".jpg";
-            Toast.makeText(SignHitsActivity.this, "pic saved in" + mImagePath, Toast.LENGTH_LONG).show();
+            mToast.setTextAndShow("pic saved in" + mImagePath);
+//            Toast.makeText(SignHitsActivity.this, "pic saved in" + mImagePath, Toast.LENGTH_LONG).show();
             RelativeLayout v1 =(RelativeLayout)findViewById(id.rl);
             // create bitmap screen capture
             v1.setDrawingCacheEnabled(true);

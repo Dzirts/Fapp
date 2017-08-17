@@ -22,12 +22,12 @@ public class myToast {
     private static Toast toast;
 
 
-    myToast(Context context, boolean centrelize){
+    public myToast(Context context, boolean centrelize){
         this.toastContext = context;
         new myToast(toastContext, toastText, toastDuration, centrelize);
     }
 
-    myToast(Context context, String text, int duration, boolean centrelize){
+    public myToast(Context context, String text, int duration, boolean centrelize){
         this.toastContext = context;
         this.toastText = text;
         this.toastDuration = duration;
@@ -77,13 +77,23 @@ public class myToast {
         int  rounds = (int) Math.ceil(toastDuration / LENGTH_LONG);
         SpannableStringBuilder biggerText = new SpannableStringBuilder(this.toastText);
         biggerText.setSpan(new RelativeSizeSpan(1.35f), 0, this.toastText.length(), 0);
-        for (int i = 0 ; i<rounds; i++){
-            Toast toast = Toast.makeText(toastContext, biggerText, Toast.LENGTH_LONG);
-            if (centrelize){
-                centrelize(toast);
-            }
-            toast.show();
+//        for (int i = 0 ; i<rounds; i++){
+//            Toast toast = Toast.makeText(toastContext, biggerText, Toast.LENGTH_LONG);
+//            if (centrelize){
+//                centrelize(toast);
+//            }
+//            toast.show();
+//        }
+        Toast toast = Toast.makeText(toastContext, biggerText, Toast.LENGTH_SHORT);
+        if (centrelize){
+            centrelize(toast);
         }
+        toast.show();
+        toast = Toast.makeText(toastContext, biggerText, Toast.LENGTH_SHORT);
+        if (centrelize){
+            centrelize(toast);
+        }
+        toast.show();
     }
 
 
