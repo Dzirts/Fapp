@@ -178,3 +178,39 @@ public class XmlRW {
 
 
 }
+// USAGE:
+//    private void WriteToXml() {
+//        String xmlPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure"+"/Infrastructure.xml";
+//        HashMap<String, String> Data = new HashMap<String, String>();
+//        Data.put("ProjectName",mProjName);
+//        Data.put("Series", mSeriesNumber);
+//        Data.put("XlsPath",mFilePath);
+//        Data.put("XlsDir",mFileDir);
+//        Data.put("XlsName",mFileName);
+//        XmlRW xml = new XmlRW(xmlPath, Data);
+//        xml.saveToXML();
+//    }
+
+//    private void ReadFromXml() {
+//        String xmlPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure"+"/Infrastructure.xml";
+//        HashMap<String, String> Data = new HashMap<String, String>();
+//        XmlRW xml = new XmlRW(xmlPath);
+//        Data = xml.readXML();
+//        String projName = Data.get("ProjectName");
+//        if (projName.equals("")){return;}
+//        mProjName = projName;
+//        AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
+//        etProjName.setText(mProjName);
+//        setTitleProjName(mProjName);
+//
+//        int currSeries = Integer.parseInt(Data.get("Series"))+1;
+//        mSeriesNumber = String.valueOf(currSeries);
+//        setSubTitleSer(mSeriesNumber);
+//
+//        mFilePath     = Data.get("XlsPath");
+//        ImageButton imgbtnExcel = (ImageButton) findViewById(id.btnAddExcelFile);
+//        imgbtnExcel.setImageResource(R.drawable.add_file_done);
+//
+//        mFileName     = Data.get("XlsName");
+//        mFileDir      = Data.get("XlsDir");
+//    }

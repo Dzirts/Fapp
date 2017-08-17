@@ -19,8 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,11 +31,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -55,62 +51,165 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements OnClickListener {
 
 
-    private String TAG = getClass().getName();
     private final int NUM_OF_SERIES_IN_XLS_FILE = 20;
     private static final int REQUEST_CODE = 99;
-    private boolean PicTaken = false;
-    private Button scanButton;
+    private final String FIRE_FILE_TYPE = ".xls";
+    private String TAG = getClass().getName();
+
     private ImageButton cameraButton;
     private ImageButton mediaButton;
+    private ImageButton ibAddExcelFile;
+
     private ImageView scannedImageView;
-    private Bitmap mBitmap;
-    private Uri mUri;
+    private AutoCompleteTextView etProjName;
+    private EditText etSerNum;
+
+    private boolean bIsNewProject = false;
+    private boolean PicTaken = false;
+
     private String mSeriesNumber;
     private String mProjName;
-    private FileDialog mFileDialog;
-    private String mFilePath = "";
-    private String mFileDir = "";
-    private String mFileName = "";
-    private String FIRE_FILE_TYPE = ".xls";
+    private String mFilePath;
+    private String mFileDir;
+    private String mFileName;
     private String SeriesNum;
-    private ArrayList<String> DIRECTORIES = new ArrayList<String>();
-    private boolean bIsNewProject = false;
-    private ArrayList<String> userData;
-    private String m_Text = "";
 
+    private myToast mToast;
+
+    private Bitmap mBitmap;
+    private Uri mUri;
+    private FileDialog mFileDialog;
+    private ArrayList<String> directoriesList = new ArrayList<String>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setTitle("Project: ");
+        chooseAppropriateLayout();
+        initLayoutWidgets();
+        setOnClickListeners();
+        setScannerListeners();
+        File mainDirectory = new File(Environment.getExternalStorageDirectory()
+                                                        + "/Elbit Mark Target");
+        createEnviromntFolders(mainDirectory);
+        createFileDialog(mainDirectory);
+        addAdapters(mainDirectory);
+        setOnFocusListeners();
+        getAppParams();
+        mToast = new myToast(this, true);
+
+        ImageView iv = (ImageView)findViewById(id.scannedImage);
+        iv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mToast.setTextAndShow("Welcome to Elbit Target Marker!!");
+
+            }
+        });
+
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View view = factory.inflate(R.layout.about_alert_layout, null);
+        //mToast.setViewAndShow(view);
+
+        // TODO: fix toast
+    }
+
+    private void chooseAppropriateLayout() {
         if (isDeviceIsPhone()){
             setContentView(R.layout.main_phone);
         } else {
             setContentView(R.layout.main);
         }
+    }
+
+    private void initLayoutWidgets() {
+        etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
+        etSerNum = (EditText) findViewById(id.etSerNum);
+        ibAddExcelFile = (ImageButton) findViewById(id.btnAddExcelFile);
+    }
+
+    private void setOnClickListeners() {
         findViewById(id.btnNext).setOnClickListener(this);
         findViewById(id.btnCamera).setOnClickListener(this);
         findViewById(id.btnLibrary).setOnClickListener(this);
         findViewById(id.self).setOnClickListener(this);
         findViewById(id.btnExcel).setOnClickListener(this);
-        init();
-        getAppParams();
-        Toast toast =Toast.makeText(this, "select your target from camera or photo library and click on \"Mark Hits\"",
-                Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-//        toast.show();
 
-//        Button b = (Button) findViewById(id.button);
-//        b.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        ibAddExcelFile.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
+                String projName = etProjName.getText().toString();
+                createNewProject(projName);
 
-
+                mFileDialog.showDialog();
+            }
+        });
     }
+
+    private void setScannerListeners() {
+        cameraButton = (ImageButton) findViewById(id.btnCamera);
+        cameraButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_CAMERA));
+        mediaButton = (ImageButton) findViewById(id.btnLibrary);
+        mediaButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_MEDIA));
+        scannedImageView = (ImageView) findViewById(R.id.scannedImage);
+    }
+
+    private void createEnviromntFolders(File mainDirectory) {
+        //            File mPath = new File(Environment.getExternalStorageDirectory() + getString(R.string.Project_Name));
+        if (!mainDirectory.exists() || !mainDirectory.isDirectory()) {
+            mainDirectory.mkdir();
+        }
+        //creating template directory
+        String outputPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure";
+        File mInfrastructurePath = new File(outputPath);
+        if (!mInfrastructurePath.exists() || !mInfrastructurePath.isDirectory()) {
+            mInfrastructurePath.mkdir();
+            bIsNewProject = true;
+        }
+
+        if (bIsNewProject){
+            ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
+            rc.copyResources(R.raw.template, "template", outputPath, ".xls");
+        }
+    }
+
+    private void createFileDialog(File mainDirectory) {
+        mFileDialog = new FileDialog(this, mainDirectory, FIRE_FILE_TYPE, getApplicationContext());
+        mFileDialog.addFileListener(new FileDialog.FileSelectedListener() {
+            public void fileSelected(File file) {
+                Log.d(getClass().getName(), "selected file " + file.toString());
+                mFilePath = file.toString();
+                mFileDir = file.getParent();
+                //get project name without path
+                String[] sArr2 = file.toString().split("/");
+                mFileName = sArr2[sArr2.length - 1];
+                ImageButton imgbtnExcel = (ImageButton) findViewById(id.btnAddExcelFile);
+                imgbtnExcel.setImageResource(R.drawable.add_file_done);
+            }
+        });
+        mFileDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
+            public void directorySelected(File directory) {
+                Log.d(getClass().getName(), "selected dir " + directory.toString());
+            }
+        });
+        mFileDialog.setSelectDirectoryOption(false);
+    }
+
+    private void addAdapters(File mainDirectory) {
+        listOfDirectories(mainDirectory.getAbsolutePath());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, directoriesList);
+        etProjName.setAdapter(adapter);
+        etProjName.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etProjName.showDropDown();
+            }
+        });
+    }
+
 
     private void setAppParams(){
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -132,6 +231,7 @@ public class MainActivity extends Activity implements OnClickListener {
         String xlsPath    = sharedPref.getString(getString(R.string.param_xls_path)      , def);
         String xlsDir     = sharedPref.getString(getString(R.string.param_xls_dir)       , def);
 
+
         if (projName.equals(def) ||  currSeries.equals(def) ||
             xlsName.equals(def)  ||  xlsPath.equals(def)    ||
             xlsDir.equals(def))
@@ -141,7 +241,6 @@ public class MainActivity extends Activity implements OnClickListener {
             Log.d(TAG, "No saved parameters exists");
         } else {
             mProjName = projName;
-            AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
             etProjName.setText(mProjName);
             setTitleProjName(mProjName);
 
@@ -176,147 +275,47 @@ public class MainActivity extends Activity implements OnClickListener {
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-//
-//// getting width and height
-//        DisplayMetrics metrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//        int height = metrics.heightPixels;
-//        int width = metrics.widthPixels;
-//
-//// changing Alert layout params
-//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//        lp.copyFrom(alertDialog.getWindow().getAttributes());
-//        lp.width = width;
-//        lp.height = height;
-//        alertDialog.getWindow().setAttributes(lp);
-//
-//        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-
-
     }
 
-    private void init() {
-        try {
-            cameraButton = (ImageButton) findViewById(id.btnCamera);
-            cameraButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_CAMERA));
-            mediaButton = (ImageButton) findViewById(id.btnLibrary);
-            mediaButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_MEDIA));
-            scannedImageView = (ImageView) findViewById(R.id.scannedImage);
 
-//            File mPath = new File(Environment.getExternalStorageDirectory() + getString(R.string.Project_Name));
-            File mPath = new File(Environment.getExternalStorageDirectory() + "/Elbit Mark Target");
-            if (!mPath.exists() || !mPath.isDirectory()) {
-                mPath.mkdir();
-            }
-
-
-            //creating template directory
-//            String outputPath = Environment.getExternalStorageDirectory()+"/"+getString(R.string.Project_Name)+"/"+getString(R.string.Infrastructure);
-            String outputPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure";
-            File mInfrastructurePath = new File(outputPath);
-            if (!mInfrastructurePath.exists() || !mInfrastructurePath.isDirectory()) {
-                mInfrastructurePath.mkdir();
-                bIsNewProject = true;
-            }
-
-            if (bIsNewProject){
-                ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
-                rc.copyResources(R.raw.template, "template", outputPath, ".xls");
-            }
-
-
-
-            mFileDialog = new FileDialog(this, mPath, FIRE_FILE_TYPE, getApplicationContext());
-            mFileDialog.addFileListener(new FileDialog.FileSelectedListener() {
-                public void fileSelected(File file) {
-                    Log.d(getClass().getName(), "selected file " + file.toString());
-                    mFilePath = file.toString();
-                    mFileDir = file.getParent();
-                    //get project name without path
-                    String[] sArr2 = file.toString().split("/");
-                    mFileName = sArr2[sArr2.length - 1];
-                    ImageButton imgbtnExcel = (ImageButton) findViewById(id.btnAddExcelFile);
-                    imgbtnExcel.setImageResource(R.drawable.add_file_done);
-                }
-            });
-            mFileDialog.addDirectoryListener(new FileDialog.DirectorySelectedListener() {
-                public void directorySelected(File directory) {
-                    Log.d(getClass().getName(), "selected dir " + directory.toString());
-                }
-            });
-            mFileDialog.setSelectDirectoryOption(false);
-
-            AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
-            etProjName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        EditText editText = (EditText) v;
-                        String projName = editText.getText().toString();
-                        createNewProject(projName);
-                    }
-                }
-            });
-
-            EditText etSerNum = (EditText) findViewById(id.etSerNum);
-            etSerNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (!hasFocus) {
-                        EditText editText = (EditText) v;
-                        SeriesNum = editText.getText().toString();
-                        setSubTitleSer(SeriesNum);
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    }
-                }
-            });
-
-            ImageButton ibAddExcelFile = (ImageButton) findViewById(id.btnAddExcelFile);
-            ibAddExcelFile.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
-                    String projName = etProjName.getText().toString();
+    private void setOnFocusListeners() {
+        etProjName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    EditText editText = (EditText) v;
+                    String projName = editText.getText().toString();
                     createNewProject(projName);
-
-                    mFileDialog.showDialog();
                 }
-            });
+            }
+        });
 
-
-            listOfDirectories(mPath.getAbsolutePath());
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_dropdown_item_1line, DIRECTORIES);
-            final AutoCompleteTextView textView = (AutoCompleteTextView)
-                    findViewById(R.id.etProjName);
-            textView.setAdapter(adapter);
-
-            textView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    textView.showDropDown();
+        etSerNum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    EditText editText = (EditText) v;
+                    SeriesNum = editText.getText().toString();
+                    setSubTitleSer(SeriesNum);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
-            });
-
-//            TODO: move to android DB
-//            ReadFromXml();
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+            }
+        });
     }
+
+
+
+
 
     private void createNewProject(String projName) {
         setTitleProjName(projName);
-        if (!DIRECTORIES.contains(projName)){
+        if (!directoriesList.contains(projName)){
             //create new directory
             createDirectories(projName);
             //add template inside
             ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
             rc.copyResources(R.raw.template, projName, mFileDir, ".xls");
-//            copyResources(R.raw.template, projName, mNewFileDir);
         }
     }
 
@@ -351,7 +350,6 @@ public class MainActivity extends Activity implements OnClickListener {
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                //getContentResolver().delete(uri, null, null);
                 scannedImageView.setImageBitmap(bitmap);
                 scannedImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 mBitmap= bitmap;
@@ -367,18 +365,15 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onClick(View view) {
         if (view.getId() == id.btnNext) {
             if (PicTaken){
-                EditText etSeries = (EditText) findViewById(id.etSerNum);
-                if (etSeries.getText().toString().equals("")){
+                if (etSerNum.getText().toString().equals("")){
                     Toast toast = Toast.makeText(MainActivity.this, "Please choose a series", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     return;
                 }
                 // create new directory if there isn't one compatiable with current project
-                AutoCompleteTextView etProjName = (AutoCompleteTextView)findViewById(id.etProjName);
                 createDirectories(etProjName.getText().toString());
-                EditText et = (EditText)findViewById(id.etSerNum);
-                mSeriesNumber = et.getText().toString();
+                mSeriesNumber = etSerNum.getText().toString();
                 mProjName = etProjName.getText().toString();
 
                 Intent intent = new Intent(this, SignHitsActivity.class);  //SignHitsActivity
@@ -397,8 +392,8 @@ public class MainActivity extends Activity implements OnClickListener {
             }
 
         } else if (view.getId() == id.btnExcel){
-            if (!mFilePath.matches("")){
-//                //TODO: check new com.davemorrissey.labs.subscaleview.sample.ExcelWriter(mFilePath);
+            if (!mFilePath.matches("default")){
+//              TODO: check new com.davemorrissey.labs.subscaleview.sample.ExcelWriter(mFilePath);
                 File file = new File(mFilePath);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");
@@ -410,41 +405,7 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
-//    private void WriteToXml() {
-//        String xmlPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure"+"/Infrastructure.xml";
-//        HashMap<String, String> Data = new HashMap<String, String>();
-//        Data.put("ProjectName",mProjName);
-//        Data.put("Series", mSeriesNumber);
-//        Data.put("XlsPath",mFilePath);
-//        Data.put("XlsDir",mFileDir);
-//        Data.put("XlsName",mFileName);
-//        XmlRW xml = new XmlRW(xmlPath, Data);
-//        xml.saveToXML();
-//    }
 
-//    private void ReadFromXml() {
-//        String xmlPath = Environment.getExternalStorageDirectory()+"/"+"Elbit Mark Target"+"/"+"Infrastructure"+"/Infrastructure.xml";
-//        HashMap<String, String> Data = new HashMap<String, String>();
-//        XmlRW xml = new XmlRW(xmlPath);
-//        Data = xml.readXML();
-//        String projName = Data.get("ProjectName");
-//        if (projName.equals("")){return;}
-//        mProjName = projName;
-//        AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
-//        etProjName.setText(mProjName);
-//        setTitleProjName(mProjName);
-//
-//        int currSeries = Integer.parseInt(Data.get("Series"))+1;
-//        mSeriesNumber = String.valueOf(currSeries);
-//        setSubTitleSer(mSeriesNumber);
-//
-//        mFilePath     = Data.get("XlsPath");
-//        ImageButton imgbtnExcel = (ImageButton) findViewById(id.btnAddExcelFile);
-//        imgbtnExcel.setImageResource(R.drawable.add_file_done);
-//
-//        mFileName     = Data.get("XlsName");
-//        mFileDir      = Data.get("XlsDir");
-//    }
 
     @Override
     public void onBackPressed() {
@@ -532,16 +493,9 @@ public class MainActivity extends Activity implements OnClickListener {
         File[] dicList = directory.listFiles();
         for (File file : dicList) {
             if (file.isDirectory()) {
-                DIRECTORIES.add(file.getName());
+                directoriesList.add(file.getName());
             }
         }
     }
-
-
-
-
-
-
-
 
 }// class ending
