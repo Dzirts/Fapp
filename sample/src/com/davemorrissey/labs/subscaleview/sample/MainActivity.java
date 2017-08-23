@@ -72,7 +72,6 @@ public class MainActivity extends Activity implements OnClickListener {
     private String mFilePath;
     private String mFileDir;
     private String mFileName;
-    private String SeriesNum;
 
     private myToast mToast;
 
@@ -85,7 +84,8 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle("Project: ");
+//        getActionBar().setTitle("Project: ");
+        setAppTitle();
         chooseAppropriateLayout();
         initLayoutWidgets();
         setOnClickListeners();
@@ -141,8 +141,8 @@ public class MainActivity extends Activity implements OnClickListener {
             @Override
             public void onClick(View view) {
                 AutoCompleteTextView etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
-                String projName = etProjName.getText().toString();
-                createNewProject(projName);
+                mProjName = etProjName.getText().toString();
+                createNewProject();
 
                 mFileDialog.showDialog();
             }
@@ -243,7 +243,7 @@ public class MainActivity extends Activity implements OnClickListener {
         } else {
             mProjName = projName;
             etProjName.setText(mProjName);
-            setTitleProjName(mProjName);
+            setAppSubtitle();
 
             int currSer = Integer.parseInt(currSeries);
             if (currSer >= NUM_OF_SERIES_IN_XLS_FILE) {
@@ -255,7 +255,7 @@ public class MainActivity extends Activity implements OnClickListener {
             mSeriesNumber = String.valueOf(currSer+1);
             EditText etSer = (EditText)findViewById(id.etSerNum);
             etSer.setText(mSeriesNumber);
-            setSubTitleSer(mSeriesNumber);
+            setAppSubtitle();
 
             mFilePath     = xlsPath;
             ImageButton imgbtnExcel = (ImageButton) findViewById(id.btnAddExcelFile);
@@ -285,8 +285,8 @@ public class MainActivity extends Activity implements OnClickListener {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     EditText editText = (EditText) v;
-                    String projName = editText.getText().toString();
-                    createNewProject(projName);
+                    mProjName = editText.getText().toString();
+                    createNewProject();
                 }
             }
         });
@@ -296,8 +296,8 @@ public class MainActivity extends Activity implements OnClickListener {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     EditText editText = (EditText) v;
-                    SeriesNum = editText.getText().toString();
-                    setSubTitleSer(SeriesNum);
+                    mSeriesNumber = editText.getText().toString();
+                    setAppSubtitle();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
@@ -309,14 +309,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
 
 
-    private void createNewProject(String projName) {
-        setTitleProjName(projName);
-        if (!directoriesList.contains(projName)){
+    private void createNewProject() {
+        setAppSubtitle();
+        if (!directoriesList.contains(mProjName)){
             //create new directory
-            createDirectories(projName);
+            createDirectories(mProjName);
             //add template inside
             ResorcesCopier rc =new ResorcesCopier(getApplicationContext());
-            rc.copyResources(R.raw.template, projName, mFileDir, ".xls");
+            rc.copyResources(R.raw.template, mProjName, mFileDir, ".xls");
         }
     }
 
@@ -440,13 +440,14 @@ public class MainActivity extends Activity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setTitleProjName(String projName){
-        getActionBar().setTitle("Project: "+projName);
+    private void setAppTitle(){
+        getActionBar().setTitle("Data Entry Window");
     }
 
-    private void setSubTitleSer(String serieNumber){
-        getActionBar().setSubtitle("Series:  #"+serieNumber);
+    private void setAppSubtitle(){
+        getActionBar().setSubtitle("Project:  "+ mProjName +",  Series:  #"+ mSeriesNumber);
     }
+
 
 
 

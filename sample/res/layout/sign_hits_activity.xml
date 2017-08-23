@@ -201,6 +201,19 @@
             android:src="@drawable/star_transparent"
             android:visibility="invisible" />
 
+        <ImageView
+            android:id="@+id/MeasureButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="9dp"
+            android:layout_toLeftOf="@+id/ShowAllHits"
+            android:background="@drawable/buttonstate_transparent"
+            android:elevation="1dp"
+            android:rotation="45"
+            android:scaleType="center"
+            android:src="@drawable/measure_transparent"
+            android:visibility="invisible" />
+
         <!--ImageView
             android:id="@+id/centerDoneBtn"
             android:layout_width="wrap_content"

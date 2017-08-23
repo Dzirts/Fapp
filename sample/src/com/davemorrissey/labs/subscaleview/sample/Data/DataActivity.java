@@ -69,7 +69,7 @@ public class DataActivity extends Activity implements OnClickListener {
         } else {
             setContentView(layout.data_activity);
         }
-        getActionBar().setTitle("Data");
+        setAppTitle();
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -79,8 +79,7 @@ public class DataActivity extends Activity implements OnClickListener {
         fileDir = intent.getStringExtra("fileDir");
         fileName = intent.getStringExtra("fileName");
         mImagePath = intent.getStringExtra("imagePath");
-
-        getActionBar().setSubtitle(projectName+":  #"+serieNumber);
+        setAppSubtitle();
         scaledMapPins= new ArrayList<PointF>();
         scaledMapPins= intent.getParcelableArrayListExtra("ScaledPoints"); 
         String s = new String();
@@ -154,6 +153,14 @@ public class DataActivity extends Activity implements OnClickListener {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    private void setAppTitle(){
+        getActionBar().setTitle("Data Entry Window");
+    }
+
+    private void setAppSubtitle(){
+        getActionBar().setSubtitle("Project:  "+ projectName +",  Series:  #"+ serieNumber);
     }
 
     @Override

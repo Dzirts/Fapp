@@ -9,6 +9,7 @@ import org.apache.poi.ss.formula.functions.Hyperlink;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -29,6 +30,7 @@ import java.text.NumberFormat;
 
 public class ExcelWriter {
 
+    private final String TAG = getClass().getName();
     private ExcelData ed;
     private  int START_LINE = 51;
     private  int NUM_OF_LINES_TO_FILL = 30;
@@ -78,6 +80,7 @@ public class ExcelWriter {
             String outFileName = ed.getFileName();
 
             addImage();
+            evaluateCellsFormulas();
 //            HSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 
             File outFile = new File(ed.getNewFileDir(), outFileName);
@@ -97,6 +100,28 @@ public class ExcelWriter {
             e.printStackTrace();
             return "";
         }
+    }
+
+    private void evaluateCellsFormulas() {
+        try{
+            FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+            int numOfSheets = workbook.getNumberOfSheets();
+            for (int i=0; i<numOfSheets; i++) {
+                HSSFSheet sheet = workbook.getSheetAt(i);
+                for (Row r : sheet) {
+                    for (Cell c : r) {
+                        if (c.getCellType() == Cell.CELL_TYPE_FORMULA) {
+                            evaluator.evaluateFormulaCell(c);
+                            Log.d(TAG, "Evaluated: sheet: "+c.getSheet().getSheetName()+" row: "+c.getRow().getRowNum()+" col: "+c.getColumnIndex());
+
+                        }
+                    }
+                }
+            }
+        } catch (Exception e){
+            Log.d(TAG, e.getStackTrace().toString());
+        }
+
     }
 
 
@@ -127,8 +152,10 @@ public class ExcelWriter {
             ClientAnchor anchor = helper.createClientAnchor();
             //set top-left corner of the picture,
             //subsequent call of Picture#resize() will operate relative to it
-            anchor.setCol1(11);
-            anchor.setRow1(17);
+            anchor.setCol1(0);
+            anchor.setCol2(8);
+            anchor.setRow1(0);
+            anchor.setRow1(11);
             Picture pict = drawing.createPicture(anchor, pictureIdx);
 
             //auto-size picture relative to its top-left corner
