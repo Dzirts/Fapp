@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -108,6 +109,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ImageView ivShowAllHitsImg;
     private ImageView ivCenterDone;
     private ImageView ivNext;
+    private ImageView ivMeasure;
 
     private SeekBar sizeSeekBar;
 
@@ -181,6 +183,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         ivNext= (ImageView) findViewById(id.next);
         pinView= (PinView)(findViewById(id.imageView));
         sizeSeekBar = (SeekBar)findViewById(id.sizeSeekBar);
+        ivMeasure = (ImageView) findViewById(id.MeasureButton);
 
 
     }
@@ -346,8 +349,40 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             handleHitButton();
         } else if (view.getId() == id.delImg){
             handleDeleteButton();
+        }  else if (view.getId() == id.MeasureButton){
+            handleMeasureButton();
         }
 
+    }
+
+    private void handleMeasureButton() {
+        ivMeasure.setImageResource(R.drawable.measure_pink);
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View view = factory.inflate(layout.test_alert_layout, null);
+        mToast.setViewAndShow(view);
+        boolean b = true;
+        for (int i =0; i<4; i++){
+            try {
+                Thread.sleep(250);
+                ImageView plus = (ImageView)view.findViewById(id.plusImg);
+
+
+//                ImageView plus = (ImageView)findViewById(id.plusImg);
+
+                if (b){
+                    plus.setImageResource(R.drawable.plus_with_trv);
+                } else {
+                    plus.setImageResource(R.drawable.plus);
+                }
+                b= !b;
+//                setContentView(layout.sign_hits_activity);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     private void handleDeleteButton() {
@@ -384,6 +419,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         ivHitImg.setVisibility(View.VISIBLE);
         ivDeleteImg.setVisibility(View.VISIBLE);
         ivColorsImg.setVisibility(View.VISIBLE);
+        ivMeasure.setVisibility(View.VISIBLE);
+
         ivShowAllHitsImg.setVisibility(View.VISIBLE);
 
         mToast.setTextAndShow("mark the hits over the target, you can find the average and clear all marks, when finish click done button");

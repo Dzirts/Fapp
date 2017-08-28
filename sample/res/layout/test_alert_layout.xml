@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@color/actionBarBackground"
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <!--LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -25,10 +25,10 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
-            android:text="Input Page:"
+            android:text="Measurment:"
             android:textColor="@android:color/background_light"
             android:textSize="30sp" />
-    </LinearLayout>
+    </LinearLayout-->
 
     <TextView
         android:id="@+id/textView4"
@@ -38,19 +38,40 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:text="Insert parameters in the upper boxes' and choose the matching Xls file, then choose your Image from camera or library."
+        android:text="select left side and right side"
         android:textColor="@android:color/background_light"
-        android:textSize="24dp" />
+        android:textSize="28dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/plusImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/plus" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false" />
 
 </LinearLayout>
