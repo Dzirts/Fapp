@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -156,12 +157,17 @@ public class ScanFragment extends Fragment {
     private class ScanButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Map<Integer, PointF> points = polygonView.getPoints();
-            if (isScanPointsValid(points)) {
-                new ScanAsyncTask(points).execute();
-            } else {
-                showErrorDialog();
+            try{
+                Map<Integer, PointF> points = polygonView.getPoints();
+                if (isScanPointsValid(points)) {
+                    new ScanAsyncTask(points).execute();
+                } else {
+                    showErrorDialog();
+                }
+            } catch (Exception e){
+                e.printStackTrace();
             }
+
         }
     }
 

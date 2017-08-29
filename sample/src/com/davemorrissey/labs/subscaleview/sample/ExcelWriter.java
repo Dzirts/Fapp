@@ -5,11 +5,15 @@ import android.util.Log;
 
 import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFHyperlink;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.formula.functions.Hyperlink;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -79,7 +83,8 @@ public class ExcelWriter {
             }
             String outFileName = ed.getFileName();
 
-            addImage();
+//            addImage();
+            addImageHyperLink();
             evaluateCellsFormulas();
 //            HSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
 
@@ -100,6 +105,36 @@ public class ExcelWriter {
             e.printStackTrace();
             return "";
         }
+    }
+
+    private void addImageHyperLink() {
+        try{
+            HSSFHyperlink file_link=new HSSFHyperlink(HSSFHyperlink.LINK_FILE);
+            String address = ed.getImagePath();
+            file_link.setAddress(address);
+
+            CellStyle style = workbook.createCellStyle();
+            style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+            style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+            Font font = workbook.createFont();
+            font.setColor(HSSFColor.WHITE.index);
+            style.setFont(font);
+            style.setAlignment(CellStyle.ALIGN_CENTER);
+
+
+            String sheetName = String.valueOf(ed.getSeriesNum());
+            HSSFSheet sheet = workbook.getSheet(sheetName);
+            Row row = sheet.getRow(38);
+            Cell cell = row.createCell(13);
+            cell.setCellValue("Original Hits Image");
+            cell.setHyperlink(file_link);
+            cell.setCellStyle(style);
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private void evaluateCellsFormulas() {

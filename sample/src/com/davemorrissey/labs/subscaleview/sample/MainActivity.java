@@ -16,6 +16,7 @@ package com.davemorrissey.labs.subscaleview.sample;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -34,9 +35,11 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.sample.R.id;
@@ -73,6 +76,8 @@ public class MainActivity extends Activity implements OnClickListener {
     private String mFileDir;
     private String mFileName;
 
+    private boolean mToastsAreOn;
+
     private myToast mToast;
 
     private Bitmap mBitmap;
@@ -97,7 +102,7 @@ public class MainActivity extends Activity implements OnClickListener {
         addAdapters(mainDirectory);
         setOnFocusListeners();
         getAppParams();
-        mToast = new myToast(this, true);
+        mToast = new myToast(this, true, mToastsAreOn);
 
         ImageView iv = (ImageView)findViewById(id.scannedImage);
         iv.setOnClickListener(new OnClickListener() {
@@ -215,22 +220,30 @@ public class MainActivity extends Activity implements OnClickListener {
     private void setAppParams(){
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getString(R.string.param_project_name)  , mProjName);
-        editor.putString(getString(R.string.param_project_series), mSeriesNumber);
-        editor.putString(getString(R.string.param_xls_name)      , mFileName);
-        editor.putString(getString(R.string.param_xls_path)      , mFilePath);
-        editor.putString(getString(R.string.param_xls_dir)       , mFileDir);
+        editor.putString(getString(R.string.param_project_name)   , mProjName);
+        editor.putString(getString(R.string.param_project_series) , mSeriesNumber);
+        editor.putString(getString(R.string.param_xls_name)       , mFileName);
+        editor.putString(getString(R.string.param_xls_path)       , mFilePath);
+        editor.putString(getString(R.string.param_xls_dir)        , mFileDir);
+        String ToastAreOn = mToastsAreOn? "true" : "false";
+        editor.putString(getString(R.string.param_toasts_are_on2) , ToastAreOn);
         editor.commit();
     }
 
     private void getAppParams(){
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         String def =   "default";
-        String projName   = sharedPref.getString(getString(R.string.param_project_name)  , def);
-        String currSeries = sharedPref.getString(getString(R.string.param_project_series), def);
-        String xlsName    = sharedPref.getString(getString(R.string.param_xls_name)      , def);
-        String xlsPath    = sharedPref.getString(getString(R.string.param_xls_path)      , def);
-        String xlsDir     = sharedPref.getString(getString(R.string.param_xls_dir)       , def);
+        String projName     = sharedPref.getString(getString(R.string.param_project_name)   , def);
+        String currSeries   = sharedPref.getString(getString(R.string.param_project_series) , def);
+        String xlsName      = sharedPref.getString(getString(R.string.param_xls_name)       , def);
+        String xlsPath      = sharedPref.getString(getString(R.string.param_xls_path)       , def);
+        String xlsDir       = sharedPref.getString(getString(R.string.param_xls_dir)        , def);
+        String toastsAreOn = "";
+        try{
+            toastsAreOn = sharedPref.getString("param_toasts_are_on2"   , "false");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
         if (projName.equals(def) ||  currSeries.equals(def) ||
@@ -264,6 +277,8 @@ public class MainActivity extends Activity implements OnClickListener {
             mFileName     = xlsName;
             mFileDir      = xlsDir;
             Log.d(TAG, "prefences are set in app");
+
+            mToastsAreOn = (toastsAreOn.equals("true"))? true : false;
 
         }
     }
@@ -425,8 +440,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            TODO: change to options
-//            mFileDialog.showDialog();
+            buildOptionsDialog();
         } else if (id == R.id.action_newproject) {
             // TODO: add option for new user
             return true;
@@ -494,6 +508,46 @@ public class MainActivity extends Activity implements OnClickListener {
                 directoriesList.add(file.getName());
             }
         }
+    }
+
+
+
+    public void buildOptionsDialog() {
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View view = factory.inflate(R.layout.options_layout, null);
+        Switch toastSwitch = (Switch)view.findViewById(R.id.toastSwitch);
+        toastSwitch.setChecked(mToastsAreOn);
+
+
+        final boolean[] toastIsOn = {true};
+
+        alert.setView(view);
+
+        toastSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                toastIsOn[0] = isChecked;
+                Log.v("Toast Switch State=", ""+isChecked);
+            }
+
+        });
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                mToastsAreOn = toastIsOn[0];
+                mToast.setToastApperance(mToastsAreOn);
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
+        alert.show();
     }
 
 }// class ending

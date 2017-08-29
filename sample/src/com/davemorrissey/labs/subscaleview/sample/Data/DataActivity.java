@@ -17,7 +17,9 @@ limitations under the License.
 package com.davemorrissey.labs.subscaleview.sample.Data;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -56,6 +58,8 @@ public class DataActivity extends Activity implements OnClickListener {
     private String fileName;
     private String mImagePath;
     private myToast mToast;
+    private boolean mToastsAreOn;
+
 
 
 
@@ -140,9 +144,17 @@ public class DataActivity extends Activity implements OnClickListener {
         });
 
         findViewById(id.next).setOnClickListener(this);
-        mToast = new myToast(this, true);
+        getAppParams();
+        mToast = new myToast(this, true, mToastsAreOn);
 
 
+    }
+
+    private void getAppParams() {
+//        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("param_toasts_are_on",Context.MODE_PRIVATE);
+        String toastsAreOn = sharedPref.getString("param_toasts_are_on2", "false");
+        mToastsAreOn = (toastsAreOn.equals("true"))? true : false;
     }
 
     @Override

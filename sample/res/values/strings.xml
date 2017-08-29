@@ -15,6 +15,10 @@
     <string name="param_xls_name">param_xls_name</string>
     <string name="param_xls_path">param_xls_path</string>
     <string name="param_xls_dir">param_xls_dir</string>
+    <string name="param_toasts_are_on">param_toasts_are_on</string>
+    <string name="param_toasts_are_on2">param_toasts_are_on</string>
+
+
 
 
 

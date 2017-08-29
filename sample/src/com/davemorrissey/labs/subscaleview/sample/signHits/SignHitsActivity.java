@@ -18,12 +18,17 @@ package com.davemorrissey.labs.subscaleview.sample.signHits;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.Pair;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -32,11 +37,13 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +80,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private String fileDir;
     private String fileName;
     private String mImagePath;
+    private String mImageName;
     public  ExcelReader er;
 
     AlertDialog addPrevHitsDialog;
@@ -89,6 +97,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private PinView pinView;
     private float rotationDegree = 0;
 
+    private boolean mToastsAreOn;
 
     private boolean centerSelected = false;
     private boolean centerAttached = false;
@@ -102,6 +111,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ArrayList<Pair<PointF, String>> hitList = new ArrayList<Pair<PointF, String>>();
     private ArrayList<ArrayList<PointF>> prevHitList = new ArrayList<ArrayList<PointF>>();
     private ArrayList<Integer> indexList = new ArrayList<Integer>();
+
+    private boolean b = true;
 
     private ImageView ivHitImg;
     private ImageView ivDeleteImg;
@@ -144,11 +155,18 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             position = savedInstanceState.getInt(BUNDLE_POSITION);
         }
         updateNotes(0);
-        mToast = new myToast(this, true);
+        getAppParams();
+        mToast = new myToast(this, true, mToastsAreOn);
         setAppTitle("Center Selection Window");
         setAppSubtitle();
 
 
+    }
+
+    private void getAppParams() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        String toastsAreOn = sharedPref.getString("param_toasts_are_on2", "false");
+        mToastsAreOn = (toastsAreOn.equals("true"))? true : false;
     }
 
     private void InitSeekBar() {
@@ -357,32 +375,60 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     private void handleMeasureButton() {
         ivMeasure.setImageResource(R.drawable.measure_pink);
-        LayoutInflater factory = LayoutInflater.from(this);
-        final View view = factory.inflate(layout.test_alert_layout, null);
-        mToast.setViewAndShow(view);
-        boolean b = true;
-        for (int i =0; i<4; i++){
-            try {
-                Thread.sleep(250);
-                ImageView plus = (ImageView)view.findViewById(id.plusImg);
+        showMeasureDialog();
+
+    }
+
+    public void showMeasureDialog(){
+        buildMeasurmentDialog();
+    }
+
+    public void buildMeasurmentDialog() {
+        try{
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            LayoutInflater factory = LayoutInflater.from(this);
+            final View view = factory.inflate(layout.test_alert_layout, null);
+            final ImageView left =(ImageView)view.findViewById(id.left_line);
+            final ImageView right =(ImageView)view.findViewById(id.right_line);
+            final ImageView top =(ImageView)view.findViewById(id.top_line);
+            final ImageView bottom =(ImageView)view.findViewById(id.bottom_line);
 
 
-//                ImageView plus = (ImageView)findViewById(id.plusImg);
+            builder.setView(view);
+            final AlertDialog alert = builder.create();
+            alert.show();
+            new CountDownTimer(3000, 500) {
 
-                if (b){
-                    plus.setImageResource(R.drawable.plus_with_trv);
-                } else {
-                    plus.setImageResource(R.drawable.plus);
+                public void onTick(long millisUntilFinished) {
+                    alert.dismiss();
+                    if (b){
+                        left.setVisibility(View.VISIBLE);
+                        right.setVisibility(View.VISIBLE);
+                        top.setVisibility(View.INVISIBLE);
+                        bottom.setVisibility(View.INVISIBLE);
+                        b= !b;
+                    } else {
+                        left.setVisibility(View.INVISIBLE);
+                        right.setVisibility(View.INVISIBLE);
+                        top.setVisibility(View.VISIBLE);
+                        bottom.setVisibility(View.VISIBLE);
+                        b= !b;
+                    }
+                    builder.setView(view);
+                    alert.show();
+
                 }
-                b= !b;
-//                setContentView(layout.sign_hits_activity);
 
+                public void onFinish() {
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+                }
+            }.start();
+        } catch (Exception e){
+            e.printStackTrace();
         }
+
+
     }
 
     private void handleDeleteButton() {
@@ -469,7 +515,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         intent.putExtra("seriesNumber" ,seriesNumber);
         intent.putExtra("filePath" ,filePath);
         intent.putExtra("fileName" ,fileName);
-        intent.putExtra("imagePath" ,mImagePath);
+        intent.putExtra("imagePath" ,mImageName);
         intent.putExtra("fileDir", fileDir);
         startActivity(intent);
     }
@@ -690,7 +736,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         try {
             // image naming and path  to include sd card  appending name you choose for file
 //            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-            mImagePath = fileDir + "/" + projectName +"_Ser_"+seriesNumber+"_"+ now + ".jpg";
+            mImagePath = fileDir + "/" + projectName +"_Ser_"+seriesNumber + ".jpg";
+            mImageName = "./" + projectName +"_Ser_"+seriesNumber + ".jpg";
             mToast.setTextAndShow("pic saved in" + mImagePath);
 //            Toast.makeText(SignHitsActivity.this, "pic saved in" + mImagePath, Toast.LENGTH_LONG).show();
             RelativeLayout v1 =(RelativeLayout)findViewById(id.rl);
@@ -751,6 +798,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         }
 
     }
+
+
+
 
 
 

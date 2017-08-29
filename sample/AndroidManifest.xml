@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.davemorrissey.labs.subscaleview.sample"
-    android:hardwareAccelerated="true"
+
     android:versionCode="3"
     android:versionName="3.0.0">
 
@@ -18,6 +18,8 @@
         android:icon="@drawable/icon"
         android:label="Elbit Mark Target"
         android:theme="@style/demoTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         >
         <activity
             android:name=".MainActivity"

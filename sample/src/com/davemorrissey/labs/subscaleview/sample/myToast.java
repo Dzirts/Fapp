@@ -16,21 +16,24 @@ public class myToast {
     private String TAG = getClass().getName();
     private String toastText;
     private Context toastContext;
+    private Boolean showToast;
     private int toastDuration = 7;
     private final double LENGTH_LONG = 3.5;
     private boolean centrelize = true;
     private static Toast toast;
 
 
-    public myToast(Context context, boolean centrelize){
+    public myToast(Context context, boolean centrelize, boolean showToasts){
         this.toastContext = context;
-        new myToast(toastContext, toastText, toastDuration, centrelize);
+        this.showToast = showToasts;
+        new myToast(toastContext, toastText, toastDuration, centrelize, showToasts);
     }
 
-    public myToast(Context context, String text, int duration, boolean centrelize){
+    public myToast(Context context, String text, int duration, boolean centrelize, boolean showToasts){
         this.toastContext = context;
         this.toastText = text;
         this.toastDuration = duration;
+        this.showToast = showToasts;
 
         toast = new Toast(toastContext);
         toast.makeText(toastContext, toastText, Toast.LENGTH_LONG);
@@ -53,6 +56,9 @@ public class myToast {
     }
 
     public void setTextAndShow(String toastText) {
+        if(!showToast){
+            return;
+        }
         try{
             this.toastText = toastText;
             showText();
@@ -62,6 +68,9 @@ public class myToast {
     }
 
     public void setViewAndShow(View view) {
+        if(!showToast){
+            return;
+        }
         int  rounds = (int) Math.ceil(toastDuration / LENGTH_LONG);
         for (int i = 0 ; i<rounds; i++){
             Toast toast = Toast.makeText(toastContext, "", Toast.LENGTH_LONG);
@@ -74,6 +83,9 @@ public class myToast {
     }
 
     public void showText(){
+        if(!showToast){
+            return;
+        }
         int  rounds = (int) Math.ceil(toastDuration / LENGTH_LONG);
         SpannableStringBuilder biggerText = new SpannableStringBuilder(this.toastText);
         biggerText.setSpan(new RelativeSizeSpan(1.35f), 0, this.toastText.length(), 0);
@@ -97,5 +109,7 @@ public class myToast {
     }
 
 
-
+    public void setToastApperance(boolean toastApperance) {
+        this.showToast = toastApperance;
+    }
 }
