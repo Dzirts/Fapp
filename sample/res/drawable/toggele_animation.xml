@@ -1,0 +1,6 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toggele_animation"
+    android:oneshot="false">
+    <item android:drawable="@drawable/lines" android:duration="500" />
+    <item android:drawable="@drawable/lines2" android:duration="500" />
+</animation-list>

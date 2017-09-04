@@ -24,11 +24,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.util.Pair;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -37,15 +36,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -89,6 +85,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private myToast mToast;
 
 
+    private enum MeasureStages { NONE, SHOW_TRV_EXP, TRV_CLICKS, ENTER_TRV_DIST, SHOW_ELV_EXP, ELV_CLICKS, ENTER_ELV_DIST };
+    private MeasureStages measureStage = MeasureStages.NONE;
 
     private boolean nextClicked = false;
 
@@ -373,63 +371,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     }
 
-    private void handleMeasureButton() {
-        ivMeasure.setImageResource(R.drawable.measure_pink);
-        showMeasureDialog();
-
-    }
-
-    public void showMeasureDialog(){
-        buildMeasurmentDialog();
-    }
-
-    public void buildMeasurmentDialog() {
-        try{
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            LayoutInflater factory = LayoutInflater.from(this);
-            final View view = factory.inflate(layout.test_alert_layout, null);
-            final ImageView left =(ImageView)view.findViewById(id.left_line);
-            final ImageView right =(ImageView)view.findViewById(id.right_line);
-            final ImageView top =(ImageView)view.findViewById(id.top_line);
-            final ImageView bottom =(ImageView)view.findViewById(id.bottom_line);
-
-
-            builder.setView(view);
-            final AlertDialog alert = builder.create();
-            alert.show();
-            new CountDownTimer(3000, 500) {
-
-                public void onTick(long millisUntilFinished) {
-                    alert.dismiss();
-                    if (b){
-                        left.setVisibility(View.VISIBLE);
-                        right.setVisibility(View.VISIBLE);
-                        top.setVisibility(View.INVISIBLE);
-                        bottom.setVisibility(View.INVISIBLE);
-                        b= !b;
-                    } else {
-                        left.setVisibility(View.INVISIBLE);
-                        right.setVisibility(View.INVISIBLE);
-                        top.setVisibility(View.VISIBLE);
-                        bottom.setVisibility(View.VISIBLE);
-                        b= !b;
-                    }
-                    builder.setView(view);
-                    alert.show();
-
-                }
-
-                public void onFinish() {
-
-                }
-            }.start();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-    }
 
     private void handleDeleteButton() {
         buttonChecked = ButtonChecked.DELETE;
@@ -470,9 +411,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         ivShowAllHitsImg.setVisibility(View.VISIBLE);
 
         mToast.setTextAndShow("mark the hits over the target, you can find the average and clear all marks, when finish click done button");
-
-//            Toast.makeText(this, "mark the hits over the target, you can find the average and clear all marks, when finish click done button",
-//                    Toast.LENGTH_LONG).show();
     }
 
     private void handleSetCenterButtun() {
@@ -798,6 +736,87 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         }
 
     }
+
+    private void handleMeasureButton(/*MeasureStages stage*/) {
+        ivMeasure.setImageResource(R.drawable.measure_pink);
+//        switch(stage){
+//            case NONE:
+//                measureStage = MeasureStages.SHOW_TRV_EXP;
+//                buildMeasurmentDialog(measureStage);
+//                break;
+//            case SHOW_TRV_EXP:
+//                measureStage = MeasureStages.TRV_CLICKS;
+//                getTrvPoints(measureStage);
+//                break;
+//            case TRV_CLICKS:
+//                measureStage = MeasureStages.ENTER_TRV_DIST;
+//                buildDistanceDialog(measureStage);
+//                break;
+//
+//
+//
+//        }
+        buildMeasurmentDialog(); //measureStage
+    }
+
+
+
+    public void buildMeasurmentDialog() {    //MeasureStages measureStage
+        try{
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            LayoutInflater factory = LayoutInflater.from(this);
+            final View view = factory.inflate(layout.test_alert_layout, null);
+            final ImageView plusImg =(ImageView)view.findViewById(id.plusImg);
+
+            AnimationDrawable frameAnimation = null;
+            if (plusImg != null) {
+                plusImg.setVisibility(View.VISIBLE);
+                frameAnimation = (AnimationDrawable)plusImg.getBackground();
+                frameAnimation.start();
+
+            }
+
+
+            builder.setView(view);
+            final AlertDialog alert = builder.create();
+            alert.show();
+
+//            new CountDownTimer(3000, 500) {
+//
+//                public void onTick(long millisUntilFinished) {
+//                    alert.dismiss();
+//                    if (b){
+//                        left.setVisibility(View.VISIBLE);
+//                        right.setVisibility(View.VISIBLE);
+//                        top.setVisibility(View.INVISIBLE);
+//                        bottom.setVisibility(View.INVISIBLE);
+//                        b= !b;
+//                    } else {
+//                        left.setVisibility(View.INVISIBLE);
+//                        right.setVisibility(View.INVISIBLE);
+//                        top.setVisibility(View.VISIBLE);
+//                        bottom.setVisibility(View.VISIBLE);
+//                        b= !b;
+//                    }
+//                    builder.setView(view);
+//                    alert.show();
+//
+//                }
+//
+//                public void onFinish() {
+//
+//                }
+//            }.start();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
 
 
 

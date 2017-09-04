@@ -44,65 +44,26 @@
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="select left side and right side"
         android:textColor="@android:color/background_light"
-        android:textSize="28dp" />
+        android:textSize="24sp" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/plusImg"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:background="@drawable/toggele_animation"
             android:padding="30dp"
             android:src="@drawable/plus" />
 
-        <ImageView
-            android:id="@+id/top_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rotation="90"
-            android:src="@drawable/line"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <ImageView
-            android:id="@+id/bottom_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rotation="90"
-            android:src="@drawable/line"
-            android:layout_alignBottom="@+id/plusImg"
-            android:layout_alignStart="@+id/top_line" />
-
-        <ImageView
-            android:id="@+id/right_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:src="@drawable/line"
-            android:layout_above="@+id/bottom_line"
-            android:layout_toEndOf="@+id/top_line" />
-
-        <ImageView
-            android:id="@+id/left_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/line"
-            android:layout_above="@+id/bottom_line"
-            android:layout_alignEnd="@+id/bottom_line"
-            android:layout_marginEnd="71dp" />
-
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="false" />
 
 </LinearLayout>
