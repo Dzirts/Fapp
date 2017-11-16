@@ -87,6 +87,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     private enum MeasureStages { NONE, SHOW_TRV_EXP, TRV_CLICKS, ENTER_TRV_DIST, SHOW_ELV_EXP, ELV_CLICKS, ENTER_ELV_DIST };
     private MeasureStages measureStage = MeasureStages.NONE;
+    private boolean measureBtnSelected = false;
 
     private boolean nextClicked = false;
 
@@ -366,7 +367,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         } else if (view.getId() == id.delImg){
             handleDeleteButton();
         }  else if (view.getId() == id.MeasureButton){
-            handleMeasureButton();
+//            handleMeasureButton();
         }
 
     }
@@ -737,26 +738,45 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     }
 
-    private void handleMeasureButton(/*MeasureStages stage*/) {
-        ivMeasure.setImageResource(R.drawable.measure_pink);
+    private void handleMeasureButton(MeasureStages stage) {
+//        if (measureBtnSelected){
+//            ivMeasure.setImageResource(R.drawable.measure_transparent);
+//            measureBtnSelected = !measureBtnSelected;
+//        }
+//        ivMeasure.setImageResource(R.drawable.measure_pink);
+//        measureBtnSelected = !measureBtnSelected;
 //        switch(stage){
 //            case NONE:
 //                measureStage = MeasureStages.SHOW_TRV_EXP;
-//                buildMeasurmentDialog(measureStage);
 //                break;
 //            case SHOW_TRV_EXP:
+//                buildMeasurmentDialog(measureStage);
 //                measureStage = MeasureStages.TRV_CLICKS;
-//                getTrvPoints(measureStage);
 //                break;
 //            case TRV_CLICKS:
+//                getTrvPoints(measureStage);
+//                measureStage = MeasureStages.ENTER_TRV_DIST;
+//                break;
+//            case ENTER_TRV_DIST:
+//                buildDistanceDialog(measureStage);
+//                measureStage = MeasureStages.SHOW_ELV_EXP;
+//            case SHOW_ELV_EXP:
+//                buildMeasurmentDialog(measureStage);
+//                measureStage = MeasureStages.ELV_CLICKS;
+//                break;
+//            case ELV_CLICKS:
+//                getTrvPoints(measureStage);
 //                measureStage = MeasureStages.ENTER_TRV_DIST;
 //                buildDistanceDialog(measureStage);
 //                break;
+//            case ENTER_ELV_DIST:
+//                buildDistanceDialog(measureStage);
+//                measureStage = MeasureStages.SHOW_ELV_EXP;
 //
 //
 //
 //        }
-        buildMeasurmentDialog(); //measureStage
+//        buildMeasurmentDialog(); //measureStage
     }
 
 
@@ -776,38 +796,10 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                 frameAnimation.start();
 
             }
-
-
             builder.setView(view);
             final AlertDialog alert = builder.create();
             alert.show();
 
-//            new CountDownTimer(3000, 500) {
-//
-//                public void onTick(long millisUntilFinished) {
-//                    alert.dismiss();
-//                    if (b){
-//                        left.setVisibility(View.VISIBLE);
-//                        right.setVisibility(View.VISIBLE);
-//                        top.setVisibility(View.INVISIBLE);
-//                        bottom.setVisibility(View.INVISIBLE);
-//                        b= !b;
-//                    } else {
-//                        left.setVisibility(View.INVISIBLE);
-//                        right.setVisibility(View.INVISIBLE);
-//                        top.setVisibility(View.VISIBLE);
-//                        bottom.setVisibility(View.VISIBLE);
-//                        b= !b;
-//                    }
-//                    builder.setView(view);
-//                    alert.show();
-//
-//                }
-//
-//                public void onFinish() {
-//
-//                }
-//            }.start();
         } catch (Exception e){
             e.printStackTrace();
         }
