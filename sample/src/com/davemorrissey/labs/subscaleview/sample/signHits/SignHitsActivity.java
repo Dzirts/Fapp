@@ -36,12 +36,18 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
+import android.widget.ViewSwitcher;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -78,6 +84,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private String mImagePath;
     private String mImageName;
     public  ExcelReader er;
+    private Uri mScannedImage;
 
     AlertDialog addPrevHitsDialog;
     final ArrayList seletedItems=new ArrayList();
@@ -367,7 +374,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         } else if (view.getId() == id.delImg){
             handleDeleteButton();
         }  else if (view.getId() == id.MeasureButton){
-//            handleMeasureButton();
+            handleMeasureButton();
         }
 
     }
@@ -378,6 +385,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         ivHitImg.setImageResource(R.drawable.hit_transparent);
         ivDeleteImg.setImageResource(R.drawable.bin_red);
     }
+
 
     private void handleHitButton() {
         buttonChecked = ButtonChecked.HIT;
@@ -554,7 +562,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 //
         });
         Intent intent = getIntent();
-        Uri ScannedImage= intent.getParcelableExtra("UriSrc");
+        mScannedImage= intent.getParcelableExtra("UriSrc");
         projectName  = intent.getStringExtra("projName");
         seriesNumber = intent.getStringExtra("seriesNum");
         filePath = intent.getStringExtra("filePath");
@@ -563,7 +571,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
         setAppSubtitle();
 
-        imageView.setImage(ImageSource.uri(ScannedImage));
+        imageView.setImage(ImageSource.uri(mScannedImage));
         imageView.setMinimumDpi(25);
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -738,13 +746,14 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     }
 
-    private void handleMeasureButton(MeasureStages stage) {
-//        if (measureBtnSelected){
-//            ivMeasure.setImageResource(R.drawable.measure_transparent);
-//            measureBtnSelected = !measureBtnSelected;
-//        }
-//        ivMeasure.setImageResource(R.drawable.measure_pink);
-//        measureBtnSelected = !measureBtnSelected;
+    private void handleMeasureButton(/*MeasureStages stage*/) {
+        if (measureBtnSelected){
+            ivMeasure.setImageResource(R.drawable.measure_transparent);
+            measureBtnSelected = !measureBtnSelected;
+        }
+        ivMeasure.setImageResource(R.drawable.measure_pink);
+        measureBtnSelected = !measureBtnSelected;
+        selectMeasureExample();
 //        switch(stage){
 //            case NONE:
 //                measureStage = MeasureStages.SHOW_TRV_EXP;
@@ -779,6 +788,73 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 //        buildMeasurmentDialog(); //measureStage
     }
 
+    private void selectMeasureExample(){
+        try {
+            final RelativeLayout rl = (RelativeLayout) findViewById(id.rl);
+//        ImageView iv = new ImageView(this);
+//        iv.setImageResource(R.drawable.neasurement_example_target); //or iv.setImageDrawable(getResources().getDrawable(R.drawable.some_drawable_of_yours));
+            LayoutInflater factory = LayoutInflater.from(this);
+            final View view1 = factory.inflate(layout.test_alert_layout, null);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            final Button btnNext = (Button) view1.findViewById(R.id.buttonNext);
+            final ViewFlipper simpleViewFlipper = (ViewFlipper) view1.findViewById(R.id.simpleViewFlipper);
+            Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+            Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+            in.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    if (simpleViewFlipper.getDisplayedChild() == simpleViewFlipper.getChildCount() - 1) {
+                        btnNext.setText("Done");
+                    } else {
+                        btnNext.setText("Next");
+                    }
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            simpleViewFlipper.setInAnimation(in);
+            simpleViewFlipper.setOutAnimation(out);
+
+            simpleViewFlipper.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                    if (simpleViewFlipper.getDisplayedChild() == simpleViewFlipper.getChildCount() ){
+                        btnNext.setText("Done");
+                    }
+                }
+            });
+
+            btnNext.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    // show the next view of ViewSwitcher
+                    if (btnNext.getText().toString() == "Done"){
+                        rl.removeViewAt(rl.getChildCount()-1);
+                        return;
+                    }
+                    simpleViewFlipper.showNext();
+
+                }
+            });
+            rl.addView(view1, params);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 
 
     public void buildMeasurmentDialog() {    //MeasureStages measureStage
@@ -787,7 +863,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
             LayoutInflater factory = LayoutInflater.from(this);
             final View view = factory.inflate(layout.test_alert_layout, null);
-            final ImageView plusImg =(ImageView)view.findViewById(id.plusImg);
+            final ImageView plusImg =(ImageView)view.findViewById(id.rotate);
 
             AnimationDrawable frameAnimation = null;
             if (plusImg != null) {

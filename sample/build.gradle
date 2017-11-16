@@ -56,6 +56,16 @@ android {
         release.setRoot('build-types/release')
     }
 
+    buildTypes{
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                output.outputFile = file("$project.buildDir/apk/ElbitMarkTarget.apk")
+            }
+        }
+
+    }
+
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 23
