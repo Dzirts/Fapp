@@ -16,6 +16,18 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true" />
 
+        <TextView
+            android:id="@+id/explenationsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Mark 4 point to reconfigure height and width."
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="26sp"
+            android:visibility="invisible" />
+
     </RelativeLayout>
 
     <RelativeLayout

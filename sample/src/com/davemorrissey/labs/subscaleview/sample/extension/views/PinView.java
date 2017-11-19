@@ -150,6 +150,11 @@ public class PinView extends SubsamplingScaleImageView {
                     w = (density / fSize) * bmpPin.getWidth();
                     h = (density / fSize) * bmpPin.getHeight();
                     break;
+                case "mesurePt":
+                    bmpPin = BitmapFactory.decodeResource(this.getResources(), drawable.measure_point);
+                    w = (density / 400f) * bmpPin.getWidth();
+                    h = (density / 400f) * bmpPin.getHeight();
+                    break;
             }
 
             bmpPin = Bitmap.createScaledBitmap(bmpPin, (int) w, (int) h, true);

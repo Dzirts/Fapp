@@ -27,7 +27,7 @@ import android.graphics.PointF;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.util.Log;
 import android.util.Pair;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -46,8 +46,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
-import android.widget.ViewSwitcher;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -86,20 +86,21 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     public  ExcelReader er;
     private Uri mScannedImage;
 
+    private float measureWidth;
+    private float measureHeight;
+
     AlertDialog addPrevHitsDialog;
     final ArrayList seletedItems=new ArrayList();
     AlertDialog.Builder builder;
     private myToast mToast;
 
-
-    private enum MeasureStages { NONE, SHOW_TRV_EXP, TRV_CLICKS, ENTER_TRV_DIST, SHOW_ELV_EXP, ELV_CLICKS, ENTER_ELV_DIST };
-    private MeasureStages measureStage = MeasureStages.NONE;
     private boolean measureBtnSelected = false;
 
     private boolean nextClicked = false;
 
     private int position;
     private int pinsCounter=0;
+    private int tempPinsCounter=0;
     private PinView pinView;
     private float rotationDegree = 0;
 
@@ -115,6 +116,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ArrayList<PointF> CenterPins;
     private ArrayList<PointF> scaledMapPins;
     private ArrayList<Pair<PointF, String>> hitList = new ArrayList<Pair<PointF, String>>();
+    private ArrayList<Pair<PointF, String>> tempHitList = new ArrayList<Pair<PointF, String>>();
     private ArrayList<ArrayList<PointF>> prevHitList = new ArrayList<ArrayList<PointF>>();
     private ArrayList<Integer> indexList = new ArrayList<Integer>();
 
@@ -131,7 +133,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private SeekBar sizeSeekBar;
 
     private enum ButtonChecked {HIT, DELETE} ;
-    private enum markMode {MARK_CENTER, MARK_HITS};
+    private enum markMode {MARK_CENTER, MARK_HITS, MARK_MES};
     private enum ButtonState {ON, OFF};
 
 
@@ -328,8 +330,6 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
                     }
                 });
-
-
     }
 
     @Override
@@ -507,7 +507,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             public boolean onSingleTapConfirmed(MotionEvent e) {
 //                here we on mark mode
                 if (imageView.isReady() && ( MarkMode==markMode.MARK_HITS && (buttonChecked == ButtonChecked.HIT) || //markHit.isChecked()
-                                        MarkMode==markMode.MARK_CENTER )) {
+                                        MarkMode==markMode.MARK_CENTER  || MarkMode==markMode.MARK_MES )) {
                     PointF sCoord = imageView.viewToSourceCoord(e.getX(), e.getY());
                     if (MarkMode==markMode.MARK_CENTER){
                         updateNotes(1);
@@ -520,7 +520,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                         pinView.setPins(hitList);
                         centerSelected = true;
                         pfCenterPt=sCoord;
-                    } else {
+                    } else if(MarkMode==markMode.MARK_HITS) {
                         updateNotes(++pinsCounter);
                         //change big center to small center
                         Pair<PointF, String> center = hitList.get(0);
@@ -531,6 +531,11 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                         Pair<PointF, String> p = new Pair<PointF, String>(sCoord,"newHit");
                         hitList.add(p);
                         pinView.setPins(hitList);
+                    } else if(MarkMode==markMode.MARK_MES){
+                        updateNotes(++pinsCounter);
+                        Pair<PointF, String> p = new Pair<PointF, String>(sCoord,"mesurePt");
+                        hitList.add(p);
+                        pinView.setPins(hitList);
                     }
                     pinView.post(new Runnable(){
                         public void run(){
@@ -538,6 +543,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                         }
                     });
                     centerAttached =true;
+                    if(MarkMode==markMode.MARK_MES && pinsCounter == 4){
+                        getMeasurementSizes();
+                    }
                 } else if(imageView.isReady() && (buttonChecked == ButtonChecked.DELETE)){
                     // in case we want to delete points
                     if (pinsCounter == 0){ return true;}
@@ -746,55 +754,125 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     }
 
-    private void handleMeasureButton(/*MeasureStages stage*/) {
-        if (measureBtnSelected){
-            ivMeasure.setImageResource(R.drawable.measure_transparent);
-            measureBtnSelected = !measureBtnSelected;
-        }
-        ivMeasure.setImageResource(R.drawable.measure_pink);
+    private void handleMeasureButton() {
         measureBtnSelected = !measureBtnSelected;
-        selectMeasureExample();
-//        switch(stage){
-//            case NONE:
-//                measureStage = MeasureStages.SHOW_TRV_EXP;
-//                break;
-//            case SHOW_TRV_EXP:
-//                buildMeasurmentDialog(measureStage);
-//                measureStage = MeasureStages.TRV_CLICKS;
-//                break;
-//            case TRV_CLICKS:
-//                getTrvPoints(measureStage);
-//                measureStage = MeasureStages.ENTER_TRV_DIST;
-//                break;
-//            case ENTER_TRV_DIST:
-//                buildDistanceDialog(measureStage);
-//                measureStage = MeasureStages.SHOW_ELV_EXP;
-//            case SHOW_ELV_EXP:
-//                buildMeasurmentDialog(measureStage);
-//                measureStage = MeasureStages.ELV_CLICKS;
-//                break;
-//            case ELV_CLICKS:
-//                getTrvPoints(measureStage);
-//                measureStage = MeasureStages.ENTER_TRV_DIST;
-//                buildDistanceDialog(measureStage);
-//                break;
-//            case ENTER_ELV_DIST:
-//                buildDistanceDialog(measureStage);
-//                measureStage = MeasureStages.SHOW_ELV_EXP;
-//
-//
-//
-//        }
-//        buildMeasurmentDialog(); //measureStage
+        ivMeasure.setImageResource(measureBtnSelected? R.drawable.measure_pink:  R.drawable.measure_transparent);
+        runToMesurementMode(measureBtnSelected);
+        showMesExplnation(measureBtnSelected);
     }
 
-    private void selectMeasureExample(){
+    private void runToMesurementMode(boolean measureBtnSelected) {
+        if (measureBtnSelected){
+            MarkMode = markMode.MARK_MES;
+            tempPinsCounter = pinsCounter;
+            pinsCounter=0;
+            updateNotes(pinsCounter);
+            for (Pair p : hitList){
+                tempHitList.add(p);
+            }
+            hitList.clear();
+            pinView.setPins(hitList);
+            pinView.post(new Runnable(){
+                public void run(){
+                    pinView.getRootView().postInvalidate();
+                }
+            });
+        } else {
+            goBackToHitsMode();
+        }
+    }
+
+
+
+    private void goBackToHitsMode() {
+        hitList.clear();
+        for (Pair p : tempHitList){
+            hitList.add(p);
+        }
+        tempHitList.clear();
+        pinsCounter = tempPinsCounter;
+        updateNotes(pinsCounter);
+        pinView.setPins(hitList);
+        pinView.post(new Runnable(){
+            public void run(){
+                pinView.getRootView().postInvalidate();
+            }
+        });
+        MarkMode = markMode.MARK_HITS;
+    }
+
+
+    private void getMeasurementSizes(){
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View view1 = factory.inflate(layout.measure_sizes_alert_layout, null);
+        view1.findViewById(id.explenationsTV).setVisibility(View.INVISIBLE);
+        AlertDialog.Builder al = new AlertDialog.Builder(this);
+        al.setTitle("Enter width and height of selected object");
+        al.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText mesWidth = (EditText)view1.findViewById(R.id.mesWidth);
+                        EditText mesHeight = (EditText)view1.findViewById(R.id.mesHeight);
+                        float internalWidth = getInternalMeasure("width");
+                        float internalHeight = getInternalMeasure("height");
+                        calculateNewWidthAndHeight(Float.parseFloat(mesWidth.getText().toString()) , Float.parseFloat(mesHeight.getText().toString()), internalWidth, internalHeight);
+                        goBackToHitsMode();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Your code when user clicked on Cancel
+                        goBackToHitsMode();
+                    }
+                })
+        .setView(view1).show();
+
+    }
+
+    private float getInternalMeasure(String mesType) {
+        PointF tmpPF = hitList.get(0).first;
+        float left =  tmpPF.x;
+        float right =  tmpPF.x;
+        float top =  tmpPF.y;
+        float bottom =  tmpPF.y;
+        for (Pair p : hitList){
+          PointF pf = (PointF) p.first;
+            if (pf.x <  left)   {left = pf.x;}
+            if (pf.x >  right)  {right = pf.x;}
+            if (pf.y <  bottom) {bottom = pf.y;}
+            if (pf.x >  top)    {top = pf.y;}
+        }
+        switch (mesType){
+            case "width":
+                return right-left;
+            case "height":
+                return top-bottom;
+        }
+        return -1;
+
+
+    }
+
+    private void calculateNewWidthAndHeight(float width, float height, float mesWidth, float mesHeight){
+        Log.d("new measure points", "Width: "+ mesWidth + ", Height: "+ mesHeight);
+
+    }
+
+    private void showMesExplnation(boolean measureBtnSelected){
+        if (!measureBtnSelected){
+            Toast.makeText(this, "mesure mode canceled", Toast.LENGTH_SHORT).show();
+            return;
+            // TODO: add snackbar
+        }
         try {
+            TextView explenationsTV = (TextView) findViewById(id.explenationsTV);
+            explenationsTV.setVisibility((explenationsTV.getVisibility()==View.VISIBLE) ? View.INVISIBLE : View.VISIBLE);
             final RelativeLayout rl = (RelativeLayout) findViewById(id.rl);
 //        ImageView iv = new ImageView(this);
 //        iv.setImageResource(R.drawable.neasurement_example_target); //or iv.setImageDrawable(getResources().getDrawable(R.drawable.some_drawable_of_yours));
             LayoutInflater factory = LayoutInflater.from(this);
-            final View view1 = factory.inflate(layout.test_alert_layout, null);
+            final View view1 = factory.inflate(layout.measure_alert_layout, null);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -862,7 +940,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             LayoutInflater factory = LayoutInflater.from(this);
-            final View view = factory.inflate(layout.test_alert_layout, null);
+            final View view = factory.inflate(layout.measure_alert_layout, null);
             final ImageView plusImg =(ImageView)view.findViewById(id.rotate);
 
             AnimationDrawable frameAnimation = null;
