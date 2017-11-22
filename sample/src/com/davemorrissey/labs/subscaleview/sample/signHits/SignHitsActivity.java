@@ -27,6 +27,7 @@ import android.graphics.PointF;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 import android.view.GestureDetector;
@@ -37,8 +38,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -131,16 +134,27 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ImageView ivMeasure;
 
     private SeekBar sizeSeekBar;
+    private float mesTrvSizeMeter;
+    private float mesTrvSizePixel;
+    private float mesElvSizeMeter;
+    private float mesElvSizePixel;
 
     private enum ButtonChecked {HIT, DELETE} ;
     private enum markMode {MARK_CENTER, MARK_HITS, MARK_MES};
+    private enum mesureMode {MES_WIDTH, MES_HEIGHT};
     private enum ButtonState {ON, OFF};
+
+    private int EXPLENATION_DURATION = 2000;
 
 
     private ButtonState colorBtnState = ButtonState.OFF;
     private ButtonState showAllBtnState = ButtonState.OFF;
     private ButtonChecked buttonChecked = ButtonChecked.HIT;
     private markMode MarkMode = markMode.MARK_CENTER;
+    private mesureMode MesMode = mesureMode.MES_WIDTH;
+
+    private double targetElvSize;
+    private double targetTrvSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -444,18 +458,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     }
 
     private void handleNextButtun() {
-        final EditText  elvText = (EditText)findViewById(id.elvTxt);
-        final EditText  trvText = (EditText)findViewById(id.trvTxt);
-        if (elvText.getText().toString().matches("") || trvText.getText().toString().matches("")){
-            mToast.setTextAndShow( "please enter target height and width size first");
-
-//                Toast.makeText(this, "please enter target height and width size first", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        updateTargetSize();
         takeScreenshot();
-        double targetElvSize = Double.parseDouble(elvText.getText().toString());
-        double targetTrvSize = Double.parseDouble(trvText.getText().toString());
-        scaleHitsToCenter(targetElvSize,targetTrvSize);
+        scaleHitsToCenter();
         Intent intent = new Intent(this, DataActivity.class);
         intent.putParcelableArrayListExtra("ScaledPoints", scaledMapPins);
         intent.putExtra("projectName" ,projectName);
@@ -465,6 +470,18 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         intent.putExtra("imagePath" ,mImageName);
         intent.putExtra("fileDir", fileDir);
         startActivity(intent);
+    }
+
+    private boolean updateTargetSize() {
+        final EditText  elvText = (EditText)findViewById(id.elvTxt);
+        final EditText  trvText = (EditText)findViewById(id.trvTxt);
+        if (elvText.getText().toString().matches("") || trvText.getText().toString().matches("")){
+            mToast.setTextAndShow( "please enter target height and width size first");
+            return false;
+        }
+        targetElvSize = Double.parseDouble(elvText.getText().toString());
+        targetTrvSize = Double.parseDouble(trvText.getText().toString());
+        return true;
     }
 
     public void showPin(float x, float y){
@@ -543,8 +560,15 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                         }
                     });
                     centerAttached =true;
-                    if(MarkMode==markMode.MARK_MES && pinsCounter == 4){
-                        getMeasurementSizes();
+                    if(MarkMode==markMode.MARK_MES ){
+                        if (pinsCounter == 2){
+                            getMeasurementSizes(MesMode);
+                            MesMode = mesureMode.MES_HEIGHT;
+                        }
+                        if (pinsCounter == 4){
+                            getMeasurementSizes(MesMode);
+                            MesMode = mesureMode.MES_WIDTH;
+                        }
                     }
                 } else if(imageView.isReady() && (buttonChecked == ButtonChecked.DELETE)){
                     // in case we want to delete points
@@ -656,16 +680,24 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         updateNotes(pinsCounter);
     }
 
-    void scaleHitsToCenter(double targetElvSize, double targetTrvSize){
+    void scaleHitsToCenter(){
         scaledMapPins.clear();
         final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
         int imageWidth = imageView.getSWidth();
         int imageHight = imageView.getSHeight();
+        float newX = 0, newY = 0 ;
+
 //        imageView.
         for(int i=0; i<hitList.size(); i++){
             if (hitList.get(i).second.equals("oldHit")) { continue;}
-            float newX= (float)((hitList.get(i).first.x- pfCenterPt.x)*targetTrvSize/imageWidth)*100;
-            float newY= (float)((pfCenterPt.y-hitList.get(i).first.y)*targetElvSize/imageHight)*100;
+            if (!measureBtnSelected){
+                newX= (float)((hitList.get(i).first.x- pfCenterPt.x)*targetTrvSize/imageWidth)*100;
+                newY= (float)((pfCenterPt.y-hitList.get(i).first.y)*targetElvSize/imageHight)*100;
+            } else {
+                newX= (float)((hitList.get(i).first.x- pfCenterPt.x)*mesTrvSizeMeter/mesTrvSizePixel)*100;
+                newY= (float)((pfCenterPt.y-hitList.get(i).first.y)*mesTrvSizeMeter/mesElvSizePixel)*100;
+            }
+
 
             PointF tempPF = new PointF(newX,newY);
 
@@ -763,23 +795,24 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     private void runToMesurementMode(boolean measureBtnSelected) {
         if (measureBtnSelected){
-            MarkMode = markMode.MARK_MES;
-            tempPinsCounter = pinsCounter;
-            pinsCounter=0;
-            updateNotes(pinsCounter);
-            for (Pair p : hitList){
-                tempHitList.add(p);
-            }
-            hitList.clear();
-            pinView.setPins(hitList);
-            pinView.post(new Runnable(){
-                public void run(){
-                    pinView.getRootView().postInvalidate();
+            // clean list only when moving from hits to mesure mode
+            if (MarkMode == markMode.MARK_HITS){
+                tempPinsCounter = pinsCounter;
+                pinsCounter=0;
+                updateNotes(pinsCounter);
+                for (Pair p : hitList){
+                    tempHitList.add(p);
                 }
-            });
-        } else {
-            goBackToHitsMode();
-        }
+                hitList.clear();
+                pinView.setPins(hitList);
+                pinView.post(new Runnable(){
+                    public void run(){
+                        pinView.getRootView().postInvalidate();
+                    }
+                });
+                MarkMode = markMode.MARK_MES;
+            }
+        } 
     }
 
 
@@ -801,22 +834,56 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         MarkMode = markMode.MARK_HITS;
     }
 
+    private void resetAndScaleImage(){
+        final SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(id.imageView);
+        imageView.resetScaleAndCenter();
+    }
 
-    private void getMeasurementSizes(){
+    private void closeKeyboard(){
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
+    }
+
+    private void getMeasurementSizes(final mesureMode MesureMode){
+        final mesureMode mesMode = MesureMode;
         LayoutInflater factory = LayoutInflater.from(this);
-        final View view1 = factory.inflate(layout.measure_sizes_alert_layout, null);
-        view1.findViewById(id.explenationsTV).setVisibility(View.INVISIBLE);
+        final View measureSizesView = factory.inflate(layout.measure_sizes_alert_layout, null);
+        final View measureView = factory.inflate(layout.measure_alert_layout, null);
+        final EditText mesET = (EditText)measureSizesView.findViewById(R.id.mesSizeET);
+        TextView mesTV = (TextView)measureSizesView.findViewById(R.id.mesSizeTV);
+        String title, body;
         AlertDialog.Builder al = new AlertDialog.Builder(this);
-        al.setTitle("Enter width and height of selected object");
+        if (MesureMode == mesureMode.MES_WIDTH){
+            title = "Enter width of selected object";
+            body = "Width [M]";
+        } else {
+            title = "Enter height of selected object";
+            body = "Height [M]";
+        }
+        mesTV.setText(body);
+        al.setTitle(title);
         al.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText mesWidth = (EditText)view1.findViewById(R.id.mesWidth);
-                        EditText mesHeight = (EditText)view1.findViewById(R.id.mesHeight);
-                        float internalWidth = getInternalMeasure("width");
-                        float internalHeight = getInternalMeasure("height");
-                        calculateNewWidthAndHeight(Float.parseFloat(mesWidth.getText().toString()) , Float.parseFloat(mesHeight.getText().toString()), internalWidth, internalHeight);
-                        goBackToHitsMode();
+                        float sizeInPixel = getInternalMeasure(mesMode);
+                        calculateNewMeasureSize(mesMode, Float.parseFloat(mesET.getText().toString()), sizeInPixel);
+                        TextView expTV = (TextView) findViewById(R.id.explenationsTV);
+                        TextView expTVdailog = (TextView) measureView.findViewById(R.id.expTV);
+                        if (mesMode == mesureMode.MES_WIDTH){
+                            expTV.setText("Mark 2 point to define object height.");
+                            expTVdailog.setText("Mark 2 point to define object height.");
+                            closeKeyboard();
+                            showMesExplnation(measureBtnSelected);
+                            resetAndScaleImage();
+                        } else {
+                            expTV.setText("Mark 2 point to define object width.");
+                            expTVdailog.setText("Mark 2 point to define object width.");
+                            expTV.setVisibility(View.INVISIBLE);
+                            closeKeyboard();
+                            resetAndScaleImage();
+                            goBackToHitsMode();
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -826,37 +893,35 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                         goBackToHitsMode();
                     }
                 })
-        .setView(view1).show();
+        .setView(measureSizesView).show();
+
 
     }
 
-    private float getInternalMeasure(String mesType) {
-        PointF tmpPF = hitList.get(0).first;
-        float left =  tmpPF.x;
-        float right =  tmpPF.x;
-        float top =  tmpPF.y;
-        float bottom =  tmpPF.y;
-        for (Pair p : hitList){
-          PointF pf = (PointF) p.first;
-            if (pf.x <  left)   {left = pf.x;}
-            if (pf.x >  right)  {right = pf.x;}
-            if (pf.y <  bottom) {bottom = pf.y;}
-            if (pf.x >  top)    {top = pf.y;}
-        }
+    private float getInternalMeasure(mesureMode mesType) {
+        PointF tmpPF1, tmpPF2;
         switch (mesType){
-            case "width":
-                return right-left;
-            case "height":
-                return top-bottom;
+            case MES_WIDTH:
+                tmpPF1 = hitList.get(0).first;
+                tmpPF2 = hitList.get(1).first;
+                return Math.abs(tmpPF1.x - tmpPF2.x) ;
+            case MES_HEIGHT:
+                tmpPF1 = hitList.get(2).first;
+                tmpPF2 = hitList.get(3).first;
+                return Math.abs(tmpPF1.y - tmpPF2.y) ;
         }
-        return -1;
-
-
+        throw new IllegalArgumentException("Incompatible Arguments");
     }
 
-    private void calculateNewWidthAndHeight(float width, float height, float mesWidth, float mesHeight){
-        Log.d("new measure points", "Width: "+ mesWidth + ", Height: "+ mesHeight);
-
+    private void calculateNewMeasureSize(mesureMode mesMode,float sizeInMeter, float sizeInPixel){
+        Log.d("new measure points", mesMode +": size in pixel:"+ sizeInPixel + ", size in meter: "+ sizeInMeter);
+        if (mesMode == mesureMode.MES_WIDTH){
+            mesTrvSizeMeter = sizeInMeter;
+            mesTrvSizePixel = sizeInPixel;
+        } else {
+            mesElvSizeMeter = sizeInMeter;
+            mesElvSizePixel = sizeInPixel;
+        }
     }
 
     private void showMesExplnation(boolean measureBtnSelected){
@@ -869,70 +934,50 @@ public class SignHitsActivity extends Activity implements OnClickListener {
             TextView explenationsTV = (TextView) findViewById(id.explenationsTV);
             explenationsTV.setVisibility((explenationsTV.getVisibility()==View.VISIBLE) ? View.INVISIBLE : View.VISIBLE);
             final RelativeLayout rl = (RelativeLayout) findViewById(id.rl);
-//        ImageView iv = new ImageView(this);
-//        iv.setImageResource(R.drawable.neasurement_example_target); //or iv.setImageDrawable(getResources().getDrawable(R.drawable.some_drawable_of_yours));
             LayoutInflater factory = LayoutInflater.from(this);
-            final View view1 = factory.inflate(layout.measure_alert_layout, null);
+            final View measureExplainView = factory.inflate(layout.measure_alert_layout, null);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ImageView leftPt = (ImageView)measureExplainView.findViewById(id.mesPtLeft);
+            ImageView RightPt = (ImageView)measureExplainView.findViewById(id.mesPtRight);
+            ImageView topPt = (ImageView)measureExplainView.findViewById(id.mesPtTop);
+            ImageView bottomPt = (ImageView)measureExplainView.findViewById(id.mesPtBottom);
+            if (MesMode == mesureMode.MES_WIDTH){
+                leftPt.setVisibility(View.VISIBLE);
+                RightPt.setVisibility(View.VISIBLE);
+                topPt.setVisibility(View.INVISIBLE);
+                bottomPt.setVisibility(View.INVISIBLE);
+                leftPt.animate().rotation(359).setDuration(EXPLENATION_DURATION).start();
+                RightPt.animate().rotation(359).setDuration(EXPLENATION_DURATION).start();
+            } else{
+                topPt.setVisibility(View.VISIBLE);
+                bottomPt.setVisibility(View.VISIBLE);
+                leftPt.setVisibility(View.INVISIBLE);
+                RightPt.setVisibility(View.INVISIBLE);
+                topPt.animate().rotation(359).setDuration(EXPLENATION_DURATION).start();
+                bottomPt.animate().rotation(359).setDuration(EXPLENATION_DURATION).start();
+            }
+            animateMeasurePoints(MesMode);
 
-            final Button btnNext = (Button) view1.findViewById(R.id.buttonNext);
-            final ViewFlipper simpleViewFlipper = (ViewFlipper) view1.findViewById(R.id.simpleViewFlipper);
-            Animation in = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
-            Animation out = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-            in.setAnimationListener(new Animation.AnimationListener() {
+
+            new Handler().postDelayed(new Runnable(){
                 @Override
-                public void onAnimationStart(Animation animation) {
-                    if (simpleViewFlipper.getDisplayedChild() == simpleViewFlipper.getChildCount() - 1) {
-                        btnNext.setText("Done");
-                    } else {
-                        btnNext.setText("Next");
-                    }
+                public void run() {
+                    rl.removeViewAt(rl.getChildCount()-1);
                 }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-
-            simpleViewFlipper.setInAnimation(in);
-            simpleViewFlipper.setOutAnimation(out);
-
-            simpleViewFlipper.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                @Override
-                public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
-                    if (simpleViewFlipper.getDisplayedChild() == simpleViewFlipper.getChildCount() ){
-                        btnNext.setText("Done");
-                    }
-                }
-            });
-
-            btnNext.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    // show the next view of ViewSwitcher
-                    if (btnNext.getText().toString() == "Done"){
-                        rl.removeViewAt(rl.getChildCount()-1);
-                        return;
-                    }
-                    simpleViewFlipper.showNext();
-
-                }
-            });
-            rl.addView(view1, params);
+            }, EXPLENATION_DURATION);
+            rl.addView(measureExplainView, params);
         } catch (Exception e){
             e.printStackTrace();
         }
 
     }
 
+    private void animateMeasurePoints(mesureMode mesMode) {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View measureExplainView = factory.inflate(layout.measure_alert_layout, null);
+
+    }
 
 
     public void buildMeasurmentDialog() {    //MeasureStages measureStage

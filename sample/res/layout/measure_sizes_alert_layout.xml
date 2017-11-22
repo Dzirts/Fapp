@@ -18,17 +18,18 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/mesSizeTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Width"
             android:textSize="22dp"/>
 
         <EditText
-            android:id="@+id/mesWidth"
+            android:id="@+id/mesSizeET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -38,32 +39,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Height"
-            android:textSize="22dp"/>
-
-        <EditText
-            android:id="@+id/mesHeight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:textSize="22dp"
-            android:layout_marginLeft="10dp"/>
-
-
-
-    </LinearLayout>
 
 </LinearLayout>

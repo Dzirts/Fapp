@@ -5,10 +5,86 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+    <TextView
+        android:id="@+id/expTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:text="Mark 2 point to define object width."
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="26sp"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="0.65">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/measurement_example_target" />
+
+        <ImageView
+            android:id="@+id/mesPtCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="282dp"
+            android:visibility="invisible"
+            android:src="@drawable/measure_point" />
+
+        <ImageView
+            android:id="@+id/mesPtLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mesPtTop"
+            android:layout_marginEnd="74dp"
+            android:layout_marginTop="13dp"
+            android:layout_toStartOf="@+id/mesPtCenter"
+            android:src="@drawable/measure_point" />
+
+        <ImageView
+            android:id="@+id/mesPtRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/mesPtLeft"
+            android:layout_marginStart="85dp"
+            android:layout_toEndOf="@+id/mesPtCenter"
+            android:src="@drawable/measure_point" />
+
+        <ImageView
+            android:id="@+id/mesPtTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/mesPtCenter"
+            android:layout_alignStart="@+id/mesPtCenter"
+            android:layout_marginBottom="70dp"
+            android:src="@drawable/measure_point" />
+
+
+        <ImageView
+            android:id="@+id/mesPtBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="88dp"
+            android:layout_toEndOf="@+id/mesPtLeft"
+            android:src="@drawable/measure_point" />
+
+
+
+
+    </RelativeLayout>
+
     <!-- ViewSwitcher with three views first is ImageView, second is a layout in which we have two TextView's
      and third is a layout in which we have two Button's -->
 
-    <ViewFlipper
+    <!--ViewFlipper
         android:id="@+id/simpleViewFlipper"
         android:layout_width="match_parent"
         android:layout_height="399dp"
@@ -100,22 +176,15 @@
 
         </LinearLayout>
 
-    </ViewFlipper>
+    </ViewFlipper-->
 
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
-
-    <Button
-        android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_gravity="center"
+        android:layout_height="100dp"
         android:layout_marginBottom="25dp"
-        android:background="#2196f3"
-        android:text="NEXT"
-        android:textColor="#fff"
-        android:textStyle="bold" />
+        />
+
+
 
 </LinearLayout>
