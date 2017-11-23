@@ -14,7 +14,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/buttonstate_transparent"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="0dp"
             android:weightSum="1">
 
             <TableLayout
@@ -57,17 +57,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <!--EditText
-                        android:id="@+id/etProjName"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:gravity="center"
-                        android:hint="Enter Project Name"
-                        android:inputType="textPersonName"
-                        android:padding="20dip"
-                        android:textColor="@android:color/background_light"
-
-                        /-->
                     <AutoCompleteTextView
                         android:id="@+id/etProjName"
                         android:layout_width="wrap_content"
@@ -112,15 +101,15 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/buttonstate_transparent"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="3dp"
             android:weightSum="1">
 
             <ImageView
                 android:id="@+id/scannedImage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.96"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:src="@drawable/strike" />
 
         </LinearLayout>
@@ -130,7 +119,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <View

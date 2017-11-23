@@ -20,6 +20,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.net.Uri;
@@ -29,6 +31,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -49,6 +53,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DataActivity extends Activity implements OnClickListener {
     private ArrayList<PointF> scaledMapPins;
@@ -64,10 +69,7 @@ public class DataActivity extends Activity implements OnClickListener {
     private String mImagePath;
     private myToast mToast;
     private boolean mToastsAreOn;
-
-
-
-
+    private String mImageName;
 
 
     @Override
@@ -92,7 +94,7 @@ public class DataActivity extends Activity implements OnClickListener {
     }
 
     private void handleButtons() {
-        Button openExcelBtn = (Button)findViewById(id.openExcel);
+        ImageButton openExcelBtn = (ImageButton)findViewById(id.btnExcel);
         openExcelBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,11 +106,26 @@ public class DataActivity extends Activity implements OnClickListener {
                 }
             }
         });
-        Button openDir = (Button)findViewById(id.btnOpenDir);
-        openDir.setOnClickListener(new OnClickListener() {
+        ImageButton openFolder = (ImageButton)findViewById(id.btnFolder);
+        openFolder.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 openFolder();
+            }
+        });
+        findViewById(id.next).setOnClickListener(this);
+
+        ImageButton showImageBtn = (ImageButton)findViewById(id.btnImage);
+        showImageBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageView iv = (ImageView) findViewById(id.hitsImage);
+                File imgFile = new  File(mImagePath);
+                if(imgFile.exists())
+                {
+                    iv.setImageURI(Uri.fromFile(imgFile));
+                    iv.setVisibility(View.VISIBLE);
+                }
             }
         });
         findViewById(id.next).setOnClickListener(this);
@@ -202,10 +219,17 @@ public class DataActivity extends Activity implements OnClickListener {
     }
 
     public void openFolder() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("file/*");
-        startActivity(intent);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(filePath.substring(0, filePath.lastIndexOf("/")));
+        intent.setDataAndType(uri, "*/*");//tried with application/pdf and file/*
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        PackageManager pm = this.getPackageManager();
+        List<ResolveInfo> apps =
+                pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        if (apps.size() > 0)
+            startActivity(intent);//Intent.createChooser(intent, "Open folder"
+
+
     }
 
     private boolean isDeviceIsPhone(){
@@ -236,6 +260,7 @@ public class DataActivity extends Activity implements OnClickListener {
         fileDir     = intent.getStringExtra("fileDir");
         fileName    = intent.getStringExtra("fileName");
         mImagePath  = intent.getStringExtra("imagePath");
+        mImageName  = intent.getStringExtra("imageName");
         scaledMapPins = new ArrayList<PointF>();
         scaledMapPins = intent.getParcelableArrayListExtra("ScaledPoints");
     }

@@ -19,6 +19,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,6 +52,7 @@ import com.scanlibrary.ScanConstants;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -405,7 +408,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         } else if (view.getId() == id.btnExcel){
             if (!mFilePath.matches("default")){
-//              TODO: check new com.davemorrissey.labs.subscaleview.sample.ExcelWriter(mFilePath);
+////              TODO: check new com.davemorrissey.labs.subscaleview.sample.ExcelWriter(mFilePath);
                 File file = new File(mFilePath);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.fromFile(file),"application/vnd.ms-excel");

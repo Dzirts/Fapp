@@ -467,7 +467,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         intent.putExtra("seriesNumber" ,seriesNumber);
         intent.putExtra("filePath" ,filePath);
         intent.putExtra("fileName" ,fileName);
-        intent.putExtra("imagePath" ,mImageName);
+        intent.putExtra("imageName" ,mImageName);
+        intent.putExtra("imagePath" ,mImagePath);
         intent.putExtra("fileDir", fileDir);
         startActivity(intent);
     }
