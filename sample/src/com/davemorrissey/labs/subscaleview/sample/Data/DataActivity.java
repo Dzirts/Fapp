@@ -20,14 +20,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +48,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DataActivity extends Activity implements OnClickListener {
     private ArrayList<PointF> scaledMapPins;
@@ -75,53 +80,18 @@ public class DataActivity extends Activity implements OnClickListener {
         }
         setAppTitle();
         getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Intent intent = getIntent();
-        projectName = intent.getStringExtra("projectName");
-        serieNumber = intent.getStringExtra("seriesNumber");
-        filePath = intent.getStringExtra("filePath");
-        fileDir = intent.getStringExtra("fileDir");
-        fileName = intent.getStringExtra("fileName");
-        mImagePath = intent.getStringExtra("imagePath");
+        getIntentParams();
         setAppSubtitle();
-        scaledMapPins= new ArrayList<PointF>();
-        scaledMapPins= intent.getParcelableArrayListExtra("ScaledPoints"); 
-        String s = new String();
-        s = String.format("%1$-20s %2$-10s %3$10s", "No.","TRV", "ELV") + "\n\n";
-        DecimalFormat df = new DecimalFormat("#.#");
-        // i=0 is the center so we are not caulating it
-        for (int i=1; i<scaledMapPins.size(); i++){
-            String x = df.format(scaledMapPins.get(i).x);
-            String y = df.format(scaledMapPins.get(i).y);
-            String value = String.format("%1$-20s %2$-10s %3$10s",i, x, y);
-            s+= value +"\n";
-        }
-        TextView tv = (TextView)findViewById(id.scaledHitsText);
-        tv.setText(s);
-
-
-        NumberPicker np = (NumberPicker) findViewById(id.numberPicker);
-
-        np.setMinValue(0);
-        np.setMaxValue(40);
-        np.setValue(30);
-        np.setWrapSelectorWheel(false);
-
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                // TODO Auto-generated method stub
-                TextView tv = (TextView)findViewById(id.scaledHitsText);
-                NumberPicker np = (NumberPicker) findViewById(id.numberPicker);
-                tv.setTextSize(np.getValue());
-            }
-        });
-
         arrangeExcelData();
         ExcelWriter ew = new ExcelWriter(ed);
         newFilePlace = ew.WriteData();
+        handleButtons();
+        getAppParams();
+        mToast = new myToast(this, true, mToastsAreOn);
+        createDataTable();
+    }
 
+    private void handleButtons() {
         Button openExcelBtn = (Button)findViewById(id.openExcel);
         openExcelBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -134,7 +104,6 @@ public class DataActivity extends Activity implements OnClickListener {
                 }
             }
         });
-
         Button openDir = (Button)findViewById(id.btnOpenDir);
         openDir.setOnClickListener(new OnClickListener() {
             @Override
@@ -142,11 +111,41 @@ public class DataActivity extends Activity implements OnClickListener {
                 openFolder();
             }
         });
-
         findViewById(id.next).setOnClickListener(this);
-        getAppParams();
-        mToast = new myToast(this, true, mToastsAreOn);
+    }
 
+    private void createDataTable() {
+        TableLayout tl = (TableLayout) findViewById(id.main_table);
+        DecimalFormat df = new DecimalFormat("#.#");
+        // i=0 is the center so we are not caulating it
+        for (int i=1; i<scaledMapPins.size(); i++){
+            TableRow tr = new TableRow(this);
+            if(i%2==0) tr.setBackgroundColor(Color.parseColor("#bdbdbd"));
+            tr.setBackgroundColor(Color.parseColor((i%2==0)?"#606060":"#404040"));
+            tr.setLayoutParams(new TableRow.LayoutParams(
+                    TableRow.LayoutParams.FILL_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+
+            final String x = df.format(scaledMapPins.get(i).x);
+            final String y = df.format(scaledMapPins.get(i).y);
+
+            final int finalI = i;
+            ArrayList<String> rowValues = new ArrayList<String>(){{add(String.valueOf(finalI));add(x); add(y);}};
+
+            for (String val: rowValues){
+                TextView tv = new TextView(this);
+                tv.setText(val);
+                tv.setPadding(2, 0, 5, 0);
+                tv.setTextColor(Color.WHITE);
+                tv.setTextSize(27);
+                tv.setGravity(Gravity.CENTER);
+                tr.addView(tv);
+            }
+
+            tl.addView(tr, new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+        }
 
     }
 
@@ -228,9 +227,16 @@ public class DataActivity extends Activity implements OnClickListener {
     }
 
 
+    public void getIntentParams() {
+        Intent intent = getIntent();
 
-
-
-
-
+        projectName = intent.getStringExtra("projectName");
+        serieNumber = intent.getStringExtra("seriesNumber");
+        filePath    = intent.getStringExtra("filePath");
+        fileDir     = intent.getStringExtra("fileDir");
+        fileName    = intent.getStringExtra("fileName");
+        mImagePath  = intent.getStringExtra("imagePath");
+        scaledMapPins = new ArrayList<PointF>();
+        scaledMapPins = intent.getParcelableArrayListExtra("ScaledPoints");
+    }
 }

@@ -23,38 +23,59 @@
                 android:textStyle="normal|italic"
                 android:background="@android:color/holo_blue_light" />
 
-            <TextView
-                android:id="@+id/scaledHitsText"
+            <TableLayout
+                android:id="@+id/main_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:ems="10"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="30sp" />
+                android:stretchColumns="0,1,2">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.56"
-                android:background="@color/bottom_background_color" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:gravity="center">
 
-            <NumberPicker
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/numberPicker"
-                android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="serif"
+                        android:gravity="center"
+                        android:text="Id."
+                        android:textColor="@android:color/background_light"
+                        android:textSize="30sp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/bottom_background_color" />
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="serif"
+                        android:gravity="center"
+                        android:text="Trv"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="serif"
+                        android:gravity="center"
+                        android:text="Elv"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="30sp" />
+                </TableRow>
+
+            </TableLayout>
 
             <Button
                 android:id="@+id/openExcel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
                 android:layout_weight="1"
                 android:text="open excel file" />
 

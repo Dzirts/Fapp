@@ -812,7 +812,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
                 });
                 MarkMode = markMode.MARK_MES;
             }
-        } 
+        }
     }
 
 
