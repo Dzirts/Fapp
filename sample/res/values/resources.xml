@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="camera_array">
+        <item>G.Day</item>
+        <item>G.Night</item>
+        <item>C.Day</item>
+        <item>C.Night</item>
+        <item>G.Day+Night</item>
+        <item>C.Day+Night</item>
+        <item>LRF</item>
+    </string-array>
+
+    <string-array name="fire_type_array">
+        <item>Single</item>
+        <item>Burst</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="target_pos_array">
+        <item>Single</item>
+        <item>Top</item>
+        <item>Bottom</item>
+        <item>Left</item>
+        <item>Right</item>
+    </string-array>
+
+</resources>

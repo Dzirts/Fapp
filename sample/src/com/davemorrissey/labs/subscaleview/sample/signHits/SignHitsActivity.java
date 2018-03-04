@@ -89,6 +89,12 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     public  ExcelReader er;
     private Uri mScannedImage;
 
+    private String range;
+    private String camType;
+    private String fireType;
+    private String targetPos;
+
+
     private float measureWidth;
     private float measureHeight;
 
@@ -122,6 +128,10 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     private ArrayList<Pair<PointF, String>> tempHitList = new ArrayList<Pair<PointF, String>>();
     private ArrayList<ArrayList<PointF>> prevHitList = new ArrayList<ArrayList<PointF>>();
     private ArrayList<Integer> indexList = new ArrayList<Integer>();
+
+    private ArrayList<String> rangesList = new ArrayList<String>();
+    private ArrayList<String> fireTypeList = new ArrayList<String>();
+    private ArrayList<String> camTypeList = new ArrayList<String>();
 
     private boolean b = true;
 
@@ -282,11 +292,16 @@ public class SignHitsActivity extends Activity implements OnClickListener {
 
     void createBuilder( ){
         CharSequence[] items = new String[indexList.size()];
-        int k=0;
-        for (int i: indexList){
-            items[k] = " "+i+" ";
-            k++;
+//        int k=0;
+//        for (int i: indexList){
+//            //items[k] = " "+i+" ";
+//            k++;
+//        }
+        for (int i=0; i<indexList.size();i++){
+            items[i] ="Range: "+rangesList.get(i)+", CameraType: "+camTypeList.get(i)+", Fire Type: "+fireTypeList.get(i);
         }
+
+
         builder = new AlertDialog.Builder(this);
         builder.setTitle("Select the series to upload on target");
         builder.setMultiChoiceItems(items, null,
@@ -357,7 +372,7 @@ public class SignHitsActivity extends Activity implements OnClickListener {
     }
 
     private void setAppSubtitle(){
-        getActionBar().setSubtitle("Project:  "+ projectName +",  Series:  #"+ seriesNumber);
+        getActionBar().setSubtitle("Project:  "+ projectName +", Range: "+range+"[m], Camera Type: "+camType+", Fire Type: "+fireType+", "+targetPos+" target");
     }
 
 
@@ -470,6 +485,10 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         intent.putExtra("imageName" ,mImageName);
         intent.putExtra("imagePath" ,mImagePath);
         intent.putExtra("fileDir", fileDir);
+        intent.putExtra("range",         range);
+        intent.putExtra("fireType",      fireType);
+        intent.putExtra("cameraType",    camType);
+        intent.putExtra("targetPos",     targetPos);
         startActivity(intent);
     }
 
@@ -507,6 +526,9 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         }
         er = new ExcelReader(stream);
         indexList = er.getAllFilledInCols();
+        rangesList = er.getRanges(indexList);
+        fireTypeList = er.getFireTypes(indexList);
+        camTypeList = er.getCamTypes(indexList);
         //reading all previus hits on activity create
         createBuilder();
         addPrevHitsDialog = builder.create();
@@ -601,6 +623,12 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         filePath = intent.getStringExtra("filePath");
         fileDir = intent.getStringExtra("fileDirStr");
         fileName = intent.getStringExtra("fileName");
+        range        = intent.getStringExtra("range");
+        fireType     = intent.getStringExtra("fireType");
+        camType      = intent.getStringExtra("cameraType");
+        targetPos    = intent.getStringExtra("targetPos");
+
+
 
         setAppSubtitle();
 
@@ -753,6 +781,8 @@ public class SignHitsActivity extends Activity implements OnClickListener {
         double targetTrvSize = Double.parseDouble(trvText.getText().toString());
         clearOldHitsFromHitList();
         prevHitList =  er.getAllHitsByIndexes(indexList);
+
+
         for (ArrayList<PointF> arr: prevHitList){
             for (PointF pf: arr){
                 int imageWidth = imageView.getSWidth();

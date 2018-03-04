@@ -17,6 +17,8 @@ dependencies {
     compile 'rapid.decoder:png-decoder:0.3.0'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile files('libs/poi-3.14-20160307.jar')
+    compile files('libs/poi-ooxml-schemas-3.14-20160307.jar')
 }
 
 configurations {

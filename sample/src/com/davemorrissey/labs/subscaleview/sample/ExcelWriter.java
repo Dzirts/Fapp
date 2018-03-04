@@ -56,15 +56,26 @@ public class ExcelWriter {
 
     public String WriteData(){
         try{
+            Row row;
+            Cell cell;
+            row = sheet.getRow(14);
+            cell = row.getCell(2*ed.getSeriesNum()-1);
+            cell.setCellValue(ed.getRange());
 
+            row = sheet.getRow(19);
+            cell = row.getCell(2*ed.getSeriesNum()-1);
+            cell.setCellValue(ed.getFireType());
 
+            row = sheet.getRow(24);
+            cell = row.getCell(2*ed.getSeriesNum()-1);
+            cell.setCellValue(ed.getCamType());
 
 
             DecimalFormat df = new DecimalFormat("#.#");
             //clean older data if exists
             for (int i=START_LINE; i<START_LINE+NUM_OF_LINES_TO_FILL; i++){
-                Row row = sheet.getRow(i);
-                Cell cell = row.getCell(2*ed.getSeriesNum()-1);
+                row = sheet.getRow(i);
+                cell = row.getCell(2*ed.getSeriesNum()-1);
                 cell.setCellValue("");
                 cell = row.getCell(2*ed.getSeriesNum());
                 cell.setCellValue("");
@@ -77,8 +88,8 @@ public class ExcelWriter {
                 double x =  parsedDouble.doubleValue();
                 parsedDouble = nf.parse(df.format(ed.getHitList().get(i-START_LINE+1).y));
                 double y =  parsedDouble.doubleValue();
-                Row row = sheet.getRow(i);
-                Cell cell = row.getCell(2*ed.getSeriesNum()-1);
+                row = sheet.getRow(i);
+                cell = row.getCell(2*ed.getSeriesNum()-1);
                 cell.setCellValue(x);
                 cell = row.getCell(2*ed.getSeriesNum());
                 cell.setCellValue(y);
@@ -87,8 +98,7 @@ public class ExcelWriter {
 
 //            addImage();
             addImageHyperLink();
-            evaluateCellsFormulas();
-//            HSSFFormulaEvaluator.evaluateAllFormulaCells(workbook);
+//          evaluateCellsFormulas();
 
             File outFile = new File(ed.getNewFileDir(), outFileName);
             OutputStream outputStream = new FileOutputStream(outFile.getAbsolutePath());

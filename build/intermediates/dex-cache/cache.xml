@@ -98,7 +98,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="c51c88a17694c01461a893ff82ae1124669342a2">
+        sha1="dae1922e31cd925afacb7dce7e79354db607192b">
         <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_818779b12de0ef4cc2d13f6942392735f08ba9f6\classes.dex" />
     </item>
     <item
@@ -134,7 +134,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="d71ecb9eeab54b165488bc8a9340e633d8bb9396">
+        sha1="7f449c0c3b7fcd7d303e79e2d2dd58504e76dc03">
         <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_179bda304230e7ec9160a86c433b0445cc5ad08a\classes.dex" />
     </item>
     <item

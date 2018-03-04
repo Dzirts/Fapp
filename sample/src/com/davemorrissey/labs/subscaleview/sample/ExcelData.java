@@ -21,11 +21,15 @@ public class ExcelData {
     private int SeriesNum;
     private String ProjectName;
     private String imagePath;
+    private String range;
+    private String fireType;
+    private String  camType;
+    private String targetPos;
 
 
 
     public  ExcelData(String iProjectName, int iSeriesNum ,File iDirectory, String iFileName, String iFilePath, String iNewFileDir,
-                                                InputStream iStream, ArrayList<PointF> iHitList, String iImagePath)
+                                                InputStream iStream, ArrayList<PointF> iHitList, String iImagePath,String iRange,String iFireType,String iCamType)
     {
         ProjectName = iProjectName;
         SeriesNum = iSeriesNum;
@@ -36,8 +40,9 @@ public class ExcelData {
         newFileDir = iNewFileDir;
         FileName = iFileName;
         imagePath = iImagePath;
-
-
+        range = iRange;
+        fireType = iFireType;
+        camType = iCamType;
     }
 
 
@@ -77,6 +82,15 @@ public class ExcelData {
         return imagePath;
     }
 
+    public String getRange() {
+        return range;
+    }
+    public String getFireType() {
+        return fireType;
+    }
+    public String getCamType() {
+        return camType;
+    }
 
 
 

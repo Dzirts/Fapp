@@ -77,8 +77,8 @@ public class ExcelReader {
             }
             return indexList;
         } catch (Exception e){
-            Log.d("ExcelReader", e.toString());
-            Log.d("ExcelReader", e.getStackTrace().toString());
+            Log.e("ExcelReader", e.toString());
+            Log.e("ExcelReader", e.getStackTrace().toString());
         }
         return indexList;
     }
@@ -90,5 +90,40 @@ public class ExcelReader {
         }
         return indexHitsList;
     }
+
+    public ArrayList<String> getRanges(List<Integer> indexList){
+        ArrayList<String> indexRangeList = new ArrayList<String>();
+        Row row = sheet.getRow(14);
+        for(int i: indexList){
+            Cell cell =row.getCell(2*i-1);
+            String s = cell.getStringCellValue();
+            indexRangeList.add(s);
+        }
+        return indexRangeList;
+    }
+
+    public ArrayList<String> getFireTypes(List<Integer> indexList){
+        ArrayList<String> indexFireTypeList = new ArrayList<String>();
+        Row row = sheet.getRow(19);
+        for(int i: indexList){
+            Cell cell =row.getCell(2*i-1);
+            String s = cell.getStringCellValue();
+            indexFireTypeList.add(s);
+        }
+        return indexFireTypeList;
+    }
+
+    public ArrayList<String> getCamTypes(List<Integer> indexList){
+        ArrayList<String> indexCamTypeList = new ArrayList<String>();
+        Row row = sheet.getRow(24);
+        for(int i: indexList){
+            Cell cell =row.getCell(2*i-1);
+            String s = cell.getStringCellValue();
+            indexCamTypeList.add(s);
+        }
+        return indexCamTypeList;
+    }
+
+
 
 }

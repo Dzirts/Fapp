@@ -109,17 +109,17 @@
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="com.android.support:multidex-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="__local_jars__:C.\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-3.14-20160307.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="com.android.support:support-annotations:26.0.0-alpha1@jar" level="project" />
     <orderEntry type="library" exported="" name="rapid.decoder:png-decoder-0.3.0" level="project" />
-    <orderEntry type="library" exported="" name="__local_jars__:C.\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-ooxml-schemas-3.12-20150511-a.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="__local_jars__:C.\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\android-support-v4.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" exported="" name="__local_jars__:C.\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-3.12-android-a.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="com.android.support:multidex-instrumentation-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="rapid.decoder:jpeg-decoder-0.3.0" level="project" />
     <orderEntry type="library" exported="" name="rapid.decoder:library-0.3.0" level="project" />
     <orderEntry type="library" exported="" name="com.android.support.constraint:constraint-layout-solver:1.0.0-beta4@jar" level="project" />
     <orderEntry type="library" exported="" name="__local_jars__:C.\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\commons-codec-1.7.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="com.android.support.constraint:constraint-layout-1.0.0-beta4" level="project" />
+    <orderEntry type="library" exported="" name="__local_jars__:C.\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-ooxml-schemas-3.14-20160307.jar:unspecified@jar" level="project" />
     <orderEntry type="module" module-name="library" exported="" />
     <orderEntry type="module" module-name="scanlibrary" exported="" />
   </component>

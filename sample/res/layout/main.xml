@@ -26,7 +26,6 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/TextView0"
                         android:layout_weight="1"
                         android:background="#dcdcdc"
                         android:gravity="center"
@@ -35,7 +34,6 @@
                         android:textColor="#000000" />
 
                     <TextView
-                        android:id="@+id/TextView4"
                         android:layout_weight="1"
                         android:background="#d3d3d3"
                         android:gravity="center"
@@ -44,7 +42,6 @@
                         android:textColor="#000000" />
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_weight="1"
                         android:background="#cac9c9"
                         android:gravity="center"
@@ -94,11 +91,138 @@
             </TableLayout>
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstate_transparent"
+            android:orientation="vertical"
+            android:padding="0dp"
+            android:weightSum="1">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    >
+
+                    <TextView
+                        android:background="#dcdcdc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="Range"
+                        android:padding="20dip"
+                        android:layout_marginRight="2dp"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:background="#dcdcdc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="Fire Type"
+                        android:padding="20dip"
+                        android:layout_marginRight="2dp"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:background="#dcdcdc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="Camera"
+                        android:padding="20dip"
+                        android:layout_marginRight="2dp"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:background="#dcdcdc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="Target Position"
+                        android:padding="20dip"
+                        android:textColor="#000000" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <EditText
+                        android:id="@+id/range_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:hint="0"
+                        android:inputType="number"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light" />
+
+                    <Spinner
+                        android:id="@+id/fire_type_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="0"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light" />
+
+                    <Spinner
+                        android:id="@+id/camera_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="0"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light" />
+
+                    <Spinner
+                        android:id="@+id/target_pos_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:text="0"
+                        android:padding="20dip"
+                        android:textColor="@android:color/background_light" />
+
+
+
+                </TableRow>
+
+
+            </TableLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/self"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
             android:background="@drawable/buttonstate_transparent"
             android:orientation="vertical"
             android:padding="3dp"
@@ -106,8 +230,9 @@
 
             <ImageView
                 android:id="@+id/scannedImage"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="0.96"
                 android:scaleType="centerInside"
                 android:src="@drawable/strike" />

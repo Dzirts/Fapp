@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -41,6 +42,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -66,9 +68,15 @@ public class MainActivity extends Activity implements OnClickListener {
     private ImageButton mediaButton;
     private ImageButton ibAddExcelFile;
 
+    private Spinner camSpinner;
+    private Spinner targetPosSpinner;
+    private Spinner fireTypeSpinner;
+
     private ImageView scannedImageView;
     private AutoCompleteTextView etProjName;
     private EditText etSerNum;
+    private EditText range;
+
 
     private boolean bIsNewProject = false;
     private boolean PicTaken = false;
@@ -133,9 +141,25 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     private void initLayoutWidgets() {
-        etProjName = (AutoCompleteTextView) findViewById(id.etProjName);
-        etSerNum = (EditText) findViewById(id.etSerNum);
-        ibAddExcelFile = (ImageButton) findViewById(id.btnAddExcelFile);
+        etProjName =        (AutoCompleteTextView) findViewById(id.etProjName);
+        etSerNum   =        (EditText) findViewById(id.etSerNum);
+        ibAddExcelFile =    (ImageButton) findViewById(id.btnAddExcelFile);
+        fireTypeSpinner =   (Spinner) findViewById(id.fire_type_spinner);
+        camSpinner =        (Spinner) findViewById(id.camera_spinner);
+        targetPosSpinner =  (Spinner) findViewById(id.target_pos_spinner);
+        range           =   (EditText) findViewById(id.range_et);
+
+        ArrayAdapter<CharSequence> posAdapter = ArrayAdapter.createFromResource(this, R.array.target_pos_array, android.R.layout.simple_spinner_item);
+        posAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        targetPosSpinner.setAdapter(posAdapter);
+
+        ArrayAdapter<CharSequence> camAdapter = ArrayAdapter.createFromResource(this, R.array.camera_array, android.R.layout.simple_spinner_item);
+        camAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        camSpinner.setAdapter(camAdapter);
+
+        ArrayAdapter<CharSequence> fireTypeAdapter = ArrayAdapter.createFromResource(this, R.array.fire_type_array, android.R.layout.simple_spinner_item);
+        fireTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fireTypeSpinner.setAdapter(fireTypeAdapter);
     }
 
     private void setOnClickListeners() {
@@ -232,6 +256,31 @@ public class MainActivity extends Activity implements OnClickListener {
         editor.putString(getString(R.string.param_toasts_are_on2) , ToastAreOn);
         editor.commit();
     }
+
+//    private void hashmaptest()
+//    {
+//        //create test hashmap
+//        HashMap<String, String> testHashMap = new HashMap<String, String>();
+//        testHashMap.put("key1", "value1");
+//        testHashMap.put("key2", "value2");
+//
+//        //convert to string using gson
+//        Gson gson = new Gson();
+//        String hashMapString = gson.toJson(testHashMap);
+//
+//        //save in shared prefs
+//        SharedPreferences prefs = getSharedPreferences("test", MODE_PRIVATE);
+//        prefs.edit().putString("hashString", hashMapString).apply();
+//
+//        //get from shared prefs
+//        String storedHashMapString = prefs.getString("hashString", "oopsDintWork");
+//        java.lang.reflect.Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+//        HashMap<String, String> testHashMap2 = gson.fromJson(storedHashMapString, type);
+//
+//        //use values
+//        String toastString = testHashMap2.get("key1") + " | " + testHashMap2.get("key2");
+//        Toast.makeText(this, toastString, Toast.LENGTH_LONG).show();
+//    }
 
     private void getAppParams(){
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -388,11 +437,14 @@ public class MainActivity extends Activity implements OnClickListener {
                     mToast.setTextAndShow("Please choose a series");
                     return;
                 }
+                if (range.getText().toString().equals("")){
+                    range.setHintTextColor(Color.RED);
+                    return;
+                }
                 // create new directory if there isn't one compatiable with current project
                 createDirectories(etProjName.getText().toString());
                 mSeriesNumber = etSerNum.getText().toString();
                 mProjName = etProjName.getText().toString();
-
                 Intent intent = new Intent(this, SignHitsActivity.class);  //SignHitsActivity
                 intent.putExtra("UriSrc",        mUri);
                 intent.putExtra("projName",      mProjName);
@@ -400,6 +452,10 @@ public class MainActivity extends Activity implements OnClickListener {
                 intent.putExtra("filePath",      mFilePath);
                 intent.putExtra("fileDirStr",    mFileDir);
                 intent.putExtra("fileName",      mFileName);
+                intent.putExtra("range",         range.getText().toString());
+                intent.putExtra("fireType",      fireTypeSpinner.getSelectedItem().toString());
+                intent.putExtra("cameraType",    camSpinner.getSelectedItem().toString());
+                intent.putExtra("targetPos",     targetPosSpinner.getSelectedItem().toString());
                 setAppParams();
                 startActivity(intent);
             } else{

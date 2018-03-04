@@ -70,6 +70,10 @@ public class DataActivity extends Activity implements OnClickListener {
     private myToast mToast;
     private boolean mToastsAreOn;
     private String mImageName;
+    private String range;
+    private String fireType;
+    private String  camType;
+    private String targetPos;
 
 
     @Override
@@ -215,7 +219,7 @@ public class DataActivity extends Activity implements OnClickListener {
 
         ed = new ExcelData(projectName, Integer.parseInt(serieNumber),
                 oDirectory,fileName, filePath, fileDir,
-                stream, scaledMapPins, mImagePath);
+                stream, scaledMapPins, mImagePath,range,fireType,camType);
     }
 
     public void openFolder() {
@@ -261,6 +265,10 @@ public class DataActivity extends Activity implements OnClickListener {
         fileName    = intent.getStringExtra("fileName");
         mImagePath  = intent.getStringExtra("imagePath");
         mImageName  = intent.getStringExtra("imageName");
+        range        = intent.getStringExtra("range");
+        fireType     = intent.getStringExtra("fireType");
+        camType      = intent.getStringExtra("cameraType");
+        targetPos    = intent.getStringExtra("targetPos");
         scaledMapPins = new ArrayList<PointF>();
         scaledMapPins = intent.getParcelableArrayListExtra("ScaledPoints");
     }

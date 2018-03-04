@@ -1,8 +1,8 @@
 <resources>
     <string name="Project_Name">Elbit Mark Target</string>
     <string name="Project_Name_Big">ELBIT MARK TARGET</string>
-    <string name="Version">1.3</string>
-    <string name="VersionFull">Version: 1.3</string>
+    <string name="Version">1.4</string>
+    <string name="VersionFull">Version: 1.4</string>
     <string name="Copyright">Copyright © 2017 by Elbit Systems Ltd.</string>
     <string name="Rights">All rights reserved. This Application or any portion thereof
     may not be reproduced or used in any manner whatsoever
@@ -17,10 +17,6 @@
     <string name="param_xls_dir">param_xls_dir</string>
     <string name="param_toasts_are_on">param_toasts_are_on</string>
     <string name="param_toasts_are_on2">param_toasts_are_on</string>
-
-
-
-
 
     <string name="title_activity_splash">splashActivity</string>
 
