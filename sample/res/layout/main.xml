@@ -275,6 +275,15 @@
                     android:src="@drawable/camera" />
 
                 <ImageButton
+                    android:id="@+id/btnVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/video" />
+
+                <ImageButton
                     android:id="@+id/btnLibrary"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

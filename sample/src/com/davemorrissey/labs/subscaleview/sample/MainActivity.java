@@ -19,17 +19,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,19 +47,21 @@ import android.widget.Toast;
 
 import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.signHits.SignHitsActivity;
+import com.davemorrissey.labs.subscaleview.sample.utils.videoStreaming.TextureViewActivity;
+import com.davemorrissey.labs.subscaleview.sample.utils.videoStreaming.VideoStreamConstants;
 import com.scanlibrary.ScanActivity;
 import com.scanlibrary.ScanConstants;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity implements OnClickListener {
 
 
     private final int NUM_OF_SERIES_IN_XLS_FILE = 20;
-    private static final int REQUEST_CODE = 99;
+    private static final int SCAN_REQUEST_CODE = 99;
+    private static final int VIDEO_REQUEST_CODE = 98;
     private final String FIRE_FILE_TYPE = ".xls";
     private String TAG = getClass().getName();
 
@@ -168,6 +169,7 @@ public class MainActivity extends Activity implements OnClickListener {
         findViewById(id.btnLibrary).setOnClickListener(this);
         findViewById(id.self).setOnClickListener(this);
         findViewById(id.btnExcel).setOnClickListener(this);
+        findViewById(id.btnVideo).setOnClickListener(this);
 
         ibAddExcelFile.setOnClickListener(new OnClickListener() {
             @Override
@@ -407,14 +409,27 @@ public class MainActivity extends Activity implements OnClickListener {
     protected void startScan(int preference) {
         Intent intent = new Intent(this, ScanActivity.class);
         intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, preference);
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivityForResult(intent, SCAN_REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getExtras().getParcelable(ScanConstants.SCANNED_RESULT);
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                scannedImageView.setImageBitmap(bitmap);
+                scannedImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                mBitmap= bitmap;
+                mUri= uri;
+                PicTaken = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == VIDEO_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri uri = data.getExtras().getParcelable(VideoStreamConstants.CAPTURED_IMAGE_RESULT);
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -472,6 +487,16 @@ public class MainActivity extends Activity implements OnClickListener {
             } else {
                 // TODO: change it to default file and delete test
                 mToast.setTextAndShow("first pick a file");
+            }
+        }  else if (view.getId() == id.btnVideo){
+            ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+            if (mWifi.isConnected()) {
+                Intent intent = new Intent(this, TextureViewActivity.class);
+                startActivityForResult(intent, VIDEO_REQUEST_CODE);
+            } else{
+                Toast.makeText(this,"Please Connect to WiFi", Toast.LENGTH_SHORT).show();
             }
         }
     }
