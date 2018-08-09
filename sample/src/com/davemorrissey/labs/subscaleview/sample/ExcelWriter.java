@@ -157,10 +157,10 @@ public class ExcelWriter {
                 HSSFSheet sheet = workbook.getSheetAt(i);
                 for (Row r : sheet) {
                     for (Cell c : r) {
+                        Log.d(TAG, "Evaluated problem: sheet: "+c.getSheet().getSheetName()+" "+i+" row: "+c.getRow().getRowNum()+" col: "+c.getColumnIndex());
+                        int rr = c.getRow().getRowNum();
                         if (c.getCellType() == Cell.CELL_TYPE_FORMULA) {
                             evaluator.evaluateFormulaCell(c);
-                            Log.d(TAG, "Evaluated: sheet: "+c.getSheet().getSheetName()+" row: "+c.getRow().getRowNum()+" col: "+c.getColumnIndex());
-
                         }
                     }
                 }

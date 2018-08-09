@@ -29,8 +29,8 @@ public class ExcelReader {
 
 
     int START_LINE = 51;
-    int NUM_OF_LINES_TO_FILL = 30;
-    int NUM_OF_SERIES_IN_FILE = 20;
+    int NUM_OF_LINES_TO_FILL = 100;
+    int NUM_OF_SERIES_IN_FILE = 40;
 ;
     public ExcelReader(InputStream is){
         mIS = is;

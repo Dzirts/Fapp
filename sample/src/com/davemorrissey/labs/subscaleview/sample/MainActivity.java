@@ -565,21 +565,23 @@ public class MainActivity extends Activity implements OnClickListener {
 
 
     private boolean isDeviceIsPhone(){
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int width = metrics.widthPixels;
-        int height = metrics.heightPixels;
-
-        float yInches= metrics.heightPixels/metrics.ydpi;
-        float xInches= metrics.widthPixels/metrics.xdpi;
-        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
-        if (diagonalInches>=6.5){
-            // 6.5inch device or bigger
-            return false;
-        }else{
-            // smaller device
-            return true;
-        }
+        //TODO: FIX to enable both tablet and phone mode
+        return false;
+//        DisplayMetrics metrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//        int width = metrics.widthPixels;
+//        int height = metrics.heightPixels;
+//
+//        float yInches= metrics.heightPixels/metrics.ydpi;
+//        float xInches= metrics.widthPixels/metrics.xdpi;
+//        double diagonalInches = Math.sqrt(xInches*xInches + yInches*yInches);
+//        if (diagonalInches>=6.5){
+//            // 6.5inch device or bigger
+//            return false;
+//        }else{
+//            // smaller device
+//            return true;
+//        }
     }
 
     public void listOfDirectories(String directoryName) {
@@ -587,11 +589,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
         // get all the files from a directory
         File[] dicList = directory.listFiles();
-        for (File file : dicList) {
-            if (file.isDirectory()) {
-                directoriesList.add(file.getName());
+        if (dicList != null){
+            for (File file : dicList) {
+                if (file.isDirectory()) {
+                    directoriesList.add(file.getName());
+                }
             }
         }
+
     }
 
 

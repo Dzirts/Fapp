@@ -123,7 +123,7 @@ public class TextureViewActivity extends Activity
 
 
     private void readCameraIPsFromFile(String fileName) {
-        File cameraIpFile = new File(Environment.getExternalStorageDirectory()+ "/Elbit Mark Target/Infrastructure/"+IP_FILE_PATH);
+        File cameraIpFile = new File(Environment.getExternalStorageDirectory()+ "/Elbit Mark Target2/Infrastructure/"+IP_FILE_PATH);
         try {
             try (BufferedReader br = new BufferedReader(new FileReader(cameraIpFile))) {
                 String line;

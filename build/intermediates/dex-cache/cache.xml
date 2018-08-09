@@ -12,6 +12,16 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-ooxml-schemas-3.14-20160307.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="97fe4bfdef7f103bfd9ec63c98ea90469afeec7b">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-ooxml-schemas-3.14-20160307_0ae0dc76774227de7421cf499d9115d859aadcb9\classes.dex" />
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-ooxml-schemas-3.14-20160307_0ae0dc76774227de7421cf499d9115d859aadcb9\classes2.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Elbit\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.0-beta4\constraint-layout-solver-1.0.0-beta4.jar"
         jumboMode="true"
         optimize="true"
@@ -84,21 +94,11 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-ooxml-schemas-3.12-20150511-a.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="7a6b3e092ba41954ccc15649f528920437217832">
-        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-ooxml-schemas-3.12-20150511-a_32e337fa6cc8db4ce1f709d6f0d796e91739f504\classes.dex" />
-        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-ooxml-schemas-3.12-20150511-a_32e337fa6cc8db4ce1f709d6f0d796e91739f504\classes2.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="dae1922e31cd925afacb7dce7e79354db607192b">
+        sha1="99abc3c5329fc417d60912f66d3366304ffd3ad9">
         <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_818779b12de0ef4cc2d13f6942392735f08ba9f6\classes.dex" />
     </item>
     <item
@@ -134,7 +134,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="7f449c0c3b7fcd7d303e79e2d2dd58504e76dc03">
+        sha1="d052efc81f07df403edc30dd52f1d5da2d2adc4d">
         <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_179bda304230e7ec9160a86c433b0445cc5ad08a\classes.dex" />
     </item>
     <item
@@ -154,15 +154,6 @@
         revision="24.0.1"
         sha1="6d7d803871e3203465f71a163e7af104f807b446">
         <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.1.1_60fbb0168c80fdfd677c22b1e8899a1ee715be61.jar" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-3.12-android-a.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ef534d94a8aaffb3e09b5602c60a2e5ac7617d0a">
-        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-3.12-android-a_5262f27b41f7ff126b2e1cdb8639acc49d4d4e2c\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -190,6 +181,15 @@
         revision="24.0.1"
         sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
         <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\app\build\intermediates\pre-dexed\debug\internal_impl-24.1.1_da9e78976ea8fe7af01bd8d395b81e77889b7970.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\libs\poi-3.14-20160307.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="fad7ae6d2e59c59ffdb45f1981500babfa765180">
+        <dex dex="C:\Users\Elbit\Documents\GitHub\TargetMaster\sample\build\intermediates\transforms\dex\debug\folders\1000\2\poi-3.14-20160307_041bb4ab20144d4d4ad3e51bda887bb52e62b8df\classes.dex" />
     </item>
 
 </items>
