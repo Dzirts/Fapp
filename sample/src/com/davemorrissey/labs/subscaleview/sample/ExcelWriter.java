@@ -1,4 +1,5 @@
-package com.davemorrissey.labs.subscaleview.sample; /**
+package com.davemorrissey.labs.subscaleview.sample;
+/*
  * Created by TC34677 on 13/04/2017.
  */
 import android.util.Log;
